@@ -74,6 +74,12 @@ public class PlayerInputHandler : MonoBehaviour
         if (GlobalSettings.IsGamePaused) return;
         isDownArrowPressed = value.Get<float>() == 1 ? true : false;
     }
+    private void OnControlShadow(InputValue value)
+    {
+        if (GlobalSettings.IsGamePaused) return;
+        if (_useCommands) _inputStack.CurrentCommand = new ShadowControlInputCommand(_player.CurrentPlayerState);
+        else _player.CurrentPlayerState.ControlShadow();
+    }
     private void OnInteract(InputValue value)
     {
         if (GlobalSettings.IsGamePaused) return;
