@@ -36,7 +36,8 @@ public class AnimationManager : MonoBehaviour
 #endif
     public void PlayAnimation(string name, bool canBePlayedOver = true)
     {
-        if(!animList.animations.Exists(x => x.name == name && x.layer == 0))
+        var animData = animList.animations.Find(x => x.name == name && x.layer == 0);
+        if (animData==null)
         {
             Logger.Warning($"Ther is no state with name {name}");
             return;
@@ -45,14 +46,14 @@ public class AnimationManager : MonoBehaviour
         if (!canBePlayedOver)
         {
             _overPlayAnimationEnded = false;
-            _animLength = GetAnimationLength(name);
+            _animLength = GetAnimationLength(animData);
             _currentTimer = StartCoroutine(TimerCor(_animLength, SetOverPlayAnimAsEnded));
             _anim.Play(Animator.StringToHash(name)); //clipToPlay.nameHash);
             _currentAnimation = name;
         }
         if (_overPlayAnimationEnded)
         {
-            _animLength = GetAnimationLength(name);
+            _animLength = GetAnimationLength(animData);
             StartCoroutine(TimerCor(_animLength, SetNormalAnimAsEneded));
             _anim.Play(Animator.StringToHash(name)); //clipToPlay.nameHash);
             _currentAnimation = name;
@@ -61,7 +62,8 @@ public class AnimationManager : MonoBehaviour
 
     public void PlayAnimation(string name, string layerName, bool canBePlayedOver = true)
     {
-        if (!animList.animations.Exists(x => x.name == name && x.layer == _anim.GetLayerIndex(layerName)))
+        var animData = animList.animations.Find(x => x.name == name && x.layer == _anim.GetLayerIndex(layerName));
+        if (animData==null)
         {
             Logger.Warning($"Ther is no state with name {name}");
             return;
@@ -71,14 +73,14 @@ public class AnimationManager : MonoBehaviour
         if (!canBePlayedOver)
         {
             _overPlayAnimationEnded = false;
-            _animLength = GetAnimationLength(name,layer);
+            _animLength = GetAnimationLength(animData, layer);
             _currentTimer = StartCoroutine(TimerCor(_animLength, SetOverPlayAnimAsEnded));
             _anim.Play(Animator.StringToHash(name)); //clipToPlay.nameHash);
             _currentAnimation = name;
         }
         if (_overPlayAnimationEnded)
         {
-            _animLength = GetAnimationLength(name,layer);
+            _animLength = GetAnimationLength(animData, layer);
             StartCoroutine(TimerCor(_animLength, SetNormalAnimAsEneded));
             _anim.Play(Animator.StringToHash(name)); //clipToPlay.nameHash);
             _currentAnimation = name;
@@ -95,20 +97,26 @@ public class AnimationManager : MonoBehaviour
         _anim.Play(Animator.StringToHash(clipToPlayName));
         _currentAnimation = clipToPlayName;
     }
-
-    public float GetAnimationLength(string name,int layer=0)
+    public float GetAnimationLength(string name, int layer = 0)
     {
         if (name == "Empty") return 0;
         float clipDuration = 0;
-        clipDuration = animList.animations.Find(x => x.name == name && x.layer==layer).duration;
+        AnimationData animData = animList.animations.Find(x => x.name == name && x.layer == layer);
+        if (animData == null) return 0.1f;
+        else return animData.duration;
+    }
+
+    public float GetAnimationLength(AnimationData animData,int layer=0)
+    {
+        float clipDuration = 0.1f;
+        clipDuration = animData.duration;
         return clipDuration;
     }
-    public float GetAnimationLength(string name, string layerName)
+    public float GetAnimationLength(AnimationData animData, string layerName)
     {
-        if (name == "Empty") return 0;
         int layer = _anim.GetLayerIndex(layerName);
         float clipDuration = 0;
-        clipDuration = animList.animations.Find(x => x.name == name && x.layer == layer).duration;
+        clipDuration = animData.duration;
         return clipDuration;
     }
 #if UNITY_EDITOR

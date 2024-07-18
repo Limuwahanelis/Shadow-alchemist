@@ -21,7 +21,7 @@ public class PlayerIdleState : PlayerState
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);
-        //_context.animationManager.PlayAnimation("Idle");
+        _context.animationManager.PlayAnimation("Idle");
         _context.canPerformAirCombo = true;
     }
     public override void Jump()

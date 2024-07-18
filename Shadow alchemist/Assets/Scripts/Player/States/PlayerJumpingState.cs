@@ -20,12 +20,13 @@ public class PlayerJumpingState : PlayerState
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);
-        //_context.animationManager.PlayAnimation("Jump");
+        _context.animationManager.PlayAnimation("Jump");
         _context.playerMovement.StopPlayer();
-       //_jumpCor = _context.WaitAndPerformFunction(_context.animationManager.GetAnimationLength("Jump"), () => {
-           _context.playerMovement.Jump();
-           ChangeState(PlayerInAirState.StateType);
-       //});
+        _jumpCor = _context.WaitAndPerformFunction(_context.animationManager.GetAnimationLength("Jump"), () =>
+        {
+            _context.playerMovement.Jump();
+            ChangeState(PlayerInAirState.StateType);
+        });
     }
 
     public override void InterruptState()
