@@ -7,18 +7,6 @@ public class ControllableShadow : MonoBehaviour
     [SerializeField] Transform _lefBorder;
     [SerializeField] Transform _rightBorder;
     [SerializeField] GameObject _shadowMask;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        MoveShadow(1, Vector2.left);
-    }
-
     public void MoveShadow(float moveSpeed,Vector2 direction)
     {
         if(direction==Vector2.right)
