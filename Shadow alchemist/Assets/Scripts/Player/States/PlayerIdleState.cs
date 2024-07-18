@@ -28,6 +28,10 @@ public class PlayerIdleState : PlayerState
     {
         ChangeState(PlayerJumpingState.StateType);
     }
+    public override void ControlShadow()
+    {
+        ChangeState(PlayerShadowControlState.StateType);
+    }
     public override void Dodge()
     {
         ChangeState(PlayerDodgingState.StateType);

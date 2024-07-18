@@ -24,6 +24,7 @@ public abstract class PlayerState
     public virtual void Jump() { }
     //public virtual void Attack(PlayerCombat.AttackModifiers modifier=PlayerCombat.AttackModifiers.NONE) { }
     public virtual void Dodge(){ }
+    public virtual void ControlShadow() { }
     public virtual void Push() { ChangeState(PlayerPushedState.StateType); }
     public abstract void InterruptState();
     public void ChangeState(Type newStateType)
