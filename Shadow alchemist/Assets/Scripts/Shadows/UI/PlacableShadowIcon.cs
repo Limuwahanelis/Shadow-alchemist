@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlacableShadowIcon : MonoBehaviour
 {
     public UnityEvent<GameObject> OnShadowPicked;
+    public GameObject ShadowPrefab => _placableShadowPrefab;
     [SerializeField] GameObject _placableShadowPrefab;
     [SerializeField] Color _selectedColor;
     [SerializeField] Image _image;

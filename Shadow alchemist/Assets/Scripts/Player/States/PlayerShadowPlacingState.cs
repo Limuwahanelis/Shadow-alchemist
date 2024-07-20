@@ -32,12 +32,15 @@ public class PlayerShadowPlacingState : PlayerState
     {
         if (_isSelectingPlacableShadow)
         {
-            // select which shadow to spawn, spawn it but not place it yet
-            _isSelectingPlacableShadow = false;
-            _context.placableShadowSelection.SelectShadow();
-            _context.shadowControl.PlacingShadowDespawned += ForcedShadowDespawn;
-            _context.placableShadowSelection.SetSelectionVisibility(false);
-            _isPlacingShadow = true;
+            if (_context.shadowControl.Shadow.TakenShadowBarValueFromTransmutation >= _context.placableShadowSelection.CurrentlyHighlihtedShadow.ShadowBarCost)
+            {
+                // select which shadow to spawn, spawn it but not place it yet
+                _isSelectingPlacableShadow = false;
+                _context.placableShadowSelection.SelectShadow();
+                _context.shadowControl.PlacingShadowDespawned += ForcedShadowDespawn;
+                _context.placableShadowSelection.SetSelectionVisibility(false);
+                _isPlacingShadow = true;
+            }
         }
         else if(_isPlacingShadow)
         {
@@ -51,8 +54,15 @@ public class PlayerShadowPlacingState : PlayerState
     }
     public override void Jump()
     {
-        _context.shadowControl.DespawnShadow();
-        ShowShadowSelection();
+        if (_isSelectingPlacableShadow)
+        {
+            _context.shadowControl.Shadow.RemoveRecentShadow();
+        }
+        else
+        {
+            _context.shadowControl.DespawnShadow();
+            ShowShadowSelection();
+        }
     }
     public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
     {

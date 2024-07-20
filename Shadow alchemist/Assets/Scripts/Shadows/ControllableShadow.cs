@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSadow
 {
@@ -10,6 +11,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
         LEFT,UP,RIGHT,DOWN
     }
     public Collider2D ShadowCollider => _shadowCollider;
+    public float TakenShadowBarValueFromTransmutation=>_valueForShadowPlacing;
     [SerializeField] Transform _lefBorder;
     [SerializeField] Transform _rightBorder;
     [SerializeField] Transform _shadow;
@@ -19,11 +21,11 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     [SerializeField] AnimationCurve _curve;
     [SerializeField] float _totalShadowbarValue;
     private List<PlacableShadow> _placedShadows= new List<PlacableShadow>();
-    private float[] _transmutatedShadow = new float[4];
+    private float[] _transmutatedShadow = new float[4]; // stores how much scale was reduced from orignal
     private float _transmutateValue = 0;
     private Vector2 _originalPosition;
     private Coroutine _revertMoveCor;
-    public float _takenVal;
+    public float _valueForShadowPlacing;
     private void Start()
     {
         _originalPosition = _shadow.position;
@@ -66,6 +68,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     {
         _placedShadows.Add(newShadow);
         newShadow.OnLeftParentShadow += RemovePlacedShadow;
+        _valueForShadowPlacing-=newShadow.ShadowBarCost;
     }
     private void RemovePlacedShadow(PlacableShadow shadow)
     {
@@ -74,7 +77,19 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
         Destroy(shadow.gameObject);
         //_takenVal -= shadow.ShadowBarCos;
     }
+    public void RemoveRecentShadow()
+    {
+        if (_placedShadows.Count == 0) return;
+        _placedShadows[_placedShadows.Count - 1].OnLeftParentShadow -= RemovePlacedShadow;
+        Destroy(_placedShadows[_placedShadows.Count - 1].gameObject);
+        _placedShadows.RemoveAt(_placedShadows.Count - 1);
+        
+    }
     #endregion
+    public void RevertTransmutationFromPlacedShadow(float _shadowBarCost)
+    {
+
+    }
     public void RevertTransmutation()
     {
         StartCoroutine(RevertAllTransmutation());
@@ -111,10 +126,10 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
             _shadowMask.localPosition = newPosition;
             _transmutatedShadow[((int)DIR.RIGHT)] += _transmutateValue;
         }
-        _takenVal = 0;
+        _valueForShadowPlacing = 0;
         for (int i=0;i<4;i++)
         {
-            _takenVal += _totalShadowbarValue * _curve.Evaluate(_transmutatedShadow[i]);
+            _valueForShadowPlacing += _totalShadowbarValue * _curve.Evaluate(_transmutatedShadow[i]);
         }
         
         _transmutateValue = 0;

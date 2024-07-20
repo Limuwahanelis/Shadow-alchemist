@@ -6,16 +6,19 @@ using UnityEngine.InputSystem;
 
 public class PlacableShadowSelection : MonoBehaviour
 {
+    public PlacableShadow CurrentlyHighlihtedShadow => _currentlyHighlihtedShadow;
     [SerializeField] List<PlacableShadowIcon> _icons= new List<PlacableShadowIcon>();
 
     [SerializeField] InputActionReference _selectLeftIconActionRef;
     [SerializeField] InputActionReference _selectRightIconActionRef;
     [SerializeField] Canvas _canvas;
+    private PlacableShadow _currentlyHighlihtedShadow;
     private int _index=0;
     private void Awake()
     {
 
         _icons[_index].SelectIcon();
+        _currentlyHighlihtedShadow = _icons[_index].ShadowPrefab.GetComponent<PlacableShadow>();
     }
     private void OnEnable()
     {
@@ -39,6 +42,7 @@ public class PlacableShadowSelection : MonoBehaviour
         _index = math.clamp(_index,0, _icons.Count-1);
         _icons[_index+1].DeselectIcon();
         _icons[_index].SelectIcon();
+        _currentlyHighlihtedShadow = _icons[_index].ShadowPrefab.GetComponent<PlacableShadow>();
     }
     private void SelectRightIcon(InputAction.CallbackContext context)
     {
