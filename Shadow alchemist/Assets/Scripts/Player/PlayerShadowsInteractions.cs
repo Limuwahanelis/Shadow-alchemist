@@ -12,11 +12,14 @@ public class PlayerShadowsInteractions : MonoBehaviour
     private ControllableShadow _shadow;
     public ITransmutableSadow TransmutableShadow => _transmutablkeShadow;
     public PlacableShadow ShadowToPlace => _currentlyPlacingShadow;
+    [SerializeField] GameObject _shadowInteractionUI;
+    [SerializeField] GameObject _shadowPlacingPanel;
     private PlacableShadow _currentlyPlacingShadow;
     private ITransmutableSadow _transmutablkeShadow;
     private float _shadowBarValue;
-    [SerializeField] GameObject _shadowPrefab;
-    public void SpawnShadow()
+    //[SerializeField] GameObject _shadowPrefab;
+
+    public void SpawnShadow(GameObject _shadowPrefab)
     {
         _currentlyPlacingShadow = Instantiate(_shadowPrefab,transform.position+transform.right,_shadowPrefab.transform.rotation,null).GetComponent<PlacableShadow>();
         _currentlyPlacingShadow.SetParentShadow(_shadow, _shadow.ShadowCollider);
@@ -43,6 +46,7 @@ public class PlayerShadowsInteractions : MonoBehaviour
         {
             Logger.Log("Placed");
             _currentlyPlacingShadow.OnLeftParentShadow -= ForceDespawn;
+            _currentlyPlacingShadow.ChageTriggerToCol();
             _shadow.PlaceNewShadow(_currentlyPlacingShadow);
             _currentlyPlacingShadow = null;
             return true;

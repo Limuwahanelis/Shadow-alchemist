@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSadow
@@ -29,6 +28,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     {
         _originalPosition = _shadow.position;
     }
+    #region ShadowMove
     public void MoveShadow(float moveSpeed,Vector2 direction)
     {
         if(_revertMoveCor!=null)
@@ -52,15 +52,16 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     {
         _revertMoveCor = StartCoroutine(RevertShadowMove());
     }
-    public void RevertTransmutation()
+    IEnumerator RevertShadowMove()
     {
-        StartCoroutine(RevertAllTransmutation());
+        while (Vector2.Distance(_shadow.transform.position, _originalPosition) > 0.0001)
+        {
+            Vector2.MoveTowards(_shadow.position, _originalPosition, 3f * Time.deltaTime);
+            yield return null;
+        }
     }
-
-    public void Transmutate()
-    {
-        
-    }
+    #endregion
+    #region ShadowPlacing
     public void PlaceNewShadow(PlacableShadow newShadow)
     {
         _placedShadows.Add(newShadow);
@@ -73,6 +74,17 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
         Destroy(shadow.gameObject);
         //_takenVal -= shadow.ShadowBarCos;
     }
+    #endregion
+    public void RevertTransmutation()
+    {
+        StartCoroutine(RevertAllTransmutation());
+    }
+
+    public void Transmutate()
+    {
+        
+    }
+
     public void Transmutate(Vector2 directionTotakeFrom)
     {
         if (directionTotakeFrom == Vector2.left)
@@ -107,14 +119,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
         
         _transmutateValue = 0;
     }
-    IEnumerator RevertShadowMove()
-    {
-        while(Vector2.Distance( _shadow.transform.position,_originalPosition)>0.0001)
-        {
-            Vector2.MoveTowards(_shadow.position, _originalPosition, 3f*Time.deltaTime);
-            yield return null;
-        }
-    }
+
     IEnumerator RevertAllTransmutation()
     {
         Vector2 newScale;

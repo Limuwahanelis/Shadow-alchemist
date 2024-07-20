@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlacableShadow : MonoBehaviour
 {
     public Action<PlacableShadow> OnLeftParentShadow;
-    public float ShadowBarCos => _shadowBarCost;
+    public float ShadowBarCost => _shadowBarCost;
     public bool CanBePlaced
     {
         get
