@@ -16,6 +16,7 @@ public class PlayerShadowTransmutationState : PlayerState
     }
     public override void Move(Vector2 direction)
     {
+        if (direction == Vector2.zero) return;
         _context.shadowControl.Shadow.Transmutate(direction);
     }
     public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)

@@ -10,17 +10,21 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     {
         LEFT,UP,RIGHT,DOWN
     }
+    public Collider2D ShadowCollider => _shadowCollider;
     [SerializeField] Transform _lefBorder;
     [SerializeField] Transform _rightBorder;
     [SerializeField] Transform _shadow;
     [SerializeField] Transform _shadowMask;
+    [SerializeField] Collider2D _shadowCollider;
     [SerializeField] float scaleToPoSrate = 2f;
     [SerializeField] AnimationCurve _curve;
+    [SerializeField] float _totalShadowbarValue;
+    private List<PlacableShadow> _placedShadows= new List<PlacableShadow>();
     private float[] _transmutatedShadow = new float[4];
     private float _transmutateValue = 0;
     private Vector2 _originalPosition;
     private Coroutine _revertMoveCor;
-
+    public float _takenVal;
     private void Start()
     {
         _originalPosition = _shadow.position;
@@ -57,7 +61,18 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     {
         
     }
-
+    public void PlaceNewShadow(PlacableShadow newShadow)
+    {
+        _placedShadows.Add(newShadow);
+        newShadow.OnLeftParentShadow += RemovePlacedShadow;
+    }
+    private void RemovePlacedShadow(PlacableShadow shadow)
+    {
+        _placedShadows.Remove(shadow);
+        shadow.OnLeftParentShadow -= RemovePlacedShadow;
+        Destroy(shadow.gameObject);
+        //_takenVal -= shadow.ShadowBarCos;
+    }
     public void Transmutate(Vector2 directionTotakeFrom)
     {
         if (directionTotakeFrom == Vector2.left)
@@ -84,6 +99,12 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
             _shadowMask.localPosition = newPosition;
             _transmutatedShadow[((int)DIR.RIGHT)] += _transmutateValue;
         }
+        _takenVal = 0;
+        for (int i=0;i<4;i++)
+        {
+            _takenVal += _totalShadowbarValue * _curve.Evaluate(_transmutatedShadow[i]);
+        }
+        
         _transmutateValue = 0;
     }
     IEnumerator RevertShadowMove()

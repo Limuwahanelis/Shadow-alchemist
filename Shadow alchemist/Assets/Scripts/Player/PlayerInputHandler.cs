@@ -82,7 +82,6 @@ public class PlayerInputHandler : MonoBehaviour
     }
     private void OnControlShadow(InputValue value)
     {
-        Debug.Log(value.Get<float>());
         if (GlobalSettings.IsGamePaused) return;
         if (_useCommands) _inputStack.CurrentCommand = new ShadowControlInputCommand(_player.CurrentPlayerState, (ShadowControlInputs)value.Get<int>());
         else _player.CurrentPlayerState.ControlShadow((ShadowControlInputs)value.Get<float>());

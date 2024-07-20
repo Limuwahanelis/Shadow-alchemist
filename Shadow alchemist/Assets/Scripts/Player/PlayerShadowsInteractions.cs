@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShadowsInteractions : MonoBehaviour
 {
+    public Action PlacingShadowDespawned;
     public ControllableShadow Shadow => _shadow;
     private ControllableShadow _shadow;
     public ITransmutableSadow TransmutableShadow => _transmutablkeShadow;
@@ -16,12 +19,21 @@ public class PlayerShadowsInteractions : MonoBehaviour
     public void SpawnShadow()
     {
         _currentlyPlacingShadow = Instantiate(_shadowPrefab,transform.position+transform.right,_shadowPrefab.transform.rotation,null).GetComponent<PlacableShadow>();
-
+        _currentlyPlacingShadow.SetParentShadow(_shadow, _shadow.ShadowCollider);
+        _currentlyPlacingShadow.OnLeftParentShadow += ForceDespawn;
         Logger.Log($"{ _currentlyPlacingShadow}  {ShadowToPlace}");
+    }
+    public void ForceDespawn(PlacableShadow newShadow)
+    {
+        PlacingShadowDespawned?.Invoke();
+        _currentlyPlacingShadow.OnLeftParentShadow -= ForceDespawn;
+        Destroy(_currentlyPlacingShadow.gameObject);
+        _currentlyPlacingShadow = null;
     }
     public void DespawnShadow()
     {
         if(_currentlyPlacingShadow == null) return;
+        _currentlyPlacingShadow.OnLeftParentShadow -= ForceDespawn;
         Destroy(_currentlyPlacingShadow.gameObject);
         _currentlyPlacingShadow = null;
     }
@@ -30,6 +42,8 @@ public class PlayerShadowsInteractions : MonoBehaviour
         if (_currentlyPlacingShadow.CanBePlaced)
         {
             Logger.Log("Placed");
+            _currentlyPlacingShadow.OnLeftParentShadow -= ForceDespawn;
+            _shadow.PlaceNewShadow(_currentlyPlacingShadow);
             _currentlyPlacingShadow = null;
             return true;
         }

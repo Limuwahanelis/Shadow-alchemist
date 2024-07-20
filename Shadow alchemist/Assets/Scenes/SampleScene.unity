@@ -757,7 +757,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465519609}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -796,18 +796,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.19426848, y: -0.40740758}
+    - - {x: -0.4974528, y: 2.7072709}
+      - {x: -0.50746, y: 0.46132526}
+      - {x: -0.35046872, y: -0.17241418}
       - {x: -0.016946144, y: -0.586483}
       - {x: 0.25358957, y: -0.33814254}
       - {x: 0.40307125, y: 0.0452542}
       - {x: 0.51292276, y: 0.4943139}
-      - {x: 0.51318306, y: 1.1244864}
-      - {x: 0.51160705, y: 1.8787233}
-      - {x: 0.5093868, y: 2.941101}
-      - {x: -0.52711964, y: 2.9411006}
-      - {x: -0.53320205, y: 1.111668}
-      - {x: -0.5268023, y: 0.47107872}
-      - {x: -0.3835974, y: -0.008387834}
+      - {x: 0.51863, y: 2.7208595}
   m_UseDelaunayMesh: 0
 --- !u!212 &465519612
 SpriteRenderer:
@@ -3591,6 +3587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1191014796}
   - component: {fileID: 1191014797}
+  - component: {fileID: 1191014798}
   m_Layer: 0
   m_Name: Sprite Mask
   m_TagString: Untagged
@@ -3607,8 +3604,8 @@ Transform:
   m_GameObject: {fileID: 1191014795}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.39, z: 0}
-  m_LocalScale: {x: 1, y: 4.918754, z: 1}
+  m_LocalPosition: {x: 0, y: 1.6687, z: 0}
+  m_LocalScale: {x: 1, y: 4.3614593, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 465519613}
@@ -3667,6 +3664,61 @@ SpriteMask:
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!60 &1191014798
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191014795}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 10.24, y: 10.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.50313616, y: 0.5104507}
+      - {x: -0.5027158, y: -0.27121016}
+      - {x: -0.2375544, y: -0.46846253}
+      - {x: 0.006024983, y: -0.5201409}
+      - {x: 0.33027065, y: -0.4066022}
+      - {x: 0.48837948, y: -0.28244197}
+      - {x: 0.49570745, y: -0.24153608}
+      - {x: 0.4919554, y: 0.5014421}
+  m_UseDelaunayMesh: 0
 --- !u!1 &1209727484
 GameObject:
   m_ObjectHideFlags: 0
@@ -4691,6 +4743,7 @@ MonoBehaviour:
   _rightBorder: {fileID: 550043310}
   _shadow: {fileID: 465519613}
   _shadowMask: {fileID: 1191014796}
+  _shadowCollider: {fileID: 1191014798}
   scaleToPoSrate: 2
   _curve:
     serializedVersion: 2
@@ -4698,33 +4751,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.5
       inSlope: 0
       outSlope: 0
-      tangentMode: 34
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: -1
-      outSlope: -1
-      tangentMode: 34
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _totalShadowbarValue: 4
+  _takenVal: 0
 --- !u!4 &1589614057
 Transform:
   m_ObjectHideFlags: 0
@@ -5084,6 +5130,7 @@ MonoBehaviour:
   _rightBorder: {fileID: 1399405709}
   _shadow: {fileID: 1238553455}
   _shadowMask: {fileID: 0}
+  _shadowCollider: {fileID: 0}
   scaleToPoSrate: 1
   _curve:
     serializedVersion: 2
@@ -5091,6 +5138,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _totalShadowbarValue: 0
+  _takenVal: 0
 --- !u!1 &1691916375
 GameObject:
   m_ObjectHideFlags: 0
@@ -5156,6 +5205,7 @@ MonoBehaviour:
   _rightBorder: {fileID: 553855832}
   _shadow: {fileID: 99741224}
   _shadowMask: {fileID: 0}
+  _shadowCollider: {fileID: 0}
   scaleToPoSrate: 2
   _curve:
     serializedVersion: 2
@@ -5163,6 +5213,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _totalShadowbarValue: 0
+  _takenVal: 0
 --- !u!4 &1796246465
 Transform:
   m_ObjectHideFlags: 0

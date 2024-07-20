@@ -24,6 +24,7 @@ public class PlayerShadowPlacingState : PlayerState
     {
         base.SetUpState(context);
         _context.shadowControl.SpawnShadow();
+        _context.shadowControl.PlacingShadowDespawned += ForcedShadowDespawn;
     }
     public override void Attack()
     {
@@ -38,5 +39,10 @@ public class PlayerShadowPlacingState : PlayerState
     public override void InterruptState()
     {
      
+    }
+    private void ForcedShadowDespawn()
+    {
+        _context.shadowControl.PlacingShadowDespawned -= ForcedShadowDespawn;
+        ChangeState(PlayerShadowControlState.StateType);
     }
 }
