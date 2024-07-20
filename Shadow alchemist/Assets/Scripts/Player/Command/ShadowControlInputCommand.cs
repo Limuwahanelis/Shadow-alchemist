@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ShadowControlInputCommand : InputCommand
 {
-    public ShadowControlInputCommand(PlayerState playerState) : base(playerState)
+    private PlayerInputHandler.ShadowControlInputs _controlInput;
+    public ShadowControlInputCommand(PlayerState playerState, PlayerInputHandler.ShadowControlInputs controlInput) : base(playerState)
     {
+        _controlInput = controlInput;
     }
 
     public override void Execute()
     {
-        _playerState.ControlShadow();
+        _playerState.ControlShadow(_controlInput);
     }
 
     public override void Undo()

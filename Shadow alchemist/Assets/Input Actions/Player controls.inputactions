@@ -133,39 +133,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "One Modifier",
-                    "id": "18e55a19-71c0-4cc5-ac4d-dbf3fc803208",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "45840d3f-050e-4e40-bcb4-6d5770772ccc",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "9eca75da-263a-46b7-a197-762fba713e74",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "ec25ff46-cf86-4135-9a2a-d03fad1dfdf4",
                     "path": "<Keyboard>/z",
@@ -281,6 +248,17 @@
                     "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ControlShadow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a99658da-8d30-46c4-b620-38bf5064d508",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "Scale(factor=2)",
                     "groups": "Keyboard",
                     "action": "ControlShadow",
                     "isComposite": false,

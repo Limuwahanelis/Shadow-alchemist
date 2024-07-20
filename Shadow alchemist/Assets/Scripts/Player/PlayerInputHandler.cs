@@ -6,6 +6,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
+
+    public enum ShadowControlInputs
+    {
+        CONTROL=1, TRANSMUTATE,MOVE,PLACE
+    }
     [SerializeField] PlayerController _player;
     [SerializeField] InputActionAsset _controls;
     [SerializeField] bool _useCommands;
@@ -54,6 +59,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnAttack(InputValue value)
     {
+        _player.CurrentPlayerState.Attack();
         //if (_useCommands)
         //{
         //    _inputStack.CurrentCommand = new AttackInputCommand(_player.CurrentPlayerState);
@@ -76,9 +82,10 @@ public class PlayerInputHandler : MonoBehaviour
     }
     private void OnControlShadow(InputValue value)
     {
+        Debug.Log(value.Get<float>());
         if (GlobalSettings.IsGamePaused) return;
-        if (_useCommands) _inputStack.CurrentCommand = new ShadowControlInputCommand(_player.CurrentPlayerState);
-        else _player.CurrentPlayerState.ControlShadow();
+        if (_useCommands) _inputStack.CurrentCommand = new ShadowControlInputCommand(_player.CurrentPlayerState, (ShadowControlInputs)value.Get<int>());
+        else _player.CurrentPlayerState.ControlShadow((ShadowControlInputs)value.Get<float>());
     }
     private void OnInteract(InputValue value)
     {

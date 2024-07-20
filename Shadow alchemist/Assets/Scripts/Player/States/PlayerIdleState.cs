@@ -28,7 +28,7 @@ public class PlayerIdleState : PlayerState
     {
         ChangeState(PlayerJumpingState.StateType);
     }
-    public override void ControlShadow()
+    public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
     {
         ChangeState(PlayerShadowControlState.StateType);
     }
