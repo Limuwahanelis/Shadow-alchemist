@@ -27,7 +27,8 @@ public class PlayerShadowPlacingState : PlayerState
     }
     public override void Attack()
     {
-        _context.shadowControl.PlaceShadow();
+        if(_context.shadowControl.PlaceShadow()) ChangeState(PlayerShadowControlState.StateType);
+
     }
     public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
     {

@@ -25,9 +25,20 @@ public class PlayerShadowsInteractions : MonoBehaviour
         Destroy(_currentlyPlacingShadow.gameObject);
         _currentlyPlacingShadow = null;
     }
-    public void PlaceShadow()
+    public bool PlaceShadow()
     {
-        _currentlyPlacingShadow = null;
+        if (_currentlyPlacingShadow.CanBePlaced)
+        {
+            Logger.Log("Placed");
+            _currentlyPlacingShadow = null;
+            return true;
+        }
+        else
+        {
+            Logger.Log("Can't place");
+            return false;
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
