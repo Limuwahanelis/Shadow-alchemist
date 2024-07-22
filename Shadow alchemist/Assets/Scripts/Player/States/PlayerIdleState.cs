@@ -30,6 +30,7 @@ public class PlayerIdleState : PlayerState
     }
     public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
     {
+        if (controlInput != PlayerInputHandler.ShadowControlInputs.CONTROL) return;
         ChangeState(PlayerShadowControlState.StateType);
     }
     public override void Dodge()
