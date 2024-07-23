@@ -4,13 +4,14 @@ using System.Threading;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.U2D.ScriptablePacker;
 using static UnityEngine.Rendering.DebugUI;
 
 public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSadow
 {
     public enum DIR
     {
-        LEFT,UP,RIGHT,DOWN
+        NONE=-1,LEFT,UP,RIGHT,DOWN
     }
     public Collider2D ShadowCollider => _shadowCollider;
     public float TakenShadowBarValueFromTransmutation=>_valueForShadowPlacing;
@@ -23,26 +24,21 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     [SerializeField] AnimationCurve _curve;
     [SerializeField] float _totalShadowbarValue;
     [SerializeField] float _revertTransmutationError;
+    [SerializeField] List<Transform> _segments;
     private List<PlacableShadow> _placedShadows= new List<PlacableShadow>();
-    private float[] _transmutatedShadow = new float[4]; // stores how much scale was reduced from orignal
-    private float[] _transmutatedShadowCutOff= new float[4]; // stores how much scale is in placed shadows
     private float _transmutateValue = 0;
     private float _revertTransmutateValue = 0;
     private Vector2 _originalPosition;
     private Coroutine _revertMoveCor;
     public float _valueForShadowPlacing;
-    public float restoredBarVal;
     [SerializeField] SpriteMask _spriteMask;
-    [SerializeField] bool _isHorizontal;
-    private Vector3 _originalMinBound;
-    private Vector3 _originalMaxBound;
-    private float _lastOverShootValue;
-    float _revertbarOverflow;
+    private int _segmentsTaken=0;
+    private int[] _segmentsTakenPerSide= new int[4] {0,0,0,0 };
+    private List<DIR> _shadowSegmentsList= new List<DIR>();
+    private DIR _lastTransmutationDirection=DIR.NONE;
     private void Start()
     {
         _originalPosition = _shadow.position;
-        _originalMinBound = _spriteMask.bounds.min;
-        _originalMaxBound = _spriteMask.bounds.max;
         Logger.Log(_spriteMask.bounds.max);
         Logger.Log(_spriteMask.bounds.min);
         Logger.Log(_spriteMask.bounds.extents);
@@ -94,6 +90,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
         _placedShadows.Remove(shadow);
         shadow.OnLeftParentShadow -= RemovePlacedShadow;
         Destroy(shadow.gameObject);
+        
         //_takenVal -= shadow.ShadowBarCos;
     }
     public void RemoveRecentShadow()
@@ -106,14 +103,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
         
     }
     #endregion
-    public void RevertTransmutationFromPlacedShadow(float _shadowBarCost)
-    {
-        StartCoroutine(RevertAllTransmutationFromPlacedShadow2(_shadowBarCost));
-    }
-    public void RevertTransmutation()
-    {
-        StartCoroutine(RevertAllTransmutation2());
-    }
+
 
     public void Transmutate()
     {
@@ -122,392 +112,185 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
 
     public void Transmutate(Vector2 directionTotakeFrom)
     {
+
         Vector2 newScale = _shadowMask.localScale;
         Vector3 newPosition = _shadowMask.localPosition;
-        float scaleBound;
         if (directionTotakeFrom == Vector2.left)
         {
+            if (_lastTransmutationDirection != DIR.LEFT && _lastTransmutationDirection!=DIR.NONE) return;
             if (_shadowMask.localScale.x < 0) return;
-
+            _lastTransmutationDirection = DIR.LEFT;
             _transmutateValue = Time.deltaTime * 2f;
             newScale.x -= _transmutateValue;
             _shadowMask.localScale = newScale;
             newPosition.x += _transmutateValue / scaleToPoSrate;
             _shadowMask.localPosition = newPosition;
-            scaleBound = math.remap(_originalMinBound.x, _originalMaxBound.x, 0, 1, _spriteMask.bounds.min.x);
-            //_transmutatedShadow[((int)DIR.LEFT)] += _transmutateValue;
-            _valueForShadowPlacing += _totalShadowbarValue * _curve.Evaluate(scaleBound+ _transmutateValue) - _totalShadowbarValue * _curve.Evaluate(scaleBound);
+            _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]].position.x, _segments[_segmentsTakenPerSide[((int)DIR.LEFT)] + 1].position.x, _spriteMask.bounds.min.x)
+                + math.unlerp(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x, _spriteMask.bounds.max.x);//math.remap( ,_spriteMask.bounds.max.x) //_totalShadowbarValue * _curve.Evaluate(scaleBound+ _transmutateValue) - _totalShadowbarValue * _curve.Evaluate(scaleBound);
+            if (_spriteMask.bounds.min.x >= _segments[_segmentsTakenPerSide[((int)DIR.LEFT)]+1].position.x)
+            {
+                _shadowSegmentsList.Add(DIR.LEFT);
+                _segmentsTakenPerSide[((int)DIR.LEFT)]++;
+                _segmentsTaken++;
+            }
         }
         if (directionTotakeFrom == Vector2.right)
         {
+            if (_lastTransmutationDirection != DIR.RIGHT && _lastTransmutationDirection != DIR.NONE) return;
             if (_shadowMask.localScale.x < 0) return;
+            _lastTransmutationDirection = DIR.RIGHT;
             _transmutateValue = Time.deltaTime * 2f;
             newScale.x -= _transmutateValue;
             _shadowMask.localScale = newScale;
             newPosition.x -= _transmutateValue / scaleToPoSrate;
             _shadowMask.localPosition = newPosition;
-            _transmutatedShadow[((int)DIR.RIGHT)] += _transmutateValue;
-            //_valueForShadowPlacing += _totalShadowbarValue * _curve.Evaluate(_transmutatedShadow[((int)DIR.RIGHT)]);
+            _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]].position.x, _segments[_segmentsTakenPerSide[((int)DIR.LEFT)] + 1].position.x, _spriteMask.bounds.min.x)
+    + math.unlerp(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x, _spriteMask.bounds.max.x);
+            if (_spriteMask.bounds.max.x <= _segments[_segments.Count - 2 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x)
+            {
+                _shadowSegmentsList.Add(DIR.RIGHT);
+                _segmentsTakenPerSide[((int)DIR.RIGHT)]++;
+                _segmentsTaken++;
+            }
         }
-        //_valueForShadowPlacing = 0;
-        //for (int i=0;i<4;i++)
-        //{
-        //    _valueForShadowPlacing += _totalShadowbarValue * _curve.Evaluate(_transmutatedShadow[i]);
-        //}
         _transmutateValue = 0;
     }
-    IEnumerator RevertAllTransmutation2()
+    private void SetValueForShadowBar()
     {
-        Vector2 newScale;
-        Vector3 newPosition;
-        float valueDiff = 0;
-        bool breakLoop = false;
-        bool[] wasCheckedButNotMoved = new bool[4] { false, false, false, false };
-        float scaleBound;
-        while (_valueForShadowPlacing> 0&&!breakLoop)
+        _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]].position.x, _segments[_segmentsTakenPerSide[((int)DIR.LEFT)] + 1].position.x, _spriteMask.bounds.min.x)
++ math.unlerp(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x, _spriteMask.bounds.max.x);
+    }
+    public void RevertNonSegmentShadowbar()
+    {
+        StartCoroutine(RevertNonBarTransmutation());
+    }
+    public void RevertTransmutationFromPlacedShadow(float _shadowBarCost)
+    {
+        StartCoroutine(RevertLastBarTransmutation());
+    }
+    public void RevertTransmutation()
+    {
+        if (_valueForShadowPlacing+_placedShadows.Count > _segmentsTaken)
         {
+            StartCoroutine(RevertNonBarTransmutation());
+        }
+        else
+        {
+            if(_segmentsTaken > _placedShadows.Count) StartCoroutine(RevertLastBarTransmutation());
+
+        }
+    }
+    IEnumerator RevertLastBarTransmutation()
+    {
+        Vector2 newScale = _shadowMask.localScale;
+        Vector2 newPosition = _shadowMask.localPosition;
+        bool isClear = false;
+        DIR tmp = _shadowSegmentsList[_shadowSegmentsList.Count - 1];
+        _shadowSegmentsList.RemoveAt(_shadowSegmentsList.Count - 1);
+        while(!isClear)
+        {
+            switch(tmp)
+            {
+                case DIR.LEFT: 
+                    {
+                        _revertTransmutateValue = Time.deltaTime * 2f;
+                        newScale.x += _revertTransmutateValue;
+                        _shadowMask.localScale = newScale;
+                        newPosition.x -= _revertTransmutateValue / scaleToPoSrate;
+                        _shadowMask.localPosition = newPosition;
+                        if (_spriteMask.bounds.min.x <= _segments[_segmentsTakenPerSide[((int)DIR.LEFT)]-1].position.x)
+                        {
+                            isClear = true;
+
+                            float diff = _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)] - 1].position).x- _shadow.InverseTransformPoint(_spriteMask.bounds.min).x ;
+                            newScale.x -= diff;
+                            _shadowMask.localScale = newScale;
+                            newPosition.x += diff / scaleToPoSrate;
+                            _shadowMask.localPosition = newPosition;
+                            _segmentsTakenPerSide[((int)DIR.LEFT)]--;
+                            _segmentsTaken--;
+                        }
+                        break;
+                    }
+                    case DIR.RIGHT:
+                    {
+                        _revertTransmutateValue = Time.deltaTime * 2f;
+                        newScale.x += _revertTransmutateValue;
+                        _shadowMask.localScale = newScale;
+                        newPosition.x += _revertTransmutateValue / scaleToPoSrate;
+                        _shadowMask.localPosition = newPosition;
+                        if (_spriteMask.bounds.max.x >= _segments[_segments.Count - 1 - _segmentsTakenPerSide[ ((int)DIR.RIGHT)]+1].position.x)
+                        {
+                            isClear = true;
+
+                            float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).x- _shadow.InverseTransformPoint(_segments[_segments.Count - 1 -_segmentsTakenPerSide[((int)DIR.RIGHT)] + 1].position).x;
+                            newScale.x -= diff;
+                            _shadowMask.localScale = newScale;
+                            newPosition.x -= diff / scaleToPoSrate;
+                            _shadowMask.localPosition = newPosition;
+                            _segmentsTakenPerSide[((int)DIR.RIGHT)]--;
+                            _segmentsTaken--;
+                        }
+                        break;
+                    }
+                case DIR.UP: { break; }
+                    case DIR.DOWN: { break; }
+            }
+            yield return null;
+        }
+        _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count;
+
+    }
+    IEnumerator RevertNonBarTransmutation()
+    {
+        Vector2  newScale = _shadowMask.localScale;
+        Vector2 newPosition = _shadowMask.localPosition;
+        bool isAllClear = false;
+        while (!isAllClear)
+        {
+            isAllClear = true;
             for (int i = 0; i < 4; i++)
             {
                 newScale = _shadowMask.localScale;
                 newPosition = _shadowMask.localPosition;
-                _revertTransmutateValue = Time.deltaTime * 2f;
-                //newTransmutatedShadow = _transmutatedShadow[i] - _revertTransmutateValue;
                 switch ((DIR)i)
                 {
+                    case DIR.UP:
+                        {
+                            break;
+                        }
+                    case DIR.DOWN: { break; }
                     case DIR.LEFT:
                         {
-                            if (_spriteMask.bounds.min.x <= _originalMinBound.x)
-                            {
-                                wasCheckedButNotMoved[i] = true;
-                                if (wasCheckedButNotMoved[i] && wasCheckedButNotMoved[((int)DIR.RIGHT)])
-                                {
-                                    breakLoop = true;
-                                }
-                                continue;
-                            }
-                            scaleBound = math.remap(_originalMinBound.x, _originalMaxBound.x, 0, 1, _spriteMask.bounds.min.x);
-                            if(scaleBound- _revertTransmutateValue<0)
-                            {
-                                _revertTransmutateValue += scaleBound - _revertTransmutateValue;
-                            }
-                            valueDiff = _curve.Evaluate(scaleBound) * _totalShadowbarValue - _curve.Evaluate(scaleBound - _revertTransmutateValue+ _lastOverShootValue) * _totalShadowbarValue;
-                            Logger.Log($"{valueDiff} {_valueForShadowPlacing}");
-                            if (valueDiff > _valueForShadowPlacing)
-                            {
-                                Logger.Log("Toobig");
-                                _lastOverShootValue = _revertTransmutateValue;
-                            }
-                            else Logger.Log("OK");
-                            _valueForShadowPlacing -= valueDiff;
-                            if(math.abs( _valueForShadowPlacing-0)<0.001) _valueForShadowPlacing = 0;
-                            newScale.x += _revertTransmutateValue;
+                            float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.min).x - _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]].position).x;
+                            if (math.abs(diff - 0) < 0.001f) continue;
+                            isAllClear = false;
+                            newScale.x += diff;
                             _shadowMask.localScale = newScale;
-                            newPosition.x -= _revertTransmutateValue / scaleToPoSrate;
+                            newPosition.x -= diff / scaleToPoSrate;
                             _shadowMask.localPosition = newPosition;
                             break;
                         }
                     case DIR.RIGHT:
                         {
-                            if (_spriteMask.bounds.max.x >= _originalMaxBound.x)
-                            {
-                                wasCheckedButNotMoved[i] = true;
-                                if (wasCheckedButNotMoved[i] && wasCheckedButNotMoved[((int)DIR.LEFT)])
-                                {
-                                    breakLoop = true;
-                                }
-                                continue;
-                            }
-                            if (_spriteMask.bounds.max.x >= _originalMaxBound.x) continue;
-                            Debug.Log("Right");
-                            newScale.x += _revertTransmutateValue;
+                            float diff = _shadow.InverseTransformPoint(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position).x- _shadow.InverseTransformPoint(_spriteMask.bounds.max).x ;
+                            if (math.abs(diff - 0) < 0.001f) continue;
+                            isAllClear = false;
+                            newScale.x += diff;
                             _shadowMask.localScale = newScale;
-                            newPosition.x += _revertTransmutateValue / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            break;
-                        }
-                    case DIR.UP:
-                        {
-                            if (_spriteMask.bounds.max.y >= _originalMaxBound.y) continue;
-                            newScale.y += _revertTransmutateValue;
-                            _shadowMask.localScale = newScale;
-                            newPosition.y += _revertTransmutateValue / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            break;
-                        }
-                    case DIR.DOWN:
-                        {
-                            if (_spriteMask.bounds.min.y <= _originalMinBound.y) continue;
-                            newScale.y += _revertTransmutateValue;
-                            _shadowMask.localScale = newScale;
-                            newPosition.y -= _transmutateValue / scaleToPoSrate;
+                            newPosition.x += diff / scaleToPoSrate;
                             _shadowMask.localPosition = newPosition;
                             break;
                         }
 
+
                 }
-                _transmutatedShadow[i] -= _revertTransmutateValue;
+                SetValueForShadowBar();
                 yield return null;
             }
         }
-
-        if (breakLoop)
-        {
-            _valueForShadowPlacing = 0;
-        }
-        if (_valueForShadowPlacing < 0) _valueForShadowPlacing = 0;
-        for(int i=0;i<4;i++)
-        {
-            if (_transmutatedShadow[i] < 0) _transmutatedShadow[i] = 0;
-        }
-        Logger.Log("ENDED");
-    }
-    IEnumerator RevertAllTransmutationFromPlacedShadow2(float value)
-    {
-        Vector2 newScale;
-        Vector3 newPosition;
-        float valueDiff = 0;
-
-        bool breakLoop = false;
-        float scaleBound;
-        bool[] wasCheckedButNotMoved=new bool[4]{ false,false,false,false};
-        while (value > 0 && !breakLoop)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                newScale = _shadowMask.localScale;
-                newPosition = _shadowMask.localPosition;
-                _revertTransmutateValue = Time.deltaTime * 2f;
-                switch ((DIR)i)
-                {
-                    case DIR.LEFT:
-                        {
-                            if (_spriteMask.bounds.min.x <= _originalMinBound.x)
-                            {
-                                wasCheckedButNotMoved[i] = true;
-                                if (wasCheckedButNotMoved[i] && wasCheckedButNotMoved[((int)DIR.RIGHT)])
-                                {
-                                    breakLoop=true;
-                                }
-                                continue;
-                            }
-                            scaleBound = math.remap(_originalMinBound.x, _originalMaxBound.x, 0, 1, _spriteMask.bounds.min.x);
-                            if (scaleBound - _revertTransmutateValue < 0)
-                            {
-                                _revertTransmutateValue += scaleBound - _revertTransmutateValue;
-                            }
-                            valueDiff = _curve.Evaluate(scaleBound) * _totalShadowbarValue - _curve.Evaluate(scaleBound - _revertTransmutateValue) * _totalShadowbarValue;
-                            value -= valueDiff;
-                            if (math.abs(value - 0) < 0.001) value = 0;
-                            newScale.x += _revertTransmutateValue;
-                            _shadowMask.localScale = newScale;
-                            newPosition.x -= _revertTransmutateValue / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            break;
-                        }
-                    case DIR.RIGHT:
-                        {
-                            if (_spriteMask.bounds.max.x >= _originalMaxBound.x)
-                            {
-                                wasCheckedButNotMoved[i] = true;
-                                if (wasCheckedButNotMoved[i] && wasCheckedButNotMoved[((int)DIR.LEFT)])
-                                {
-                                    breakLoop = true;
-                                }
-                                continue;
-                            }
-                            Debug.Log("Right");
-                            newScale.x += _revertTransmutateValue;
-                            _shadowMask.localScale = newScale;
-                            newPosition.x += _revertTransmutateValue / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            break;
-                        }
-                    case DIR.UP:
-                        {
-                            if (_spriteMask.bounds.max.y >= _originalMaxBound.y) continue;
-                            newScale.y += _revertTransmutateValue;
-                            _shadowMask.localScale = newScale;
-                            newPosition.y += _revertTransmutateValue / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            break;
-                        }
-                    case DIR.DOWN:
-                        {
-                            if (_spriteMask.bounds.min.y <= _originalMinBound.y) continue;
-                            newScale.y += _revertTransmutateValue;
-                            _shadowMask.localScale = newScale;
-                            newPosition.y -= _transmutateValue / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            break;
-                        }
-
-                }
-                _transmutatedShadow[i] -= _revertTransmutateValue;
-                yield return null;
-            }
-        }
-
-        Logger.Log(value);
-        Logger.Log("ENDED");
-    }
-    IEnumerator RevertAllTransmutation()
-    {
-        Vector2 newScale;
-        Vector3 newPosition;
-        bool _allAllClear = false;
-        while(!_allAllClear)
-        {
-            _allAllClear = true;
-            for (int i = 0; i < 4; i++)
-            {
-                if (_transmutatedShadow[i] > 0)
-                {
-                    newScale = _shadowMask.localScale;
-                    newPosition = _shadowMask.localPosition;
-                    _revertTransmutateValue = Time.deltaTime * 2f;
-                    _transmutatedShadow[i] -= _revertTransmutateValue;
-                    if (_transmutatedShadow[i] < 0)
-                    {
-                        _revertTransmutateValue += _transmutatedShadow[i];
-                        _transmutatedShadow[i] = 0;
-                    }
-                    else if (_transmutatedShadow[i] == 0) continue;
-                    _allAllClear = false;
-                    switch ((DIR)i)
-                    {
-                        case DIR.LEFT:
-                            {
-                                newScale.x += _revertTransmutateValue;
-                                _shadowMask.localScale = newScale;
-                                newPosition.x -= _revertTransmutateValue / scaleToPoSrate;
-                                _shadowMask.localPosition = newPosition;
-                                _valueForShadowPlacing = _totalShadowbarValue  * _curve.Evaluate(_transmutatedShadow[i]);
-                                break;
-                            }
-                        case DIR.RIGHT:
-                            {
-                                newScale.x += _transmutateValue;
-                                _shadowMask.localScale = newScale;
-                                newPosition.x += _transmutateValue / scaleToPoSrate;
-                                _shadowMask.localPosition = newPosition;
-                                break;
-                            }
-                        case DIR.UP:
-                            {
-                                newScale.y += _transmutateValue;
-                                _shadowMask.localScale = newScale;
-                                newPosition.y += _transmutateValue / scaleToPoSrate;
-                                _shadowMask.localPosition = newPosition;
-                                break;
-                            }
-                        case DIR.DOWN:
-                            {
-                                newScale.y += _transmutateValue;
-                                _shadowMask.localScale = newScale;
-                                newPosition.y -= _transmutateValue / scaleToPoSrate;
-                                _shadowMask.localPosition = newPosition;
-                                break;
-                            }
-                            
-                    }
-                    
-                }
-                yield return null;
-            }
-        }
-        //while (_transmutatedShadow[((int)DIR.LEFT)]>0)
-        //{
-        //    Vector2 newScale = _shadowMask.localScale;
-        //    Vector3 newPosition = _shadowMask.localPosition;
-        //    _transmutateValue = Time.deltaTime * 2f;
-        //    _transmutatedShadow[((int)DIR.LEFT)] -= _transmutateValue;
-        //    if(_transmutatedShadow[((int)DIR.LEFT)]<0)
-        //    {
-        //        _transmutateValue -= _transmutatedShadow[((int)DIR.LEFT)];
-        //        _transmutatedShadow[((int)DIR.LEFT)] = 0;
-        //    }
-        //    newScale.x += _transmutateValue;
-        //    _shadowMask.localScale = newScale;
-        //    newPosition.x -= _transmutateValue / scaleToPoSrate;
-        //    _shadowMask.localPosition = newPosition;
-        //    yield return null;
-        //}
-    }
-    IEnumerator RevertAllTransmutationFromPlacedShadow(float value)
-    {
-        Vector2 newScale;
-        Vector3 newPosition;
-        float diff = 0;
-        Logger.Log(value);
-        while(value>0)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                if (_transmutatedShadow[i] > 0)
-                {
-                    newScale = _shadowMask.localScale;
-                    newPosition = _shadowMask.localPosition;
-                    _revertTransmutateValue = Time.deltaTime * 2f;
-                    diff = _curve.Evaluate(_transmutatedShadow[i]) * _totalShadowbarValue - _curve.Evaluate(_transmutatedShadow[i] - _revertTransmutateValue) * _totalShadowbarValue;
-                    Logger.Log($"diff:  {diff}");
-                    if (diff > value* _revertTransmutateValue)
-                    {
-                        value-= diff;
-                        Debug.Log(value);
-                        restoredBarVal += diff;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                    _transmutatedShadow[i] -= _revertTransmutateValue;
-                    if (_transmutatedShadow[i] < 0)
-                    {
-                        _revertTransmutateValue -= _transmutatedShadow[i];
-                        _transmutatedShadow[i] = 0;
-                        continue;
-                    }
-                    switch ((DIR)i)
-                    {
-                        case DIR.LEFT:
-                            {
-                                newScale.x += _revertTransmutateValue;
-                                _shadowMask.localScale = newScale;
-                                newPosition.x -= _revertTransmutateValue / scaleToPoSrate;
-                                _shadowMask.localPosition = newPosition;
-                                break;
-                            }
-                        case DIR.RIGHT:
-                            {
-                                newScale.x += _revertTransmutateValue;
-                                _shadowMask.localScale = newScale;
-                                newPosition.x += _revertTransmutateValue / scaleToPoSrate;
-                                _shadowMask.localPosition = newPosition;
-                                break;
-                            }
-                        case DIR.UP:
-                            {
-                                newScale.y += _revertTransmutateValue;
-                                _shadowMask.localScale = newScale;
-                                newPosition.y += _revertTransmutateValue / scaleToPoSrate;
-                                _shadowMask.localPosition = newPosition;
-                                break;
-                            }
-                        case DIR.DOWN:
-                            {
-                                newScale.y += _revertTransmutateValue;
-                                _shadowMask.localScale = newScale;
-                                newPosition.y -= _transmutateValue / scaleToPoSrate;
-                                _shadowMask.localPosition = newPosition;
-                                break;
-                            }
-
-                    }
-
-                }
-                yield return null;
-            }
-        }
+        _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count;
+        _lastTransmutationDirection = DIR.NONE;
     }
 
 }
