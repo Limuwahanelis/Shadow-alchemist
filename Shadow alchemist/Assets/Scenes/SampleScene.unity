@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 9563015}
   - component: {fileID: 9563017}
   - component: {fileID: 9563018}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 10314519}
   - component: {fileID: 10314520}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ruler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 35273060}
   - component: {fileID: 35273062}
   - component: {fileID: 35273061}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: control picture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +741,7 @@ GameObject:
   - component: {fileID: 108819274}
   - component: {fileID: 108819273}
   - component: {fileID: 108819272}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Panel (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -918,7 +918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 163679779}
   - component: {fileID: 163679780}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1236,7 +1236,6 @@ GameObject:
   m_Component:
   - component: {fileID: 465519613}
   - component: {fileID: 465519612}
-  - component: {fileID: 465519611}
   m_Layer: 0
   m_Name: "ground shadow \u2014 kopia (1)"
   m_TagString: Untagged
@@ -1244,61 +1243,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!60 &465519611
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465519609}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 10.24, y: 10.24}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.4974528, y: 2.7072709}
-      - {x: -0.50746, y: 0.46132526}
-      - {x: -0.35046872, y: -0.17241418}
-      - {x: -0.016946144, y: -0.586483}
-      - {x: 0.25358957, y: -0.33814254}
-      - {x: 0.40307125, y: 0.0452542}
-      - {x: 0.51292276, y: 0.4943139}
-      - {x: 0.51863, y: 2.7208595}
-  m_UseDelaunayMesh: 0
 --- !u!212 &465519612
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1524,7 +1468,7 @@ GameObject:
   - component: {fileID: 522033913}
   - component: {fileID: 522033916}
   - component: {fileID: 522033914}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1690,7 +1634,7 @@ GameObject:
   - component: {fileID: 546016461}
   - component: {fileID: 546016462}
   - component: {fileID: 546016463}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1838,7 +1782,7 @@ GameObject:
   - component: {fileID: 567600578}
   - component: {fileID: 567600580}
   - component: {fileID: 567600579}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Letter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2889,7 +2833,7 @@ GameObject:
   - component: {fileID: 651605320}
   - component: {fileID: 651605322}
   - component: {fileID: 651605321}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Letter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3025,7 +2969,7 @@ GameObject:
   - component: {fileID: 663930175}
   - component: {fileID: 663930177}
   - component: {fileID: 663930176}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3099,7 +3043,7 @@ GameObject:
   m_Component:
   - component: {fileID: 668319776}
   - component: {fileID: 668319777}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3185,7 +3129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 779653716}
   - component: {fileID: 779653717}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3386,7 +3330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 807257679}
   - component: {fileID: 807257680}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3829,7 +3773,7 @@ GameObject:
   - component: {fileID: 833559097}
   - component: {fileID: 833559099}
   - component: {fileID: 833559098}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: control picture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3902,7 +3846,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 851116637}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Place shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3942,7 +3886,7 @@ GameObject:
   - component: {fileID: 856729388}
   - component: {fileID: 856729390}
   - component: {fileID: 856729389}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4910,7 +4854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1026620116}
   - component: {fileID: 1026620117}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4953,7 +4897,7 @@ MonoBehaviour:
   _scaleAtMax: 2
   _posValueAtMin: -1
   _posValueAtMax: 0
-  _currentValue: 0.00000053687086
+  _currentValue: 2.4178519e-17
 --- !u!1 &1110296744
 GameObject:
   m_ObjectHideFlags: 0
@@ -5050,7 +4994,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1110328281}
   - component: {fileID: 1110328282}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5167,7 +5111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1152596220}
   - component: {fileID: 1152596221}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5286,7 +5230,7 @@ GameObject:
   - component: {fileID: 1166262700}
   - component: {fileID: 1166262699}
   - component: {fileID: 1166262698}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5737,7 +5681,7 @@ GameObject:
   - component: {fileID: 1269667061}
   - component: {fileID: 1269667063}
   - component: {fileID: 1269667062}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Letter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5871,7 +5815,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1297189491}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6084,7 +6028,7 @@ GameObject:
   - component: {fileID: 1388399352}
   - component: {fileID: 1388399351}
   - component: {fileID: 1388399350}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6336,7 +6280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1442748860}
   - component: {fileID: 1442748861}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Group layout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6606,7 +6550,7 @@ GameObject:
   - component: {fileID: 1509550674}
   - component: {fileID: 1509550676}
   - component: {fileID: 1509550675}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7206,7 +7150,7 @@ GameObject:
   - component: {fileID: 1554618436}
   - component: {fileID: 1554618438}
   - component: {fileID: 1554618437}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: control picture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7300,46 +7244,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1edec44fa3217345bf1b0564d8f40cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shadow: {fileID: 465519613}
+  _shadowCollider: {fileID: 1191014798}
+  _shadowMask: {fileID: 1191014796}
+  scaleToPoSrate: 2
+  _totalShadowbarValue: 4
+  _distanceToResetShadow: 7.18
+  _resetShadowCollider: {fileID: 1789020674}
   _lefBorder: {fileID: 1691916376}
   _rightBorder: {fileID: 550043310}
-  _shadow: {fileID: 465519613}
-  _shadowMask: {fileID: 1191014796}
-  _shadowCollider: {fileID: 1191014798}
-  scaleToPoSrate: 2
-  _curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _totalShadowbarValue: 4
-  _revertTransmutationError: 0
+  _spriteMask: {fileID: 1191014797}
   _segments:
   - {fileID: 1468761044}
   - {fileID: 1428095743}
   - {fileID: 1175926569}
   - {fileID: 1141101456}
   - {fileID: 1455064468}
-  _valueForShadowPlacing: 0
-  _spriteMask: {fileID: 1191014797}
 --- !u!4 &1589614057
 Transform:
   m_ObjectHideFlags: 0
@@ -7356,6 +7276,7 @@ Transform:
   - {fileID: 465519613}
   - {fileID: 1691916376}
   - {fileID: 550043310}
+  - {fileID: 1789020677}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1589614058
@@ -7629,7 +7550,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1665236804}
   - component: {fileID: 1665236805}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7645,8 +7566,8 @@ Transform:
   m_GameObject: {fileID: 1665236803}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.9999997, z: 0}
-  m_LocalScale: {x: 0.18899621, y: 0.00000053687086, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 0.18899621, y: 2.4178519e-17, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1026620116}
@@ -7781,23 +7702,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1edec44fa3217345bf1b0564d8f40cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shadow: {fileID: 1238553455}
+  _shadowCollider: {fileID: 0}
+  _shadowMask: {fileID: 0}
+  scaleToPoSrate: 1
+  _totalShadowbarValue: 0
+  _distanceToResetShadow: 0
+  _resetShadowCollider: {fileID: 0}
   _lefBorder: {fileID: 784035224}
   _rightBorder: {fileID: 1399405709}
-  _shadow: {fileID: 1238553455}
-  _shadowMask: {fileID: 0}
-  _shadowCollider: {fileID: 0}
-  scaleToPoSrate: 1
-  _curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _totalShadowbarValue: 0
-  _revertTransmutationError: 0
-  _segments: []
-  _valueForShadowPlacing: 0
   _spriteMask: {fileID: 0}
+  _segments: []
 --- !u!1 &1691916375
 GameObject:
   m_ObjectHideFlags: 0
@@ -7886,41 +7801,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1edec44fa3217345bf1b0564d8f40cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shadow: {fileID: 327307231}
+  _shadowCollider: {fileID: 1455861973}
+  _shadowMask: {fileID: 1455861975}
+  scaleToPoSrate: 2
+  _totalShadowbarValue: 4
+  _distanceToResetShadow: 0
+  _resetShadowCollider: {fileID: 0}
   _lefBorder: {fileID: 634794755}
   _rightBorder: {fileID: 1158528329}
-  _shadow: {fileID: 327307231}
-  _shadowMask: {fileID: 1455861975}
-  _shadowCollider: {fileID: 1455861973}
-  scaleToPoSrate: 2
-  _curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _totalShadowbarValue: 4
-  _revertTransmutationError: 0
-  _segments: []
-  _valueForShadowPlacing: 0
   _spriteMask: {fileID: 1455861974}
+  _segments: []
 --- !u!4 &1750142297
 Transform:
   m_ObjectHideFlags: 0
@@ -7938,6 +7829,134 @@ Transform:
   - {fileID: 634794755}
   - {fileID: 1158528329}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1789020673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1789020677}
+  - component: {fileID: 1789020674}
+  - component: {fileID: 1789020676}
+  - component: {fileID: 1789020675}
+  m_Layer: 6
+  m_Name: Col
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!58 &1789020674
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789020673}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 7.18
+--- !u!114 &1789020675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789020673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57cc9bf1446c5b04e903467246828fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPlayerDetectedUnity:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerLeftdUnity:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1589614056}
+        m_TargetAssemblyTypeName: ControllableShadow, Assembly-CSharp
+        m_MethodName: RevertAllTran
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  playerPos: {x: 0, y: 0, z: 0}
+--- !u!50 &1789020676
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789020673}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!4 &1789020677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789020673}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1589614057}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1796246463
 GameObject:
@@ -7969,23 +7988,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1edec44fa3217345bf1b0564d8f40cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shadow: {fileID: 99741224}
+  _shadowCollider: {fileID: 0}
+  _shadowMask: {fileID: 0}
+  scaleToPoSrate: 2
+  _totalShadowbarValue: 0
+  _distanceToResetShadow: 0
+  _resetShadowCollider: {fileID: 0}
   _lefBorder: {fileID: 1209727485}
   _rightBorder: {fileID: 553855832}
-  _shadow: {fileID: 99741224}
-  _shadowMask: {fileID: 0}
-  _shadowCollider: {fileID: 0}
-  scaleToPoSrate: 2
-  _curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _totalShadowbarValue: 0
-  _revertTransmutationError: 0
-  _segments: []
-  _valueForShadowPlacing: 0
   _spriteMask: {fileID: 0}
+  _segments: []
 --- !u!4 &1796246465
 Transform:
   m_ObjectHideFlags: 0
@@ -8122,7 +8135,7 @@ GameObject:
   - component: {fileID: 1874328072}
   - component: {fileID: 1874328071}
   - component: {fileID: 1874328070}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8225,7 +8238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1926478114}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Transmutate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8266,7 +8279,7 @@ GameObject:
   - component: {fileID: 1952218933}
   - component: {fileID: 1952218932}
   - component: {fileID: 1952218934}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8402,7 +8415,7 @@ GameObject:
   - component: {fileID: 2045815233}
   - component: {fileID: 2045815235}
   - component: {fileID: 2045815234}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8477,7 +8490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2108455657}
   - component: {fileID: 2108455658}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

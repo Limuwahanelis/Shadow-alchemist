@@ -13,27 +13,28 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     }
     public Collider2D ShadowCollider => _shadowCollider;
     public float TakenShadowBarValueFromTransmutation=>_valueForShadowPlacing;
-    [SerializeField] Transform _lefBorder;
-    [SerializeField] Transform _rightBorder;
     [SerializeField] Transform _shadow;
+    [Header("Shadow"),SerializeField] Collider2D _shadowCollider;
     [SerializeField] Transform _shadowMask;
-    [SerializeField] Collider2D _shadowCollider;
     [SerializeField] float scaleToPoSrate = 2f;
-    [SerializeField] AnimationCurve _curve;
     [SerializeField] float _totalShadowbarValue;
-    [SerializeField] float _revertTransmutationError;
-    [SerializeField] List<Transform> _segments;
+    [SerializeField] float _distanceToResetShadow;
+    [SerializeField] CircleCollider2D _resetShadowCollider;
+    [Header("Borders"),SerializeField] Transform _lefBorder;
+    [SerializeField] Transform _rightBorder;
+    [SerializeField] SpriteMask _spriteMask;
+    [Header("Segments"),SerializeField] List<Transform> _segments;
     private List<PlacableShadow> _placedShadows= new List<PlacableShadow>();
     private float _transmutateValue = 0;
     private float _revertTransmutateValue = 0;
-    private Vector2 _originalPosition;
-    private Coroutine _revertMoveCor;
-    public float _valueForShadowPlacing;
-    [SerializeField] SpriteMask _spriteMask;
+    private float _valueForShadowPlacing;
     private int _segmentsTaken=0;
     private int[] _segmentsTakenPerSide= new int[4] {0,0,0,0 };
+    private Vector2 _originalPosition;
+    private Coroutine _revertMoveCor;
     private List<DIR> _shadowSegmentsList= new List<DIR>();
     private DIR _lastTransmutationDirection=DIR.NONE;
+    private bool _isReverting = false;
     private void Start()
     {
         _originalPosition = _shadow.position;
@@ -96,12 +97,6 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
         
     }
     #endregion
-
-
-    public void Transmutate()
-    {
-        
-    }
 
     public void Transmutate(Vector2 directionTotakeFrom)
     {
@@ -172,6 +167,26 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
             if(_segmentsTaken > _placedShadows.Count) StartCoroutine(RevertLastBarTransmutation());
 
         }
+    }
+    public void RevertAllTran()
+    {
+        StartCoroutine(RevertAllTransmutation());
+    }
+    public IEnumerator RevertAllTransmutation()
+    {
+        for(int i= _placedShadows.Count-1; i>=0;i--)
+        {
+            _placedShadows[i].OnLeftParentShadow -= RemovePlacedShadow;
+            //RevertTransmutationFromPlacedShadow(_placedShadows[_placedShadows.Count - 1].ShadowBarCost);
+            Destroy(_placedShadows[i ].gameObject);
+            _placedShadows.RemoveAt(i );
+        }
+        int num = _segmentsTaken;
+        for (int i = 0; i < num; i++)
+        {
+            yield return RevertLastBarTransmutation();
+        }
+
     }
     IEnumerator RevertLastBarTransmutation()
     {
@@ -286,5 +301,13 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
         _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count;
         _lastTransmutationDirection = DIR.NONE;
     }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position,_distanceToResetShadow);
+    }
+    private void OnValidate()
+    {
+        if(_resetShadowCollider) _resetShadowCollider.radius = _distanceToResetShadow;
 
+    }
 }
