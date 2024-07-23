@@ -37,11 +37,6 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     private void Start()
     {
         _originalPosition = _shadow.position;
-        Logger.Log(_spriteMask.bounds.max);
-        Logger.Log(_spriteMask.bounds.min);
-        Logger.Log(_spriteMask.bounds.extents);
-        Logger.Log(_spriteMask.bounds.center);
-        Logger.Log(_spriteMask.bounds.size);
     }
     #region ShadowMove
     public void MoveShadow(float moveSpeed,Vector2 direction)
@@ -234,6 +229,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                 case DIR.UP: { break; }
                     case DIR.DOWN: { break; }
             }
+            SetValueForShadowBar();
             yield return null;
         }
         _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count;

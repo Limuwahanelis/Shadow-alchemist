@@ -15,10 +15,15 @@ public class PlayerShadowsInteractions : MonoBehaviour
     public PlacableShadow ShadowToPlace => _currentlyPlacingShadow;
     public float ShadowPlacingSpeed => _shadowPlacingSpeed;
     [SerializeField] float _shadowPlacingSpeed;
+    [SerializeField] ShadowBar _shadowBar;
     private PlacableShadow _currentlyPlacingShadow;
     private ITransmutableSadow _transmutablkeShadow;
     private float _shadowBarValue;
-    //[SerializeField] GameObject _shadowPrefab;
+    private void Update()
+    {
+        if(Shadow==null) return;
+        _shadowBar.SetValue(Shadow.TakenShadowBarValueFromTransmutation);
+    }
     public void SpawnShadow(GameObject _shadowPrefab)
     {
         _currentlyPlacingShadow = Instantiate(_shadowPrefab,transform.position+transform.right,_shadowPrefab.transform.rotation,null).GetComponent<PlacableShadow>();
@@ -62,7 +67,11 @@ public class PlayerShadowsInteractions : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ControllableShadow shadow = collision.attachedRigidbody.GetComponent<ControllableShadow>();
-        if (shadow != null) _shadow = shadow; Logger.Log($"{_shadow}  {Shadow}");
+        if (shadow != null)
+        {
+            _shadow = shadow; Logger.Log($"{_shadow}  {Shadow}");
+            _shadowBar.SetVisibility(true);
+        }
         ITransmutableSadow shadow2 = collision.attachedRigidbody.GetComponent<ITransmutableSadow>();
         if(shadow2!=null)_transmutablkeShadow = shadow2;
     }
@@ -72,6 +81,7 @@ public class PlayerShadowsInteractions : MonoBehaviour
         if (shadow != null && shadow == _shadow)
         {
             OnControllableShadowLeft?.Invoke();
+            _shadowBar.SetVisibility(false);
             _shadow = null;
         }
         ITransmutableSadow shadow2 = collision.attachedRigidbody.GetComponent<ITransmutableSadow>();
