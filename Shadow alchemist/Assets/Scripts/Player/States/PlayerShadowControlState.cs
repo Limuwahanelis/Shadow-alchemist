@@ -25,31 +25,40 @@ public class PlayerShadowControlState : PlayerState
     }
     public override void Attack()
     {
+        _context.shadowControlModeSelectionUI.SetVisiblity(false);
         ChangeState(PlayerShadowPlacingState.StateType);
     }
     public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
     {
-        if(controlInput==PlayerInputHandler.ShadowControlInputs.TRANSMUTATE)
+        if (controlInput == PlayerInputHandler.ShadowControlInputs.TRANSMUTATE)
         {
+            _context.shadowControlModeSelectionUI.SelectShadowTransmutation();
             ChangeState(PlayerShadowTransmutationState.StateType);
         }
-        else ChangeState(PlayerIdleState.StateType);// _isMovingShadow = !_isMovingShadow;
+        else
+        {
+            _context.shadowControlModeSelectionUI.Deselect();
+            _context.shadowControlModeSelectionUI.SetVisiblity(false);
+            ChangeState(PlayerIdleState.StateType);// _isMovingShadow = !_isMovingShadow;
+        }
 
     }
     public override void Jump()
     {
+        _context.shadowControlModeSelectionUI.SelectMoveShadow();
         ChangeState(PlayerShadowMovingState.StateType);
 
     }
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);
+        _context.shadowControlModeSelectionUI.Deselect();
+        _context.shadowControlModeSelectionUI.SetVisiblity(true);
         //_isTransmutatingShadow = false;
         //if(_context.shadowControl.Shadow==null) ChangeState(PlayerIdleState.StateType);
     }
 
     public override void InterruptState()
     {
-
     }
 }

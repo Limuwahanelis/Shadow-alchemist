@@ -18,7 +18,6 @@ public class PlayerShadowsInteractions : MonoBehaviour
     private ITransmutableSadow _transmutablkeShadow;
     private float _shadowBarValue;
     //[SerializeField] GameObject _shadowPrefab;
-
     public void SpawnShadow(GameObject _shadowPrefab)
     {
         _currentlyPlacingShadow = Instantiate(_shadowPrefab,transform.position+transform.right,_shadowPrefab.transform.rotation,null).GetComponent<PlacableShadow>();

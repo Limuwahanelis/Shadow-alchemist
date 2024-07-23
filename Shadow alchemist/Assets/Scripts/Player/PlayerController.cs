@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerHealthSystem _playerHealthSystem;
     [SerializeField] PlayerShadowsInteractions _playerShadowsInteractions;
     [SerializeField] PlacableShadowSelection _placableShadowSelection;
+    [SerializeField] ShadowControlModeSelectionUI _shadowControlModeSelectionUI;
     private PlayerState _currentPlayerState;
     private PlayerContext _context;
     private Dictionary<Type, PlayerState> playerStates = new Dictionary<Type, PlayerState>();
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
             WaitAndPerformFunction = WaitAndExecuteFunction,
             WaitFrameAndPerformFunction = WaitFrameAndExecuteFunction,
             coroutineHolder = this,
+            shadowControlModeSelectionUI = _shadowControlModeSelectionUI,
             checks = _playerChecks,
             placableShadowSelection = _placableShadowSelection,
             //combat = _playerCombat,

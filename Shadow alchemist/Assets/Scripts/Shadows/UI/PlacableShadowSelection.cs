@@ -12,6 +12,7 @@ public class PlacableShadowSelection : MonoBehaviour
     [SerializeField] InputActionReference _selectLeftIconActionRef;
     [SerializeField] InputActionReference _selectRightIconActionRef;
     [SerializeField] Canvas _canvas;
+    [SerializeField] GameObject _panel;
     private PlacableShadow _currentlyHighlihtedShadow;
     private int _index=0;
     private void Awake()
@@ -29,6 +30,7 @@ public class PlacableShadowSelection : MonoBehaviour
     }
     public void SetSelectionVisibility(bool isVisible)
     {
+        _panel.SetActive(isVisible);
         _canvas.enabled = isVisible;
         enabled = isVisible;
     }
