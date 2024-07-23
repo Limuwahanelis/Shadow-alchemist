@@ -31,10 +31,16 @@ public class PlayerShadowTransmutationState : PlayerState
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);
+        _context.shadowControl.OnControllableShadowLeft += GoBackToIdle;
     }
-
+    private void GoBackToIdle()
+    {
+        _context.shadowControl.Shadow.RevertNonSegmentShadowbar();
+        _context.shadowControlModeSelectionUI.SetVisiblity(false);
+        ChangeState(PlayerIdleState.StateType);
+    }
     public override void InterruptState()
     {
-     
+        _context.shadowControl.OnControllableShadowLeft -= GoBackToIdle;
     }
 }

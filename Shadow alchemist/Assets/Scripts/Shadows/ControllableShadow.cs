@@ -4,8 +4,6 @@ using System.Threading;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.U2D.ScriptablePacker;
-using static UnityEngine.Rendering.DebugUI;
 
 public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSadow
 {

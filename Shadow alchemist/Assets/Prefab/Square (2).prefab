@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shadowBarCost: 1
   _rb: {fileID: 8777751551632336303}
-  _placingSpeed: 3
+  _placingSpeed: 5
   _col: {fileID: 5367166226500582050}
 --- !u!50 &8777751551632336303
 Rigidbody2D:

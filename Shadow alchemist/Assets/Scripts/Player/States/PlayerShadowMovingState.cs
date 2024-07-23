@@ -12,6 +12,7 @@ public class PlayerShadowMovingState : PlayerState
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);
+        _context.shadowControl.OnControllableShadowLeft += GoBackToIdle;
     }
     public override void Update()
     {
@@ -33,8 +34,13 @@ public class PlayerShadowMovingState : PlayerState
     {
         _context.shadowControl.Shadow.RevertMove();
     }
+    private void GoBackToIdle()
+    {
+        _context.shadowControlModeSelectionUI.SetVisiblity(false);
+        ChangeState(PlayerIdleState.StateType);
+    }
     public override void InterruptState()
     {
-     
+        _context.shadowControl.OnControllableShadowLeft -= GoBackToIdle;
     }
 }

@@ -19,7 +19,7 @@ public class PlayerShadowPlacingState : PlayerState
 
     public override void Move(Vector2 direction)
     {
-        if(_isPlacingShadow) _context.shadowControl.ShadowToPlace.Move(direction);
+        if(_isPlacingShadow) _context.shadowControl.ShadowToPlace.Move(direction*_context.shadowControl.ShadowPlacingSpeed*Time.deltaTime);
 
     }
 

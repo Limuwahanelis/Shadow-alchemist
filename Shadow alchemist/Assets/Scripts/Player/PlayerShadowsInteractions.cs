@@ -7,13 +7,14 @@ using UnityEngine.UI;
 
 public class PlayerShadowsInteractions : MonoBehaviour
 {
+    public Action OnControllableShadowLeft;
     public Action PlacingShadowDespawned;
     public ControllableShadow Shadow => _shadow;
     private ControllableShadow _shadow;
     public ITransmutableSadow TransmutableShadow => _transmutablkeShadow;
     public PlacableShadow ShadowToPlace => _currentlyPlacingShadow;
-    [SerializeField] GameObject _shadowInteractionUI;
-    [SerializeField] GameObject _shadowPlacingPanel;
+    public float ShadowPlacingSpeed => _shadowPlacingSpeed;
+    [SerializeField] float _shadowPlacingSpeed;
     private PlacableShadow _currentlyPlacingShadow;
     private ITransmutableSadow _transmutablkeShadow;
     private float _shadowBarValue;
@@ -64,5 +65,16 @@ public class PlayerShadowsInteractions : MonoBehaviour
         if (shadow != null) _shadow = shadow; Logger.Log($"{_shadow}  {Shadow}");
         ITransmutableSadow shadow2 = collision.attachedRigidbody.GetComponent<ITransmutableSadow>();
         if(shadow2!=null)_transmutablkeShadow = shadow2;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        ControllableShadow shadow = collision.attachedRigidbody.GetComponent<ControllableShadow>();
+        if (shadow != null && shadow == _shadow)
+        {
+            OnControllableShadowLeft?.Invoke();
+            _shadow = null;
+        }
+        ITransmutableSadow shadow2 = collision.attachedRigidbody.GetComponent<ITransmutableSadow>();
+        if (shadow2 != null && shadow2 == _transmutablkeShadow) _transmutablkeShadow = null;
     }
 }

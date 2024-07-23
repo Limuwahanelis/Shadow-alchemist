@@ -17,14 +17,13 @@ public class PlacableShadow : MonoBehaviour
     }
     [SerializeField] float _shadowBarCost;
     [SerializeField] Rigidbody2D _rb;
-    [SerializeField] float _placingSpeed;
     [SerializeField] Collider2D _col;
     private ControllableShadow _parentShadow;
     private Collider2D _shadowParentCol;
     private List<Collider2D> _collidersInside= new List<Collider2D>();
     public void Move(Vector2 direction)
     {
-        _rb.MovePosition(_rb.position+direction * _placingSpeed * Time.deltaTime);
+        _rb.MovePosition(_rb.position+direction);
     }
     public void ChageTriggerToCol()
     {
