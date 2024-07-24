@@ -25,7 +25,7 @@ public class PlayerDodgingState : PlayerState
         }
     }
 
-    public override void SetUpState(PlayerContext context)
+    public override void SetUpState( PlayerContext context)
     {
         base.SetUpState(context);
         _dodgeTime = _context.animationManager.GetAnimationLength("Dodge");///_context.animationManager.GetAnimationSpeed("Dodge");

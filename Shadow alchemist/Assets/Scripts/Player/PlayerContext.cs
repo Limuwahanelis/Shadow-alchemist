@@ -12,6 +12,9 @@ public class PlayerContext
     public AnimationManager animationManager;
     public PlayerMovement playerMovement;
     public PlayerChecks checks;
+    public PlayerShadowsInteractions shadowControl;
+    public PlacableShadowSelection placableShadowSelection;
+    public ShadowControlModeSelectionUI shadowControlModeSelectionUI;
     //public PlayerCombat combat;
     public PlayerCollisions collisions;
     public bool canPerformAirCombo;

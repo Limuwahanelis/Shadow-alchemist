@@ -11,8 +11,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Player Detector
+  - Player
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: test2
     uniqueID: 2486097745
+    locked: 0
+  - name: UI
+    uniqueID: 831282173
     locked: 0

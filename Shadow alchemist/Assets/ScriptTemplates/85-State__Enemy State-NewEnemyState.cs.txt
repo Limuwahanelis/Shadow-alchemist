@@ -1,0 +1,29 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : EnemyState
+{
+    public static Type StateType { get => typeof(#SCRIPTNAME#); }
+    private #ENEMYNAME#Context _context;
+    public #SCRIPTNAME#(GetState function) : base(function)
+    {
+    }
+
+    public override void Update()
+    {
+
+    }
+
+    public override void SetUpState(EnemyContext context)
+    {
+        base.SetUpState(context);
+        _context = (#ENEMYNAME#Context)context;
+    }
+
+    public override void InterruptState()
+    {
+     
+    }
+}

@@ -12,15 +12,10 @@ public class PlayerInputStack : MonoBehaviour
             _playerController.CurrentPlayerState.SetInputCommand(ref value);
         } }
 
-    private InputCommand _currentCommand;
-    private float _commandLifeTime;
     [SerializeField] float _commandMaxLife;
     [SerializeField] PlayerController _playerController;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private InputCommand _currentCommand;
+    private float _commandLifeTime;
 
     // Update is called once per frame
     void Update()
