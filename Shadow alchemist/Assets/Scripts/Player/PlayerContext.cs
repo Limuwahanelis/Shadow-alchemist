@@ -15,7 +15,7 @@ public class PlayerContext
     public PlayerShadowsInteractions shadowControl;
     public PlacableShadowSelection placableShadowSelection;
     public ShadowControlModeSelectionUI shadowControlModeSelectionUI;
-    //public PlayerCombat combat;
+    public PlayerCombat combat;
     public PlayerCollisions collisions;
     public bool canPerformAirCombo;
     public PlayerDodge playerDodge;
