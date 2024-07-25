@@ -15,7 +15,7 @@ public class ShadowFighterStatePatrol : EnemyState
 
     public override void Update()
     {
-        if (Vector2.Distance(_context.enemyTransform.position, _context.patrolPoints[_context.patrolPointIndex].position)>0.3)
+        if (MathF.Abs(_context.enemyTransform.position.x- _context.patrolPoints[_context.patrolPointIndex].position.x)>0.3f)
         {
             if (_context.enemyTransform.position.x - _context.patrolPoints[_context.patrolPointIndex].position.x <= 0) _context.movement.Move(Vector2.right);
             else _context.movement.Move(Vector2.left);
