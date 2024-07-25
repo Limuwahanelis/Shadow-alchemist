@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664f9e6bf8ab36141a05df560a9faec2, type: 3}
+  m_Name: Player fist attack 3
+  m_EditorClassIdentifier: 
+  _associatedAnimation: {fileID: 7400000, guid: 72b0cc2325e65a34b8fe902edc54833d, type: 2}
+  _damage: 15
+  _useFrames: 1
+  _nextAttackWindowStart: 0.6666667
+  _nextAttackWindowEnd: 1.0833334
+  _nextAttackWindowStartFrame: 40
+  _nextAttackWindowEndFrame: 65
+  _attackDamageStartFrame: 30
+  _attackDamageEndFrame: 40
+  _attackDamageStart: 0.5
+  _attackDamageEnd: 0.6666667

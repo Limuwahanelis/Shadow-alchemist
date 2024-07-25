@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a97b35a5aa2a3e4b8a55963157b2143, type: 3}
+  m_Name: Player fist combo 1
+  m_EditorClassIdentifier: 
+  comboList:
+  - {fileID: 11400000, guid: 275b06bdcb1ae0c4082edb2f4275e9a5, type: 2}
+  - {fileID: 11400000, guid: 7be6110406e52f04ca7bc9e512171672, type: 2}
+  - {fileID: 11400000, guid: 39ca432e1ecc2c248a062641f408fafd, type: 2}
