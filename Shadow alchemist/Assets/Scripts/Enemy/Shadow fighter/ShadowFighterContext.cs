@@ -9,6 +9,7 @@ public class ShadowFighterContext : EnemyContext
     public PlayerDetection backPlayerDetection;
     public List<Transform> patrolPoints;
     public ShadowFighterMovement movement;
+    public ShadowFighterCombat combat;
     public bool isEngagingWithPlayer;
     public int patrolPointIndex;
     public float minPlayerRange;

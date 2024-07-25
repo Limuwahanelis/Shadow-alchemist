@@ -9,6 +9,8 @@ public class ShadowFighterController : EnemyController
     [Header("Shadow Fighter"), SerializeField] ControllableShadowIwthEnemy _originShadow;
     [SerializeField] ShadowFighterMovement _shadowFighterMovement;
     [SerializeField] PlayerDetection _frontDetection;
+    [SerializeField] ShadowFighterCombat _shadowFighterCombat;
+    [SerializeField] EnemyHealthSystem _enemyHealthSystem;
     [SerializeField] float _minPlayerRange;
     [SerializeField] float _maxPlayerRange;
     [SerializeField] float _distanceFromShadowBounds;
@@ -23,14 +25,16 @@ public class ShadowFighterController : EnemyController
 
         _context = new ShadowFighterContext
         {
-            enemyTransform=transform,
+            enemyTransform = transform,
             ChangeEnemyState = ChangeState,
             animMan = _enemyAnimationManager,
-            playerTransform=_playerTransform,
+            playerTransform = _playerTransform,
+            coroutineHolder = this,
             originShadow = _originShadow,
             frontPlayerDetection = _frontDetection,
             patrolPoints = _patrolPoints,
             movement = _shadowFighterMovement,
+            combat = _shadowFighterCombat,
             patrolPointIndex = 0,
             distanceFromShadowBounds=_distanceFromShadowBounds,
             minPlayerRange = _minPlayerRange,

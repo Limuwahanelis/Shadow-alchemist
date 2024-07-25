@@ -16,9 +16,14 @@ public class ShadowFighterStateIdle : EnemyState
 
     public override void Update()
     {
+        
         if(_time >= _idletime)
         {
-            if(_context.patrolPoints.Count > 1) 
+            if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) < _context.minPlayerRange)
+            {
+                ChangeState(ShadowFighterStateAttacking.StateType);
+            }
+             else if (_context.patrolPoints.Count > 1) 
             {
                 ChangeState(ShadowFighterStatePatrol.StateType);
             }
