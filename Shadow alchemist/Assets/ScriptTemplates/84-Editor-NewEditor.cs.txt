@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(#SCRIPTNAME#))]
+[CustomEditor(typeof(#EDITORNAME#))]
 public class #SCRIPTNAME#: Editor
 {
     private void OnEnable()
@@ -12,6 +12,6 @@ public class #SCRIPTNAME#: Editor
     }
     public override void OnInspectorGUI()
     {
-
+        base.OnInspectorGUI();
     }
 }
