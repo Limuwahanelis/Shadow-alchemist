@@ -22,7 +22,7 @@ public class PlayerShadowMovingState : PlayerState
     {
         _context.shadowControl.Shadow.MoveShadow(2f, direction);
     }
-    public override void Attack()
+    public override void Attack(PlayerCombat.AttackModifiers modifier)
     {
         
     }
