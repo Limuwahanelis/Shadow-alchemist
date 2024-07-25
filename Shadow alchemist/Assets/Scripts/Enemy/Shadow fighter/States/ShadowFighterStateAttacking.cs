@@ -27,10 +27,11 @@ public class ShadowFighterStateAttacking : EnemyState
 
     public override void Update()
     {
-        if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) > _context.maxPlayerRange)
-        {
-            ChangeState(ShadowFighterStateChasePlayer.StateType);
-        }
+        //if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) > _context.maxPlayerRange)
+        //{
+        //    ChangeState(ShadowFighterStateChasePlayer.StateType);
+        //    _nextAttack = false;
+        //}
         _time += Time.deltaTime;
 
         switch(_comboCounter)
@@ -102,7 +103,7 @@ public class ShadowFighterStateAttacking : EnemyState
         _currentAttack = _context.combat.SkeletonCombos.comboList[_comboCounter - 1];
         for (int i = 0; i < _maxCombo; i++)
         {
-            _attacksAnimLengths[i] = _context.animMan.GetAnimationLength("Attack " + _comboCounter) / _context.animMan.GetAnimationSpeed("Attack " + _comboCounter);
+            _attacksAnimLengths[i] = _context.animMan.GetAnimationLength("Attack " + (i+1)) / _context.animMan.GetAnimationSpeed("Attack " + (i+1));
         }
         //if(_comboCounter)
         //_currentAttack = _context.combat.SkeletonCombos.comboList[_comboCounter - 1];

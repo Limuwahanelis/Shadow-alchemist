@@ -41,6 +41,7 @@ public class ShadowFighterStateChasePlayer : EnemyState
     {
         base.SetUpState(context);
         _context = (ShadowFighterContext)context;
+        _context.animMan.PlayAnimation("Walk");
     }
 
     public override void InterruptState()
