@@ -17,7 +17,7 @@ public class PlayerHealthSystem : HealthSystem,IPushable
     {
         if (hpBar == null) return;
         hpBar.SetMaxHealth(maxHP);
-        hpBar.SetHealth(currentHP);
+        hpBar.SetHealth(maxHP);
     }
     public void SetInvincibility(DamageType invincibiltyType)
     {
