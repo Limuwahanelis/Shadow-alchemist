@@ -13,6 +13,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     }
     public Collider2D ShadowCollider => _shadowCollider;
     public float TakenShadowBarValueFromTransmutation=>_valueForShadowPlacing;
+    public Bounds ShadowBounds => _spriteMask.bounds;
     [SerializeField] Transform _shadow;
     [Header("Shadow"),SerializeField] Collider2D _shadowCollider;
     [SerializeField] Transform _shadowMask;
@@ -22,7 +23,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     [SerializeField] CircleCollider2D _resetShadowCollider;
     [Header("Borders"),SerializeField] Transform _lefBorder;
     [SerializeField] Transform _rightBorder;
-    [SerializeField] SpriteMask _spriteMask;
+    [SerializeField] protected SpriteMask _spriteMask;
     [Header("Segments"),SerializeField] List<Transform> _segments;
     private List<PlacableShadow> _placedShadows= new List<PlacableShadow>();
     private float _transmutateValue = 0;

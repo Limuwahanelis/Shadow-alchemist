@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd4d54c32212e7240ab84aaff9841a04, type: 3}
+  m_Name: Shadow Fighter
+  m_EditorClassIdentifier: 
+  animations:
+  - name: New Animation
+    duration: 1
+    speed: 1
+    layer: 0
+  - name: Walk
+    duration: 1.35
+    speed: 1
+    layer: 0
+  - name: Attack 1
+    duration: 0.68333334
+    speed: 1
+    layer: 0
+  - name: Attack 2 from 1
+    duration: 0.84999996
+    speed: 1
+    layer: 0
+  - name: Attack 2
+    duration: 0.43333334
+    speed: 1
+    layer: 0
+  - name: Attack 1 return
+    duration: 0.43333334
+    speed: 1
+    layer: 0
+  - name: Hit
+    duration: 0.35000002
+    speed: 1
+    layer: 0
+  - name: Death
+    duration: 0.68333334
+    speed: 1
+    layer: 0
+  - name: Idle
+    duration: 0.68333334
+    speed: 1
+    layer: 0
+  - name: Attack 3
+    duration: 0.68333334
+    speed: 1
+    layer: 0
+  animatorController: {fileID: 9100000, guid: 3e2c5bba5f0b15b4dbc89eb48f2d2bb1, type: 2}

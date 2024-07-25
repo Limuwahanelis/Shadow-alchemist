@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a97b35a5aa2a3e4b8a55963157b2143, type: 3}
+  m_Name: Shadow fighter combo
+  m_EditorClassIdentifier: 
+  comboList:
+  - {fileID: 11400000, guid: b064bc9341d97a44685c7218e939be82, type: 2}
+  - {fileID: 11400000, guid: 90a0a25ab7801e944b14e2f94a338087, type: 2}
+  - {fileID: 11400000, guid: 1b58c79b2644ff94cbb912f82fd37bfc, type: 2}

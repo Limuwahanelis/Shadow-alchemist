@@ -18,6 +18,9 @@ public class #SCRIPTNAME# : EnemyController
         {
             ChangeEnemyState = ChangeState,
             animMan = _enemyAnimationManager,
+            enemyTransform = transform,
+            playerTransform = _playerTransform,
+
         };
         EnemyState.GetState getState = GetState;
         foreach (Type state in states)
