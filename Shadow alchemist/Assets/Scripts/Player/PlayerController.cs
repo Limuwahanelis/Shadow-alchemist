@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public bool IsAlive => _isAlive;
     public PlayerState CurrentPlayerState => _currentPlayerState;
     public GameObject MainBody=>_mainBody;
-    [SerializeField] Animator _anim;
+    [Header("Player"),SerializeField] Animator _anim;
     [SerializeField] GameObject _mainBody;
     [SerializeField] AnimationManager _playerAnimationManager;
     [SerializeField] PlayerMovement _playerMovement;
