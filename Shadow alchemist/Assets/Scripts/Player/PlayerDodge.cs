@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerDodge : MonoBehaviour
 {
-    [SerializeField] Collider2D _enemyCol;
+
+    [Tooltip("Collider esponsible for collisions with enemies"),SerializeField] Collider2D _enemyCol;
     public void SetEnemyCollider(bool isActive)
     {
         _enemyCol.enabled = isActive;
