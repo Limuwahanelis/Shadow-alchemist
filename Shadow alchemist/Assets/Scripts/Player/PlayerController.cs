@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AnimationManager _playerAnimationManager;
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] PlayerChecks _playerChecks;
-    //[SerializeField] PlayerCombat _playerCombat;
+    [SerializeField] PlayerCombat _playerCombat;
     [SerializeField] PlayerCollisions _playerCollisions;
     [SerializeField] PlayerDodge _playerDodge;
     [SerializeField] PlayerHealthSystem _playerHealthSystem;
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
             shadowControlModeSelectionUI = _shadowControlModeSelectionUI,
             checks = _playerChecks,
             placableShadowSelection = _placableShadowSelection,
-            //combat = _playerCombat,
+            combat = _playerCombat,
             canPerformAirCombo = true,
             shadowControl = _playerShadowsInteractions,
             collisions = _playerCollisions,
