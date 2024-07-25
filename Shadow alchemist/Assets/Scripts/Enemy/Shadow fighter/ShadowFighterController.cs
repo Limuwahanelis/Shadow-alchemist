@@ -10,7 +10,6 @@ public class ShadowFighterController : EnemyController
     [SerializeField] ShadowFighterMovement _shadowFighterMovement;
     [SerializeField] PlayerDetection _frontDetection;
     [SerializeField] ShadowFighterCombat _shadowFighterCombat;
-    [SerializeField] EnemyHealthSystem _enemyHealthSystem;
     [SerializeField] float _minPlayerRange;
     [SerializeField] float _maxPlayerRange;
     [SerializeField] float _distanceFromShadowBounds;

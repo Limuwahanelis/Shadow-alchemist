@@ -8,7 +8,7 @@ public class ShadowFighterCombat : MonoBehaviour
     {
         Fist1Attack1,Fist1Attack2,Fist2Attack1
     }
-    public ComboList SkeletonCombos => _comboList;
+    public ComboList ShadowFighterCombos => _comboList;
     //public ComboList SkeletonCombos => _comboList;
     public float[] AttacksDelays => _attacksDelays;
 
@@ -40,8 +40,8 @@ public class ShadowFighterCombat : MonoBehaviour
         switch (attackType)
         {
             case AttackType.Fist1Attack1: hitEnemies = Physics2D.OverlapBoxAll(_fistAttack1Pos.position, _fistAttack1Size, 0, _hitLayer).ToList(); break;
-            case AttackType.Fist1Attack2: hitEnemies = Physics2D.OverlapCircleAll(_fistAttack1ExtendedPos.position, _fistAttack1ExtendedSize, 0, _hitLayer).ToList(); break;
-            case AttackType.Fist2Attack1: hitEnemies = Physics2D.OverlapCircleAll(_fistAttack2Pos.position, _fistAttack2Size, 0, _hitLayer).ToList(); break;
+            case AttackType.Fist1Attack2: hitEnemies = Physics2D.OverlapCircleAll(_fistAttack1ExtendedPos.position, _fistAttack1ExtendedSize, _hitLayer).ToList(); break;
+            case AttackType.Fist2Attack1: hitEnemies = Physics2D.OverlapCircleAll(_fistAttack2Pos.position, _fistAttack2Size, _hitLayer).ToList(); break;
         }
 
 

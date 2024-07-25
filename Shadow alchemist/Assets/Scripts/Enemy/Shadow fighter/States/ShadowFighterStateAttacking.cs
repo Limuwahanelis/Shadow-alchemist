@@ -70,7 +70,7 @@ public class ShadowFighterStateAttacking : EnemyState
                     return;
                 }
                 _context.animMan.PlayAnimation($"Attack {_comboCounter}");
-                _currentAttack = _context.combat.SkeletonCombos.comboList[_comboCounter - 1];
+                _currentAttack = _context.combat.ShadowFighterCombos.comboList[_comboCounter - 1];
                 _animSpeed = _context.animMan.GetAnimationSpeed("Attack " + _comboCounter, "Base Layer");
                 _nextAttack = false;
                 _isDealingDmg = false;
@@ -100,7 +100,7 @@ public class ShadowFighterStateAttacking : EnemyState
         _checkForDmg = true;
         _context.animMan.PlayAnimation("Attack " + _comboCounter);
         _animSpeed = _context.animMan.GetAnimationSpeed("Attack " + _comboCounter, "Base Layer");
-        _currentAttack = _context.combat.SkeletonCombos.comboList[_comboCounter - 1];
+        _currentAttack = _context.combat.ShadowFighterCombos.comboList[_comboCounter - 1];
         for (int i = 0; i < _maxCombo; i++)
         {
             _attacksAnimLengths[i] = _context.animMan.GetAnimationLength("Attack " + (i+1)) / _context.animMan.GetAnimationSpeed("Attack " + (i+1));
@@ -114,15 +114,16 @@ public class ShadowFighterStateAttacking : EnemyState
         {
             if (!_isDealingDmg)
             {
-                if (_time > _attackDamageStartWindow)
+                if (_time > _context.combat.ShadowFighterCombos.comboList[((int)attackType)].AttackDamageWindowStart)
                 {
                     _attackCor = _context.coroutineHolder.StartCoroutine(_context.combat.AttackCor(attackType));
                     _isDealingDmg = true;
+                    _checkForDmg = false;
                 }
             }
             else
             {
-                if (_time > _attackDamageEndWindow)
+                if (_time > _context.combat.ShadowFighterCombos.comboList[((int)attackType)].AttackDamageWindowEnd)
                 {
                     _context.coroutineHolder.StopCoroutine(_attackCor);
                     _attackCor = null;
