@@ -19,4 +19,5 @@ public class PlayerContext
     public PlayerCollisions collisions;
     public bool canPerformAirCombo;
     public PlayerDodge playerDodge;
+    public ShadowSpikeSkill shadowSpikeSkill;
 }

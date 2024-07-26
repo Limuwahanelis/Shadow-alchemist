@@ -28,7 +28,7 @@ public class ShadowFighterStateChasePlayer : EnemyState
             }
             if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) > _context.maxPlayerEngageDistance)
             {
-                _context.enemyEngageLevel.engageLevel = EnemyEngageLevel.Level.NONE;
+                _context.engageLevel.engageLevel = EnemyEngageLevel.Level.NONE;
                 if (_context.patrolPoints.Count == 1) ChangeState(ShadowFighterStateGoBackToSpawn.StateType);
                 else if (_context.patrolPoints.Count > 1) ChangeState(ShadowFighterStatePatrol.StateType);
                 else ChangeState(ShadowFighterStateIdle.StateType);

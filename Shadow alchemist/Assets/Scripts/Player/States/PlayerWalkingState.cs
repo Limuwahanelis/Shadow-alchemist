@@ -44,6 +44,17 @@ public class PlayerWalkingState : PlayerState
         }
 
     }
+
+    public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
+    {
+        if(controlInput==PlayerInputHandler.ShadowControlInputs.SHADOW_SPIKE)
+        {
+            if(_context.shadowControl.Shadow)
+            {
+                ChangeState(PlayerCastingShadowSpikesState.StateType);
+            }
+        }
+    }
     public override void InterruptState()
     {
      

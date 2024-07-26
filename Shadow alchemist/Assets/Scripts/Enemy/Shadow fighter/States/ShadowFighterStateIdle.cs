@@ -19,7 +19,7 @@ public class ShadowFighterStateIdle : EnemyState
 
         if (_time >= _idletime)
         {
-            if (_context.enemyEngageLevel.engageLevel == EnemyEngageLevel.Level.ENGAGED)
+            if (_context.engageLevel.engageLevel == EnemyEngageLevel.Level.ENGAGED)
             {
                 ChangeState(ShadowFighterStateChasePlayer.StateType);
             }
@@ -49,7 +49,7 @@ public class ShadowFighterStateIdle : EnemyState
     private void PlayerDetected()
     {
         _context.frontPlayerDetection.OnPlayerDetectedUnity.RemoveListener(PlayerDetected);
-        _context.enemyEngageLevel.engageLevel = EnemyEngageLevel.Level.ENGAGED;
+        _context.engageLevel.engageLevel = EnemyEngageLevel.Level.ENGAGED;
         ChangeState(ShadowFighterStateChasePlayer.StateType);
     }
     public override void InterruptState()

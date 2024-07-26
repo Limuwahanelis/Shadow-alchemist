@@ -10,10 +10,13 @@ public class ShadowFighterController : EnemyController
     [SerializeField] ShadowFighterMovement _shadowFighterMovement;
     [SerializeField] PlayerDetection _frontDetection;
     [SerializeField] ShadowFighterCombat _shadowFighterCombat;
+    [SerializeField] GameObject _sweatDropSprite;
     [SerializeField] float _minPlayerRange;
     [SerializeField] float _maxPlayerRange;
     [SerializeField] float _distanceFromShadowBounds;
     [SerializeField] float _maxPlayerEngageDistance;
+
+
     [Header("Patrol"),SerializeField] List<Transform> _patrolPoints=new List<Transform>();
     protected ShadowFighterContext _context;
 
@@ -22,6 +25,9 @@ public class ShadowFighterController : EnemyController
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
     .Where(type => typeof(EnemyState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
         _healthSystem.OnDeathEvent += ShadowFighterDeath;
+        _healthSystem.OnWeakendStateReached += ShowSweatDrop;
+        _healthSystem.OnWeakendStateEnded += HideSweatDrop;
+        _healthSystem.OnHitEvent += TryStun;
         _context = new ShadowFighterContext
         {
             enemyTransform = transform,
@@ -30,7 +36,7 @@ public class ShadowFighterController : EnemyController
             playerTransform = _playerTransform,
             coroutineHolder = this,
             originShadow = _originShadow,
-            enemyEngageLevel = _enemyEngageLevel,
+            engageLevel = _enemyEngageLevel,
             frontPlayerDetection = _frontDetection,
             patrolPoints = _patrolPoints,
             movement = _shadowFighterMovement,
@@ -40,6 +46,7 @@ public class ShadowFighterController : EnemyController
             minPlayerRange = _minPlayerRange,
             maxPlayerRange = _maxPlayerRange,
             maxPlayerEngageDistance=_maxPlayerEngageDistance,
+            WaitFrameAndPerformFunction=WaitFrameAndExecuteFunction,
             DestroyItself=DestroyItself,
         };
         EnemyState.GetState getState = GetState;
@@ -53,17 +60,50 @@ public class ShadowFighterController : EnemyController
         newState.SetUpState(_context);
         _currentEnemyState = newState;
     }
+
+    void Update()
+    {
+        _currentEnemyState?.Update();
+    }
+    private void TryStun(DamageInfo info)
+    {
+        if(info.damageType==HealthSystem.DamageType.SHADOW_SPIKE)
+        {
+            if(_enemyWeakendStatus.IsWeakened)
+            {
+                EnemyState newState = GetState(typeof(ShadowFighterStateStunned));
+                newState.SetUpState(_context);
+                _currentEnemyState = newState;
+            }
+        }
+    }
+    private void ShowSweatDrop()
+    {
+        _enemyWeakendStatus.IsWeakened = true;
+        _sweatDropSprite.SetActive(true);
+    }
+    private void HideSweatDrop()
+    {
+        _enemyWeakendStatus.IsWeakened = false;
+        _sweatDropSprite.SetActive(false);
+    }
     public override void KillByLeavingShadow()
     {
         _healthSystem.OnDeathEvent -= ShadowFighterDeath;
-        EnemyState newState = GetState(typeof(ShadowFighterStateDead));
-        newState.SetUpState(_context);
-        _currentEnemyState = newState;
+        _enemyAnimationManager.SetAnimator(true);
+        WaitFrameAndExecuteFunction(() =>
+        {
+            EnemyState newState = GetState(typeof(ShadowFighterStateDead));
+            newState.SetUpState(_context);
+            _currentEnemyState = newState;
+        });
+
     }
     private void ShadowFighterDeath()
     {
         _healthSystem.OnDeathEvent -= ShadowFighterDeath;
         _originShadow.RemoveEnemyFromShadow(this);
+        HideSweatDrop();
         EnemyState newState = GetState(typeof(ShadowFighterStateDead));
         newState.SetUpState(_context);
         _currentEnemyState = newState;
@@ -71,10 +111,6 @@ public class ShadowFighterController : EnemyController
     private void DestroyItself()
     {
         Destroy(gameObject);
-    }
-    void Update()
-    {
-        _currentEnemyState?.Update();
     }
     private void OnDrawGizmosSelected()
     {
@@ -84,5 +120,12 @@ public class ShadowFighterController : EnemyController
         Gizmos.DrawLine(MainBody.transform.position + Vector3.right * MainBody.transform.localScale.x * _maxPlayerRange, transform.position + Vector3.right * MainBody.transform.localScale.x * _maxPlayerRange + Vector3.down * 2);
         Gizmos.color = Color.red;
         Gizmos.DrawLine(MainBody.transform.position + Vector3.right * MainBody.transform.localScale.x * _minPlayerRange, transform.position + Vector3.right * MainBody.transform.localScale.x * _minPlayerRange + Vector3.down * 2);
+    }
+    private void OnDestroy()
+    {
+        _healthSystem.OnHitEvent -= TryStun;
+        _healthSystem.OnDeathEvent -= ShadowFighterDeath;
+        _healthSystem.OnWeakendStateReached -= ShowSweatDrop;
+        _healthSystem.OnWeakendStateEnded -= HideSweatDrop;
     }
 }

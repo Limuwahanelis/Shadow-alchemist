@@ -57,6 +57,10 @@ MonoBehaviour:
     duration: 0.68333334
     speed: 1
     layer: 0
+  - name: Shadow cast
+    duration: 0.68333334
+    speed: 1
+    layer: 0
   - name: Attack1
     duration: 0.68333334
     speed: 1

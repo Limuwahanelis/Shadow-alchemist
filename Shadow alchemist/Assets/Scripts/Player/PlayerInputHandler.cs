@@ -9,7 +9,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public enum ShadowControlInputs
     {
-        CONTROL=1, TRANSMUTATE,MOVE,PLACE
+        CONTROL=1, TRANSMUTATE,MOVE,PLACE,ENTER,SHADOW_SPIKE
     }
     [SerializeField] PlayerController _player;
     [SerializeField] InputActionAsset _controls;
@@ -18,6 +18,8 @@ public class PlayerInputHandler : MonoBehaviour
     //private PlayerInteract _playerInteract;
     private bool isDownArrowPressed;
     private Vector2 _direction;
+    private float _horizontalModifier;
+    ShadowControlInputs shadowModifier;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +58,10 @@ public class PlayerInputHandler : MonoBehaviour
         _direction = value.Get<Vector2>();
         Logger.Log(_direction);
     }
-
+    void OnHorizontalModifier(InputValue value)
+    {
+        _horizontalModifier = value.Get<float>();
+    }
     private void OnAttack(InputValue value)
     {
         if (GlobalSettings.IsGamePaused) return;
@@ -82,9 +87,17 @@ public class PlayerInputHandler : MonoBehaviour
     }
     private void OnControlShadow(InputValue value)
     {
+        Logger.Log(value.Get<float>());
         if (GlobalSettings.IsGamePaused) return;
         if (_useCommands) _inputStack.CurrentCommand = new ShadowControlInputCommand(_player.CurrentPlayerState, (ShadowControlInputs)value.Get<int>());
-        else _player.CurrentPlayerState.ControlShadow((ShadowControlInputs)value.Get<float>());
+        else
+        {
+            if (isDownArrowPressed) shadowModifier = ShadowControlInputs.ENTER;
+            else if (_horizontalModifier != 0) shadowModifier = ShadowControlInputs.SHADOW_SPIKE;
+            else shadowModifier = (ShadowControlInputs)value.Get<float>();
+            _player.CurrentPlayerState.ControlShadow(shadowModifier);
+
+        }
     }
     private void OnInteract(InputValue value)
     {

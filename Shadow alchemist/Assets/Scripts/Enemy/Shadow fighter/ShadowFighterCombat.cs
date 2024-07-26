@@ -18,11 +18,13 @@ public class ShadowFighterCombat : MonoBehaviour
 
     [SerializeField] LayerMask _hitLayer;
 
+    [Header("Stun"), SerializeField] Sprite _stunSprite;
+    [SerializeField] Sprite _normalSprite;
+    [SerializeField] SpriteRenderer _spriteRenderer;
+
     [Header("Attacks")]
     [SerializeField] ComboList _comboList;
 
-    [Header("Attacks delays")]
-    [SerializeField] float[] _attacksDelays;
 
     [Header("Attacks positions")]
     [SerializeField] Transform _fistAttack1Pos;
@@ -34,6 +36,14 @@ public class ShadowFighterCombat : MonoBehaviour
     [SerializeField] float _fistAttack1ExtendedSize;
     [SerializeField] float _fistAttack2Size;
 
+
+    [Header("Attacks delays")]
+    [SerializeField] float[] _attacksDelays;
+    public void SetStunViusals(bool value)
+    {
+        if (value) _spriteRenderer.sprite = _stunSprite;
+        else _spriteRenderer.sprite = _normalSprite;
+    }
     public IEnumerator AttackCor(AttackType attackType)
     {
         List<Collider2D> hitEnemies = new List<Collider2D>();
@@ -74,6 +84,9 @@ public class ShadowFighterCombat : MonoBehaviour
         }
     }
 
+
+#if UNITY_EDITOR
+
     private void OnDrawGizmosSelected()
     {
         if (_debug)
@@ -84,4 +97,5 @@ public class ShadowFighterCombat : MonoBehaviour
             if (_fistAttack2Pos) Gizmos.DrawWireSphere(_fistAttack2Pos.position, _fistAttack2Size);
         }
     }
+#endif
 }
