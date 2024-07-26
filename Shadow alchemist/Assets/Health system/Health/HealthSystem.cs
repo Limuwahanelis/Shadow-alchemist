@@ -14,7 +14,8 @@ public class HealthSystem : MonoBehaviour,IDamagable
         ENEMY = 2,
         MISSILE = 4,
         TRAPS = 8,
-        ALL = 16,
+        SHADOW_SPIKE=16,
+        ALL = 32,
     }
     public Action<DamageInfo> OnHitEvent;
     public Action OnDeathEvent;
@@ -23,7 +24,7 @@ public class HealthSystem : MonoBehaviour,IDamagable
     [SerializeField] protected HealthBar hpBar;
     [SerializeField] protected int maxHP;
     [SerializeField] protected int currentHP;
-    private bool _isAlive=true;
+    protected bool _isAlive=true;
 
     // Start is called before the first frame update
     protected void Start()
