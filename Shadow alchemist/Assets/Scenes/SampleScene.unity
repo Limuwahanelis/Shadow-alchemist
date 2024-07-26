@@ -159,8 +159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInvincible: 0
   hpBar: {fileID: 614851002}
-  maxHP: 50
-  currentHP: 50
+  maxHP: 100
+  currentHP: 100
   _invincibilityAfterHitDuration: 0
   _playerCols: []
   pushHandle: {fileID: 0}
@@ -1282,6 +1282,7 @@ MonoBehaviour:
   _healthSystem: {fileID: 0}
   _playerTransform: {fileID: 9563013}
   _mainBody: {fileID: 201581055}
+  _enemyEngageLevel: {fileID: 0}
   _originShadow: {fileID: 870550240}
   _shadowFighterMovement: {fileID: 773280027}
   _frontDetection: {fileID: 1872648034}
@@ -1885,7 +1886,7 @@ MonoBehaviour:
   _jumpStrength: 10
   _rb: {fileID: 9563011}
   _player: {fileID: 9563012}
-  _dodgeSpeed: 4
+  _dodgeSpeed: 5
   _noFrictionMat: {fileID: 6200000, guid: 1827e15924f41a345ab8fd47d1b5336f, type: 2}
   _pushHandle: {fileID: 0}
   _pushForce: 0
@@ -7347,6 +7348,7 @@ MonoBehaviour:
   _healthSystem: {fileID: 0}
   _playerTransform: {fileID: 9563013}
   _mainBody: {fileID: 793484505}
+  _enemyEngageLevel: {fileID: 0}
   _originShadow: {fileID: 870550240}
   _shadowFighterMovement: {fileID: 682024610}
   _frontDetection: {fileID: 583312834}
@@ -9792,8 +9794,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7334920154252683886, guid: 03dcbd058d9bbab4084040136046fab2, type: 3}
     - target: {fileID: 3008250565904438931, guid: 807d68606c0099844b735af88a3a22a3, type: 3}
+      propertyPath: maxHP
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3008250565904438931, guid: 807d68606c0099844b735af88a3a22a3, type: 3}
       propertyPath: currentHP
-      value: 85
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3579588768303625205, guid: 807d68606c0099844b735af88a3a22a3, type: 3}
       propertyPath: m_Layer

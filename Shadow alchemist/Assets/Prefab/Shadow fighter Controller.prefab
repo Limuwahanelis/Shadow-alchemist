@@ -380,6 +380,7 @@ GameObject:
   - component: {fileID: 3286389688347197691}
   - component: {fileID: 8392363720775491241}
   - component: {fileID: 3008250565904438931}
+  - component: {fileID: 1774247910707069842}
   m_Layer: 0
   m_Name: Shadow fighter Controller
   m_TagString: Untagged
@@ -422,11 +423,11 @@ MonoBehaviour:
   _healthSystem: {fileID: 3008250565904438931}
   _playerTransform: {fileID: 0}
   _mainBody: {fileID: 3624347882405152256}
+  _enemyEngageLevel: {fileID: 1774247910707069842}
   _originShadow: {fileID: 0}
   _shadowFighterMovement: {fileID: 1911348818421419389}
   _frontDetection: {fileID: 6525159114020615296}
   _shadowFighterCombat: {fileID: 8121741388906509438}
-  _enemyHealthSystem: {fileID: 0}
   _minPlayerRange: 0.84
   _maxPlayerRange: 1.12
   _distanceFromShadowBounds: 0.33
@@ -511,6 +512,19 @@ MonoBehaviour:
   hpBar: {fileID: 40199828508363928}
   maxHP: 100
   currentHP: 100
+--- !u!114 &1774247910707069842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4411734771094842871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783247e5b17005a42a17d22d7c2da821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  engageLevel: 0
 --- !u!1 &7713520720564074397
 GameObject:
   m_ObjectHideFlags: 0

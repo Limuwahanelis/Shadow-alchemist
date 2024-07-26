@@ -15,6 +15,9 @@ public class ShadowFighterStateChasePlayer : EnemyState
     {
         if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) > _context.minPlayerRange)
         {
+            
+
+
             if (_context.enemyTransform.position.x - _context.originShadow.ShadowBounds.min.x > _context.distanceFromShadowBounds)
             {
                 if (_context.enemyTransform.position.x > _context.playerTransform.position.x) _context.movement.Move(Vector2.left);
@@ -23,8 +26,9 @@ public class ShadowFighterStateChasePlayer : EnemyState
             {
                 if (_context.enemyTransform.position.x < _context.playerTransform.position.x) _context.movement.Move(Vector2.right);
             }
-            if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) > _context.maxPlayerEngageDistance) 
+            if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) > _context.maxPlayerEngageDistance)
             {
+                _context.enemyEngageLevel.engageLevel = EnemyEngageLevel.Level.NONE;
                 if (_context.patrolPoints.Count == 1) ChangeState(ShadowFighterStateGoBackToSpawn.StateType);
                 else if (_context.patrolPoints.Count > 1) ChangeState(ShadowFighterStatePatrol.StateType);
                 else ChangeState(ShadowFighterStateIdle.StateType);
@@ -32,8 +36,12 @@ public class ShadowFighterStateChasePlayer : EnemyState
         }
         else
         {
-            
-             ChangeState(ShadowFighterStateAttacking.StateType);
+            // sub result - <0 mewans palyer is on right, else its on left. mult result - <0 player is in front, else player is behind
+            if ((_context.enemyTransform.position.x - _context.playerTransform.position.x) * ((int)_context.movement.FlipSide) <= 0)
+            {
+                ChangeState(ShadowFighterStateAttacking.StateType);
+            }
+            else _context.movement.FlipEnemy();
         }
     }
 
@@ -41,7 +49,15 @@ public class ShadowFighterStateChasePlayer : EnemyState
     {
         base.SetUpState(context);
         _context = (ShadowFighterContext)context;
-        _context.animMan.PlayAnimation("Walk");
+        if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) <= _context.minPlayerRange)
+        {
+            if ((_context.enemyTransform.position.x - _context.playerTransform.position.x) * ((int)_context.movement.FlipSide) <= 0)
+            {
+                ChangeState(ShadowFighterStateAttacking.StateType);
+            }
+            else _context.movement.FlipEnemy();
+        }
+         else _context.animMan.PlayAnimation("Walk");
     }
 
     public override void InterruptState()

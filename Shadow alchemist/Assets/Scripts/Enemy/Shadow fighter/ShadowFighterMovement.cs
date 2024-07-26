@@ -31,4 +31,12 @@ public class ShadowFighterMovement : MonoBehaviour
         }
         _rb.MovePosition(_rb.position + direction * _speed * Time.deltaTime);
     }
+    public void FlipEnemy()
+    {
+        _mainbodyScale.x = -_mainbodyScale.x;
+        _mainbodyScale.y = _shadowFighter.MainBody.transform.localScale.y;
+        _mainbodyScale.z = _shadowFighter.MainBody.transform.localScale.z;
+        _shadowFighter.MainBody.transform.localScale = _mainbodyScale;
+        _flipSide = -_flipSide;
+    }
 }

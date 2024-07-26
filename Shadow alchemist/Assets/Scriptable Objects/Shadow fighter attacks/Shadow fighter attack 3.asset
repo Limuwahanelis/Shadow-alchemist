@@ -19,7 +19,7 @@ MonoBehaviour:
   _nextAttackWindowEnd: 0
   _nextAttackWindowStartFrame: 0
   _nextAttackWindowEndFrame: 0
-  _attackDamageStartFrame: 20
-  _attackDamageEndFrame: 30
-  _attackDamageStart: 0.33333334
-  _attackDamageEnd: 0.5
+  _attackDamageStartFrame: 37
+  _attackDamageEndFrame: 47
+  _attackDamageStart: 0.62748533
+  _attackDamageEnd: 0.797076

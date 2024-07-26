@@ -30,6 +30,7 @@ public class ShadowFighterController : EnemyController
             playerTransform = _playerTransform,
             coroutineHolder = this,
             originShadow = _originShadow,
+            enemyEngageLevel = _enemyEngageLevel,
             frontPlayerDetection = _frontDetection,
             patrolPoints = _patrolPoints,
             movement = _shadowFighterMovement,

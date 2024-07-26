@@ -12,6 +12,7 @@ public abstract class EnemyController : MonoBehaviour
     [SerializeField] protected HealthSystem _healthSystem;
     [SerializeField] protected Transform _playerTransform;
     [SerializeField] protected GameObject _mainBody;
+    [SerializeField] protected EnemyEngageLevel _enemyEngageLevel;
     protected Dictionary<Type, EnemyState> _enemyStates = new Dictionary<Type, EnemyState>();
     protected EnemyState _currentEnemyState;
 
