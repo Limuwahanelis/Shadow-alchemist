@@ -16,7 +16,13 @@ public class ControllableShadowIwthEnemy : ControllableShadow
     {
         
     }
-
+    public void RemoveEnemyFromShadow(EnemyController enemy)
+    {
+        if (_enemies.Contains(enemy))
+        {
+            _enemies.Remove(enemy);
+        }
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         Rigidbody2D rb = collision.attachedRigidbody;
@@ -28,7 +34,7 @@ public class ControllableShadowIwthEnemy : ControllableShadow
                 if(_enemies.Contains(enemy))
                 {
                     _enemies.Remove(enemy);
-                    Destroy(enemy.gameObject);
+                    enemy.KillByLeavingShadow();
                 }
             }
         }

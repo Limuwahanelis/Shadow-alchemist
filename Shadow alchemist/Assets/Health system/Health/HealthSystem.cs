@@ -23,7 +23,7 @@ public class HealthSystem : MonoBehaviour,IDamagable
     [SerializeField] protected HealthBar hpBar;
     [SerializeField] protected int maxHP;
     [SerializeField] protected int currentHP;
-
+    private bool _isAlive=true;
 
     // Start is called before the first frame update
     protected void Start()
@@ -37,11 +37,13 @@ public class HealthSystem : MonoBehaviour,IDamagable
         currentHP -= info.dmg;
         hpBar.SetHealth(currentHP);
         OnHitEvent?.Invoke(info);
+        if (!_isAlive) return;
         if (currentHP <= 0) Kill();
     }
 
     public virtual void Kill()
     {
+        _isAlive = false;
         if (OnDeathEvent == null)
         {
             Destroy(gameObject);

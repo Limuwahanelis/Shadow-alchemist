@@ -25,4 +25,9 @@ public abstract class EnemyController : MonoBehaviour
         _currentEnemyState.InterruptState();
         _currentEnemyState = newState;
     }
+
+    public virtual void KillByLeavingShadow()
+    {
+
+    }
 }

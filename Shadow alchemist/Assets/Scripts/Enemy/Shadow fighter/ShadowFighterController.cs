@@ -21,7 +21,7 @@ public class ShadowFighterController : EnemyController
     {
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
     .Where(type => typeof(EnemyState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
-
+        _healthSystem.OnDeathEvent += ShadowFighterDeath;
         _context = new ShadowFighterContext
         {
             enemyTransform = transform,
@@ -39,17 +39,38 @@ public class ShadowFighterController : EnemyController
             minPlayerRange = _minPlayerRange,
             maxPlayerRange = _maxPlayerRange,
             maxPlayerEngageDistance=_maxPlayerEngageDistance,
+            DestroyItself=DestroyItself,
         };
         EnemyState.GetState getState = GetState;
         foreach (Type state in states)
         {
             _enemyStates.Add(state, (EnemyState)Activator.CreateInstance(state, getState));
         }
+        
+
         EnemyState newState = GetState(typeof(ShadowFighterStateIdle));
         newState.SetUpState(_context);
         _currentEnemyState = newState;
     }
-
+    public override void KillByLeavingShadow()
+    {
+        _healthSystem.OnDeathEvent -= ShadowFighterDeath;
+        EnemyState newState = GetState(typeof(ShadowFighterStateDead));
+        newState.SetUpState(_context);
+        _currentEnemyState = newState;
+    }
+    private void ShadowFighterDeath()
+    {
+        _healthSystem.OnDeathEvent -= ShadowFighterDeath;
+        _originShadow.RemoveEnemyFromShadow(this);
+        EnemyState newState = GetState(typeof(ShadowFighterStateDead));
+        newState.SetUpState(_context);
+        _currentEnemyState = newState;
+    }
+    private void DestroyItself()
+    {
+        Destroy(gameObject);
+    }
     void Update()
     {
         _currentEnemyState?.Update();
