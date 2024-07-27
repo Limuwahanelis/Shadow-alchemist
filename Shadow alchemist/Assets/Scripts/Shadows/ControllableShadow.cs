@@ -11,11 +11,13 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     {
         NONE=-1,LEFT,UP,RIGHT,DOWN
     }
+    public bool IsHorizontal => _isHorizontal;
     public Collider2D ShadowCollider => _shadowCollider;
     public float TakenShadowBarValueFromTransmutation=>_valueForShadowPlacing;
     public Bounds ShadowBounds => _spriteMask.bounds;
     [SerializeField] Transform _shadow;
     [Header("Shadow"),SerializeField] Collider2D _shadowCollider;
+    [SerializeField] bool _isHorizontal = true;
     [SerializeField] Transform _shadowMask;
     [SerializeField] float scaleToPoSrate = 2f;
     [SerializeField] float _totalShadowbarValue;
@@ -23,6 +25,8 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     [SerializeField] CircleCollider2D _resetShadowCollider;
     [Header("Borders"),SerializeField] Transform _lefBorder;
     [SerializeField] Transform _rightBorder;
+    [SerializeField] Transform _upperBorder;
+    [SerializeField] Transform _lowerBorder;
     [SerializeField] protected SpriteMask _spriteMask;
     [Header("Segments"),SerializeField] List<Transform> _segments;
     private List<PlacableShadow> _placedShadows= new List<PlacableShadow>();
@@ -48,16 +52,32 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
             StopCoroutine(_revertMoveCor);
             _revertMoveCor = null;
         }
-        if (direction == Vector2.right)
-            if (_shadow.transform.position.x - _shadow.transform.localScale.x / 2 < _lefBorder.position.x)
-            {
-                _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
-            }
-        if (direction == Vector2.left)
-            if (_shadow.transform.position.x + _shadow.transform.localScale.x / 2 > _rightBorder.position.x)
-            {
-                _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
-            }
+        if (_isHorizontal)
+        {
+            if (direction == Vector2.right)
+                if (_shadow.transform.position.x - _shadow.transform.localScale.x / 2 < _lefBorder.position.x)
+                {
+                    _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                }
+            if (direction == Vector2.left)
+                if (_shadow.transform.position.x + _shadow.transform.localScale.x / 2 > _rightBorder.position.x)
+                {
+                    _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                }
+        }
+        else
+        {
+            if (direction == Vector2.up)
+                if (_shadow.transform.position.y - _shadow.transform.localScale.y / 2 < _upperBorder.position.y)
+                {
+                    _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                }
+            if (direction == Vector2.down)
+                if (_shadow.transform.position.y + _shadow.transform.localScale.y / 2 > _upperBorder.position.x)
+                {
+                    _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                }
+        }
 
     }
     public void RevertMove()
