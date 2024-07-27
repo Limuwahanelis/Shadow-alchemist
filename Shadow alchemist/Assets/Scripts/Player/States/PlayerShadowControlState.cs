@@ -53,7 +53,9 @@ public class PlayerShadowControlState : PlayerState
     {
         base.SetUpState(context);
         _context.shadowControlModeSelectionUI.Deselect();
+        _context.shadowControlModeSelectionUI.SetShadowType(_context.shadowControl.Shadow.IsHorizontal);
         _context.shadowControlModeSelectionUI.SetVisiblity(true);
+        _context.animationManager.PlayAnimation("Shadow cast");
         //_isTransmutatingShadow = false;
         //if(_context.shadowControl.Shadow==null) ChangeState(PlayerIdleState.StateType);
     }

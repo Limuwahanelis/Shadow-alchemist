@@ -47,12 +47,12 @@ TagManager:
   - name: test2
     uniqueID: 2486097745
     locked: 0
-  - name: UI
-    uniqueID: 831282173
-    locked: 0
   - name: Enemy
     uniqueID: 500821169
     locked: 0
   - name: Player
     uniqueID: 2114120551
+    locked: 0
+  - name: UI
+    uniqueID: 831282173
     locked: 0
