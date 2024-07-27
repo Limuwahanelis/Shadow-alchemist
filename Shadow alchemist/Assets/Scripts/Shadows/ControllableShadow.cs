@@ -99,7 +99,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     }
     #endregion
 
-    public void Transmutate(Vector2 directionTotakeFrom)
+    public virtual void Transmutate(Vector2 directionTotakeFrom)
     {
 
         Vector2 newScale = _shadowMask.localScale;
