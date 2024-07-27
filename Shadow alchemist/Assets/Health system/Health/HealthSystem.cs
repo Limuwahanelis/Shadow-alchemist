@@ -20,6 +20,9 @@ public class HealthSystem : MonoBehaviour,IDamagable
     }
     public Action<DamageInfo> OnHitEvent;
     public Action OnDeathEvent;
+    public int CurrentHP => currentHP;
+    public int MaxHP => maxHP;
+
 
     [SerializeField] protected bool isInvincible;
     [SerializeField] protected HealthBar hpBar;
