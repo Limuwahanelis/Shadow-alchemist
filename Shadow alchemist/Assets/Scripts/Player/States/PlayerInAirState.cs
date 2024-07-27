@@ -30,10 +30,34 @@ public class PlayerInAirState : PlayerState
         }
         if(_context.checks.IsOnGround && math.abs( _context.playerMovement.PlayerRB.velocity.y) < 0.0004) 
         {
-            if (_jumpOnLanding) ChangeState(PlayerJumpingState.StateType);
+            if (_stateTypeToChangeFromInputCommand != null)
+            {
+                ChangeState(_stateTypeToChangeFromInputCommand);
+                _stateTypeToChangeFromInputCommand = null;
+            }
             else ChangeState(PlayerIdleState.StateType);
         }
         
+    }
+    public override void Attack(PlayerCombat.AttackModifiers modifier = PlayerCombat.AttackModifiers.NONE)
+    {
+        _stateTypeToChangeFromInputCommand = PlayerAttackingState.StateType;
+    }
+    public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
+    {
+        switch (controlInput)
+        {
+            case PlayerInputHandler.ShadowControlInputs.ENTER:
+                {
+                    if (_context.shadowControl.Shadow != null) _stateTypeToChangeFromInputCommand = PlayerShadowControlState.StateType; break;
+                }
+            case PlayerInputHandler.ShadowControlInputs.SHADOW_SPIKE:
+                {
+                    if (_context.shadowControl.Shadow != null) _stateTypeToChangeFromInputCommand = PlayerCastingShadowSpikesState.StateType; break;
+                }
+
+        }
+
     }
     public override void Jump()
     {
@@ -55,6 +79,7 @@ public class PlayerInAirState : PlayerState
     public override void UndoComand()
     {
         _jumpOnLanding = false;
+        _stateTypeToChangeFromInputCommand = null;
     }
     public override void InterruptState()
     {

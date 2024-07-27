@@ -89,12 +89,15 @@ public class PlayerInputHandler : MonoBehaviour
     {
         Logger.Log(value.Get<float>());
         if (GlobalSettings.IsGamePaused) return;
-        if (_useCommands) _inputStack.CurrentCommand = new ShadowControlInputCommand(_player.CurrentPlayerState, (ShadowControlInputs)value.Get<int>());
+        if (isDownArrowPressed) shadowModifier = ShadowControlInputs.ENTER;
+        else if (_horizontalModifier != 0) shadowModifier = ShadowControlInputs.SHADOW_SPIKE;
+        else shadowModifier = (ShadowControlInputs)value.Get<float>();
+        if (_useCommands)
+        {
+            _inputStack.CurrentCommand = new ShadowControlInputCommand(_player.CurrentPlayerState, shadowModifier);
+        }
         else
         {
-            if (isDownArrowPressed) shadowModifier = ShadowControlInputs.ENTER;
-            else if (_horizontalModifier != 0) shadowModifier = ShadowControlInputs.SHADOW_SPIKE;
-            else shadowModifier = (ShadowControlInputs)value.Get<float>();
             _player.CurrentPlayerState.ControlShadow(shadowModifier);
 
         }

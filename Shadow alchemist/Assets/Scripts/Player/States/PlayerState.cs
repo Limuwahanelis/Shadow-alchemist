@@ -8,7 +8,7 @@ public abstract class PlayerState
     protected PlayerContext _context;
     protected GetState _getType;
     protected InputCommand _inputCommand;
-
+    protected Type _stateTypeToChangeFromInputCommand;
     public PlayerState(GetState function)
     {
         _getType = function;
@@ -29,6 +29,7 @@ public abstract class PlayerState
     public abstract void InterruptState();
     public void ChangeState(Type newStateType)
     {
+        _stateTypeToChangeFromInputCommand = null;
         PlayerState state = _getType(newStateType);
         _context.ChangePlayerState(state);
         state.SetUpState(_context);
