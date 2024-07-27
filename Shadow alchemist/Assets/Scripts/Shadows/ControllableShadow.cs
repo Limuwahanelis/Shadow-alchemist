@@ -17,6 +17,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     public Bounds ShadowBounds => _spriteMask.bounds;
     [SerializeField] Transform _shadow;
     [Header("Shadow"),SerializeField] Collider2D _shadowCollider;
+    [SerializeField] bool _isTriangle;
     [SerializeField] bool _isHorizontal = true;
     [SerializeField] Transform _shadowMask;
     [SerializeField] float scaleToPoSrate = 2f;
@@ -40,8 +41,10 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     private List<DIR> _shadowSegmentsList= new List<DIR>();
     private DIR _lastTransmutationDirection=DIR.NONE;
     private bool _isReverting = false;
+    private Vector2[] _points;
     private void Start()
     {
+        if (_isTriangle) _points = ((PolygonCollider2D)_shadowCollider).points;
         _originalPosition = _shadow.position;
     }
     #region ShadowMove
@@ -205,6 +208,18 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                     _segmentsTaken++;
                 }
             }
+        }
+        if(_isTriangle)
+        {
+            _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+            _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+            _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+            _points[1].y = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+            _points[2].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+            _points[2].y = transform.InverseTransformPoint(_spriteMask.bounds.min).y;
+            _points[3].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+            _points[3].y = transform.InverseTransformPoint(_spriteMask.bounds.min).y;
+            ((PolygonCollider2D)_shadowCollider).points = _points;
         }
         _transmutateValue = 0;
     }
