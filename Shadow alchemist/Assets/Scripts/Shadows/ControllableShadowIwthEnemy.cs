@@ -17,6 +17,7 @@ public class ControllableShadowIwthEnemy : ControllableShadow
     // Start is called before the first frame update
     void Start()
     {
+        if (_enemies.Count < 1) return;
         _enemyAtLeftBound = _enemies[0];
         _enemyAtRightBound = _enemies[0];
     }
