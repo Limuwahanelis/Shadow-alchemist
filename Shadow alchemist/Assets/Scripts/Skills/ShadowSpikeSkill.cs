@@ -65,7 +65,7 @@ public class ShadowSpikeSkill : MonoBehaviour
             spike.SetUp(2 * _spikeAnimMan.GetAnimationLength("Spike"),_shadowToSpawnSpikes);
             _time = 0;
             Vector3 tmp = spawnPos;
-            tmp.x -= 1.5f;
+            tmp.x += 1.5f*_spikeDirection;
             if (!_shadowToSpawnSpikes.ShadowBounds.Contains(tmp)) yield break;
 
         }
