@@ -85,11 +85,21 @@ public class ShadowFighterController : EnemyController
     {
         if (_enemyWeakendStatus.Status != EnemyWeakendStatus.WeakenStatus.NONE) return;
         _enemyWeakendStatus.Status = EnemyWeakendStatus.WeakenStatus.WEAKEN;
-        if(info.damageType!=HealthSystem.DamageType.ENEMY)
+        if(info.damageType!=HealthSystem.DamageType.ENEMY && _healthSystem.CurrentHP>0)
         {
-            EnemyState newState = GetState(typeof(ShadowFighterStatePushed));
-            ChangeState(newState);
-            ((ShadowFighterStatePushed)newState).SetUpState(_context, info);
+            if (info.damageType == HealthSystem.DamageType.SHADOW_SPIKE) // if weakend state is achieved by spike damage - stun enemy immediately
+            {
+                EnemyState newState = GetState(typeof(ShadowFighterStateStunned));
+                newState.SetUpState(_context);
+                ChangeState(newState);
+                _currentEnemyState = newState;
+            }
+            else
+            {
+                EnemyState newState = GetState(typeof(ShadowFighterStatePushed));
+                ChangeState(newState);
+                ((ShadowFighterStatePushed)newState).SetUpState(_context, info);
+            }
         }
         _sweatDropSprite.SetActive(true);
 
