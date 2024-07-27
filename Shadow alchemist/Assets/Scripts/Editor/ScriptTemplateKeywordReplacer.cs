@@ -23,15 +23,21 @@ public class ScriptTemplateKeywordReplacer : UnityEditor.AssetModificationProces
        
         string myText = "Controller";
         string myText2 = "State";
+        string mytext3 = "Editor";
         int index2 = fileNameNoExtensions.IndexOf(myText2);
         int index=fileNameNoExtensions.IndexOf(myText);
-        if(index != -1)
+        int index3 = fileNameNoExtensions.IndexOf(mytext3);
+        if (index != -1)
         {
             newcontent = newcontent.Replace("#ENEMYNAME#", fileNameNoExtensions.Substring(0, index));
         }
         if(index2 != -1) 
         {
             newcontent = newcontent.Replace("#ENEMYNAME#", fileNameNoExtensions.Substring(0, index2));
+        }
+        if(index3 != -1) 
+        {
+            newcontent = newcontent.Replace("#EDITORNAME#", fileNameNoExtensions.Substring(0, index3));
         }
         if (content != newcontent)
         {

@@ -27,12 +27,12 @@ public class ShadowFighterStatePatrol : EnemyState
             if(_context.patrolPointIndex==_context.patrolPoints.Count)
             {
                 _isGoingBack = true;
-                _context.patrolPointIndex--;
+                _context.patrolPointIndex-=2;
             }
             else if(_context.patrolPointIndex==-1)
             {
                 _isGoingBack=false;
-                _context.patrolPointIndex++;
+                _context.patrolPointIndex+=2;
             }
             ChangeState(ShadowFighterStateIdle.StateType);
         }
@@ -47,7 +47,7 @@ public class ShadowFighterStatePatrol : EnemyState
     }
     private void PlayerDetected()
     {
-        
+        _context.engageLevel.engageLevel = EnemyEngageLevel.Level.ENGAGED;
         ChangeState(ShadowFighterStateChasePlayer.StateType);
     }
     public override void InterruptState()

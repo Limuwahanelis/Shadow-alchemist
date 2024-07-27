@@ -50,7 +50,7 @@ MonoBehaviour:
     speed: 1
     layer: 0
   - name: Attack 3
-    duration: 0.68333334
+    duration: 0.96666664
     speed: 1
     layer: 0
   animatorController: {fileID: 9100000, guid: 3e2c5bba5f0b15b4dbc89eb48f2d2bb1, type: 2}

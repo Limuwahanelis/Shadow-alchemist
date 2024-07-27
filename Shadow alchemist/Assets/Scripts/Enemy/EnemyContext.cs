@@ -12,4 +12,8 @@ public abstract class EnemyContext
     public Transform enemyTransform;
     public Rigidbody2D rb;
     public MonoBehaviour coroutineHolder;
+    public EnemyEngageLevel engageLevel;
+    public EnemyWeakendStatus weakendStatus;
+    public Func<Action, Coroutine> WaitFrameAndPerformFunction;
+    
 }

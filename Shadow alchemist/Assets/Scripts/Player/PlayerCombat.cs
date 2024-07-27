@@ -12,18 +12,18 @@ public class PlayerCombat : MonoBehaviour
     }
     public enum AttackType
     {
-        NORMAL,JUMPING,AIR_SLAM_LOOP,AIR_SLAM_LAND
+        FIST1,FIST2,FIST3
     }
 
 #if UNITY_EDITOR
-    [SerializeField] bool _debug;
+    [Header("Debug"),SerializeField] bool _debug;
 #endif
+    public ComboList PlayerCombos => _comboList;
+    public ComboList PlayerAirCombos => _airComboList;
+    public ComboAttack JumpAttack => _airJumpAttack;
+    [Header("Combat"),SerializeField] LayerMask enemyLayer;
     public float SlamSpeed;
-    //public ComboList PlayerCombos => _comboList;
-    //public ComboList PlayerAirCombos => _airComboList;
-    //public ComboAttack JumpAttack=>_airJumpAttack;
-    public LayerMask enemyLayer;
-    [SerializeField] float attackRange;
+    
     [SerializeField] int attackDamage;
     [SerializeField] SpriteRenderer _spriteRenderer;
     public Sprite playerHitSprite;
@@ -32,19 +32,20 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] AnimationManager _animMan;
     [Header("Attacks")]
 
-    //[SerializeField] ComboList _comboList;
-    //[SerializeField] ComboList _airComboList;
-    //[SerializeField] ComboAttack _airJumpAttack;
+    [SerializeField] ComboList _comboList;
+    [SerializeField] ComboList _airComboList;
+    [SerializeField] ComboAttack _airJumpAttack;
 
     [Header("Attacks positions")]
 
-    [SerializeField] Transform _attackPos;
-    [SerializeField] Transform _jumpAttackPos;
-    [SerializeField] Transform _airSlamLoopAttackPos;
+    [SerializeField] Transform _fistAttack1Pos;
+    [SerializeField] Transform _fistAttack2Pos;
+    [SerializeField] Transform _fistAttack3Pos;
     [SerializeField] Transform _airSlamLandingAttackPos;
     [Header("Attacks sizes")]
-    [SerializeField] Vector2 _jumpAttackSize;
-    [SerializeField] Vector2 _airSlamLoopAttackSize;
+    [SerializeField] Vector2 _fistAttack1Size;
+    [SerializeField] Vector2 _fistAttack2Size;
+    [SerializeField] Vector2 _fistAttack3Size;
     [SerializeField] Vector2 _airSlamLandingAttackSize;
 
     private Coroutine airAttackCor;
@@ -78,10 +79,9 @@ public class PlayerCombat : MonoBehaviour
         List<Collider2D> hitEnemies = new List<Collider2D>() ;
         switch (attackType)
         {
-            case AttackType.NORMAL: hitEnemies = Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer).ToList(); break;
-            case AttackType.JUMPING: hitEnemies = Physics2D.OverlapBoxAll(_attackPos.position, _jumpAttackSize, 0,enemyLayer).ToList(); break;
-            case AttackType.AIR_SLAM_LOOP: hitEnemies = Physics2D.OverlapBoxAll(_airSlamLoopAttackPos.position, _airSlamLoopAttackSize, 0,enemyLayer).ToList(); break;
-            case AttackType.AIR_SLAM_LAND: hitEnemies = Physics2D.OverlapBoxAll(_airSlamLandingAttackPos.position, _airSlamLandingAttackSize, 0,enemyLayer).ToList(); break;
+            case AttackType.FIST1: hitEnemies = Physics2D.OverlapBoxAll(_fistAttack1Pos.position, _fistAttack2Size, 0,enemyLayer).ToList(); break;
+            case AttackType.FIST2: hitEnemies = Physics2D.OverlapBoxAll(_fistAttack2Pos.position, _fistAttack2Size, 0,enemyLayer).ToList(); break;
+            case AttackType.FIST3: hitEnemies = Physics2D.OverlapBoxAll(_fistAttack3Pos.position, _fistAttack3Size, 0, enemyLayer).ToList(); break;
         }
 
         
@@ -89,7 +89,7 @@ public class PlayerCombat : MonoBehaviour
         for (; index < hitEnemies.Count; index++)
         {
             IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
-            if (tmp != null) tmp.TakeDamage(new DamageInfo(attackDamage,PlayerHealthSystem.DamageType.ENEMY,transform.position));
+            if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage,PlayerHealthSystem.DamageType.PLAYER, transform.position));
         }
         yield return null;
         while (true)
@@ -97,8 +97,9 @@ public class PlayerCombat : MonoBehaviour
             Collider2D[] colliders = null;
             switch (attackType)
             {
-                case AttackType.NORMAL: colliders = Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer); break;
-                case AttackType.JUMPING: colliders = Physics2D.OverlapBoxAll(_attackPos.position, _jumpAttackSize, 0, enemyLayer); break;
+                case AttackType.FIST1: colliders = Physics2D.OverlapBoxAll(_fistAttack1Pos.position, _fistAttack2Size, 0, enemyLayer); break;
+                case AttackType.FIST2: colliders = Physics2D.OverlapBoxAll(_fistAttack2Pos.position, _fistAttack2Size, 0, enemyLayer); break;
+                case AttackType.FIST3: colliders = Physics2D.OverlapBoxAll(_fistAttack3Pos.position, _fistAttack3Size, 0, enemyLayer); break;
             }
             for (int i = 0; i < colliders.Length; i++)
             {
@@ -106,36 +107,9 @@ public class PlayerCombat : MonoBehaviour
                 {
                     hitEnemies.Add(colliders[i]);
                     IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
-                    if (tmp != null) tmp.TakeDamage(new DamageInfo(attackDamage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
+                    if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.PLAYER, transform.position));
                 }
             }
-            yield return null;
-        }
-    }
-    public IEnumerator AirAttackCor()
-    {
-        float airAttackTime = 0f;
-        List<Collider2D> hitEnemies = new List<Collider2D>(Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer));
-        int index = 0;
-        for (; index < hitEnemies.Count; index++)
-        {
-            IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
-            if (tmp != null) tmp.TakeDamage(new DamageInfo(attackDamage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
-        }
-        yield return null;
-        while (airAttackTime <= _animMan.GetAnimationLength("Air attack"))
-        {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(_attackPos.position, attackRange, enemyLayer);
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                if (!hitEnemies.Contains(colliders[i]))
-                {
-                    hitEnemies.Add(colliders[i]);
-                    IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
-                    if (tmp != null) tmp.TakeDamage(new DamageInfo(attackDamage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
-                }
-            }
-            airAttackTime += Time.deltaTime;
             yield return null;
         }
     }
@@ -145,9 +119,9 @@ public class PlayerCombat : MonoBehaviour
     {
         if (_debug)
         {
-            if (_attackPos != null) Gizmos.DrawWireSphere(_attackPos.position, attackRange);
-            if (_jumpAttackPos != null) Gizmos.DrawWireCube(_jumpAttackPos.position, _jumpAttackSize);
-            if (_airSlamLoopAttackPos != null) Gizmos.DrawWireCube(_airSlamLoopAttackPos.position, _airSlamLoopAttackSize);
+            if (_fistAttack1Pos != null) Gizmos.DrawWireCube(_fistAttack1Pos.position, _fistAttack1Size);
+            if (_fistAttack2Pos != null) Gizmos.DrawWireCube(_fistAttack2Pos.position, _fistAttack2Size);
+            if (_fistAttack3Pos != null) Gizmos.DrawWireCube(_fistAttack3Pos.position, _fistAttack3Size);
             if (_airSlamLandingAttackPos != null) Gizmos.DrawWireCube(_airSlamLandingAttackPos.position, _airSlamLandingAttackSize);
         }
     }

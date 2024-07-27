@@ -12,18 +12,19 @@ public class PlayerController : MonoBehaviour
     public bool IsAlive => _isAlive;
     public PlayerState CurrentPlayerState => _currentPlayerState;
     public GameObject MainBody=>_mainBody;
-    [SerializeField] Animator _anim;
+    [Header("Player"),SerializeField] Animator _anim;
     [SerializeField] GameObject _mainBody;
     [SerializeField] AnimationManager _playerAnimationManager;
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] PlayerChecks _playerChecks;
-    //[SerializeField] PlayerCombat _playerCombat;
+    [SerializeField] PlayerCombat _playerCombat;
     [SerializeField] PlayerCollisions _playerCollisions;
     [SerializeField] PlayerDodge _playerDodge;
     [SerializeField] PlayerHealthSystem _playerHealthSystem;
     [SerializeField] PlayerShadowsInteractions _playerShadowsInteractions;
     [SerializeField] PlacableShadowSelection _placableShadowSelection;
     [SerializeField] ShadowControlModeSelectionUI _shadowControlModeSelectionUI;
+    [SerializeField] ShadowSpikeSkill _shadowSpikeSkill;
     private PlayerState _currentPlayerState;
     private PlayerContext _context;
     private Dictionary<Type, PlayerState> playerStates = new Dictionary<Type, PlayerState>();
@@ -45,7 +46,8 @@ public class PlayerController : MonoBehaviour
             shadowControlModeSelectionUI = _shadowControlModeSelectionUI,
             checks = _playerChecks,
             placableShadowSelection = _placableShadowSelection,
-            //combat = _playerCombat,
+            shadowSpikeSkill = _shadowSpikeSkill,
+            combat = _playerCombat,
             canPerformAirCombo = true,
             shadowControl = _playerShadowsInteractions,
             collisions = _playerCollisions,

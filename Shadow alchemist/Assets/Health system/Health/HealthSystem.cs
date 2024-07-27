@@ -14,7 +14,9 @@ public class HealthSystem : MonoBehaviour,IDamagable
         ENEMY = 2,
         MISSILE = 4,
         TRAPS = 8,
-        ALL = 16,
+        SHADOW_SPIKE=16,
+        PLAYER=32,
+        ALL = 64,
     }
     public Action<DamageInfo> OnHitEvent;
     public Action OnDeathEvent;
@@ -23,7 +25,7 @@ public class HealthSystem : MonoBehaviour,IDamagable
     [SerializeField] protected HealthBar hpBar;
     [SerializeField] protected int maxHP;
     [SerializeField] protected int currentHP;
-
+    protected bool _isAlive=true;
 
     // Start is called before the first frame update
     protected void Start()
@@ -37,11 +39,13 @@ public class HealthSystem : MonoBehaviour,IDamagable
         currentHP -= info.dmg;
         hpBar.SetHealth(currentHP);
         OnHitEvent?.Invoke(info);
+        if (!_isAlive) return;
         if (currentHP <= 0) Kill();
     }
 
     public virtual void Kill()
     {
+        _isAlive = false;
         if (OnDeathEvent == null)
         {
             Destroy(gameObject);

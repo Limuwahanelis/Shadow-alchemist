@@ -28,7 +28,7 @@ public class PlayerShadowPlacingState : PlayerState
         base.SetUpState(context);
         ShowShadowSelection();
     }
-    public override void Attack()
+    public override void Attack(PlayerCombat.AttackModifiers modifier)
     {
         if (_isSelectingPlacableShadow)
         {

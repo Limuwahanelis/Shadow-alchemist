@@ -30,7 +30,7 @@ public class PlayerIdleState : PlayerState
     }
     public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
     {
-        if (controlInput != PlayerInputHandler.ShadowControlInputs.CONTROL) return;
+        if (controlInput != PlayerInputHandler.ShadowControlInputs.ENTER) return;
         if(_context.shadowControl.Shadow==null) return;
         ChangeState(PlayerShadowControlState.StateType);
     }
@@ -38,14 +38,14 @@ public class PlayerIdleState : PlayerState
     {
         ChangeState(PlayerDodgingState.StateType);
     }
-    //public override void Attack(PlayerCombat.AttackModifiers modifier)
-    //{
-    //    switch (modifier)
-    //    {
-    //        case PlayerCombat.AttackModifiers.NONE: ChangeState(PlayerAttackingState.StateType); break;
-    //        case PlayerCombat.AttackModifiers.UP_ARROW: ChangeState(PlayerJumpingAttackState.StateType); break;
-    //    }
-    //}
+    public override void Attack(PlayerCombat.AttackModifiers modifier)
+    {
+        switch (modifier)
+        {
+            case PlayerCombat.AttackModifiers.NONE: ChangeState(PlayerAttackingState.StateType); break;
+            //case PlayerCombat.AttackModifiers.UP_ARROW: ChangeState(PlayerJumpingAttackState.StateType); break;
+        }
+    }
     public override void InterruptState()
     {
         

@@ -8,7 +8,7 @@ public class ShadowFighterCombat : MonoBehaviour
     {
         Fist1Attack1,Fist1Attack2,Fist2Attack1
     }
-    public ComboList SkeletonCombos => _comboList;
+    public ComboList ShadowFighterCombos => _comboList;
     //public ComboList SkeletonCombos => _comboList;
     public float[] AttacksDelays => _attacksDelays;
 
@@ -18,11 +18,13 @@ public class ShadowFighterCombat : MonoBehaviour
 
     [SerializeField] LayerMask _hitLayer;
 
+    [Header("Stun"), SerializeField] Sprite _stunSprite;
+    [SerializeField] Sprite _normalSprite;
+    [SerializeField] SpriteRenderer _spriteRenderer;
+
     [Header("Attacks")]
     [SerializeField] ComboList _comboList;
 
-    [Header("Attacks delays")]
-    [SerializeField] float[] _attacksDelays;
 
     [Header("Attacks positions")]
     [SerializeField] Transform _fistAttack1Pos;
@@ -34,14 +36,22 @@ public class ShadowFighterCombat : MonoBehaviour
     [SerializeField] float _fistAttack1ExtendedSize;
     [SerializeField] float _fistAttack2Size;
 
+
+    [Header("Attacks delays")]
+    [SerializeField] float[] _attacksDelays;
+    public void SetStunViusals(bool value)
+    {
+        if (value) _spriteRenderer.sprite = _stunSprite;
+        else _spriteRenderer.sprite = _normalSprite;
+    }
     public IEnumerator AttackCor(AttackType attackType)
     {
         List<Collider2D> hitEnemies = new List<Collider2D>();
         switch (attackType)
         {
             case AttackType.Fist1Attack1: hitEnemies = Physics2D.OverlapBoxAll(_fistAttack1Pos.position, _fistAttack1Size, 0, _hitLayer).ToList(); break;
-            case AttackType.Fist1Attack2: hitEnemies = Physics2D.OverlapCircleAll(_fistAttack1ExtendedPos.position, _fistAttack1ExtendedSize, 0, _hitLayer).ToList(); break;
-            case AttackType.Fist2Attack1: hitEnemies = Physics2D.OverlapCircleAll(_fistAttack2Pos.position, _fistAttack2Size, 0, _hitLayer).ToList(); break;
+            case AttackType.Fist1Attack2: hitEnemies = Physics2D.OverlapCircleAll(_fistAttack1ExtendedPos.position, _fistAttack1ExtendedSize, _hitLayer).ToList(); break;
+            case AttackType.Fist2Attack1: hitEnemies = Physics2D.OverlapCircleAll(_fistAttack2Pos.position, _fistAttack2Size, _hitLayer).ToList(); break;
         }
 
 
@@ -74,6 +84,9 @@ public class ShadowFighterCombat : MonoBehaviour
         }
     }
 
+
+#if UNITY_EDITOR
+
     private void OnDrawGizmosSelected()
     {
         if (_debug)
@@ -84,4 +97,5 @@ public class ShadowFighterCombat : MonoBehaviour
             if (_fistAttack2Pos) Gizmos.DrawWireSphere(_fistAttack2Pos.position, _fistAttack2Size);
         }
     }
+#endif
 }

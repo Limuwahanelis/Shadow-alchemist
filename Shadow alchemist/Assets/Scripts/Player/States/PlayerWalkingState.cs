@@ -35,15 +35,26 @@ public class PlayerWalkingState : PlayerState
     {
         ChangeState(PlayerDodgingState.StateType);
     }
-    //public override void Attack(PlayerCombat.AttackModifiers modifier)
-    //{
-    //    switch (modifier)
-    //    {
-    //        case PlayerCombat.AttackModifiers.NONE: ChangeState(PlayerAttackingState.StateType); break;
-    //        case PlayerCombat.AttackModifiers.UP_ARROW: ChangeState(PlayerJumpingAttackState.StateType); break;
-    //    }
-        
-    //}
+    public override void Attack(PlayerCombat.AttackModifiers modifier)
+    {
+        switch (modifier)
+        {
+            case PlayerCombat.AttackModifiers.NONE: ChangeState(PlayerAttackingState.StateType); break;
+            //case PlayerCombat.AttackModifiers.UP_ARROW: ChangeState(PlayerJumpingAttackState.StateType); break;
+        }
+
+    }
+
+    public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
+    {
+        if(controlInput==PlayerInputHandler.ShadowControlInputs.SHADOW_SPIKE)
+        {
+            if(_context.shadowControl.Shadow)
+            {
+                ChangeState(PlayerCastingShadowSpikesState.StateType);
+            }
+        }
+    }
     public override void InterruptState()
     {
      

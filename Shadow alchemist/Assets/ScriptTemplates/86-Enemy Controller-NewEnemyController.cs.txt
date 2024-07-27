@@ -20,6 +20,8 @@ public class #SCRIPTNAME# : EnemyController
             animMan = _enemyAnimationManager,
             enemyTransform = transform,
             playerTransform = _playerTransform,
+            engageLevel = _enemyEngageLevel,
+            weakendStatus = _enemyWeakendStatus,
 
         };
         EnemyState.GetState getState = GetState;

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664f9e6bf8ab36141a05df560a9faec2, type: 3}
   m_Name: Shadow fighter attack 3
   m_EditorClassIdentifier: 
-  _associatedAnimation: {fileID: 0}
-  _damage: 0
+  _associatedAnimation: {fileID: 7400000, guid: 9b056700f7ca0f74c8a7193d067ded16, type: 2}
+  _damage: 7
   _useFrames: 1
   _nextAttackWindowStart: 0
   _nextAttackWindowEnd: 0
   _nextAttackWindowStartFrame: 0
   _nextAttackWindowEndFrame: 0
-  _attackDamageStartFrame: 20
-  _attackDamageEndFrame: 30
-  _attackDamageStart: 0
-  _attackDamageEnd: 0
+  _attackDamageStartFrame: 37
+  _attackDamageEndFrame: 47
+  _attackDamageStart: 0.62748533
+  _attackDamageEnd: 0.797076

@@ -23,7 +23,7 @@ public class PlayerShadowControlState : PlayerState
     {
 
     }
-    public override void Attack()
+    public override void Attack(PlayerCombat.AttackModifiers modifier)
     {
         _context.shadowControlModeSelectionUI.SetVisiblity(false);
         ChangeState(PlayerShadowPlacingState.StateType);
