@@ -66,14 +66,18 @@ public class PlayerShadowsInteractions : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ControllableShadow shadow = collision.attachedRigidbody.GetComponent<ControllableShadow>();
-        if (shadow != null)
+        if (collision.attachedRigidbody)
         {
-            _shadow = shadow; Logger.Log($"{_shadow}  {Shadow}");
-            _shadowBar.SetVisibility(true);
+            ControllableShadow shadow = collision.attachedRigidbody.GetComponent<ControllableShadow>();
+            if (shadow != null)
+            {
+                _shadow = shadow; Logger.Log($"{_shadow}  {Shadow}");
+                _shadowBar.SetVisibility(true);
+            }
+            ITransmutableSadow shadow2 = collision.attachedRigidbody.GetComponent<ITransmutableSadow>();
+            if (shadow2 != null) _transmutablkeShadow = shadow2;
         }
-        ITransmutableSadow shadow2 = collision.attachedRigidbody.GetComponent<ITransmutableSadow>();
-        if(shadow2!=null)_transmutablkeShadow = shadow2;
+
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
