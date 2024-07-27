@@ -54,6 +54,6 @@ public class ShadowFighterStateIdle : EnemyState
     }
     public override void InterruptState()
     {
-     
+        _context.frontPlayerDetection.OnPlayerDetectedUnity.RemoveListener(PlayerDetected);
     }
 }

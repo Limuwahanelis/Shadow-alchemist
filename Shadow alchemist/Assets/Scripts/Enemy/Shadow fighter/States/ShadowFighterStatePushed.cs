@@ -14,19 +14,14 @@ public class ShadowFighterStatePushed : EnemyState
 
     public override void Update()
     {
-        if (!_isOffGround)
+        if (!_context.enemyChecks.IsTouchingGround && !_isOffGround)
         {
-            if (!_context.enemyChecks.IsTouchingGround)
-            {
                 _isOffGround=true;
-            }
         }
-        else
+        if(_context.enemyChecks.IsTouchingGround && _isOffGround)
         {
-            if(_context.enemyChecks.IsTouchingGround)
-            {
+            _isOffGround=false;
                 _context.WaitFrameAndPerformFunction(() => { ChangeState(ShadowFighterStateIdle.StateType); });
-            }
         }
     }
     public void SetUpState(EnemyContext context,DamageInfo damageInfo)
