@@ -5007,6 +5007,8 @@ MonoBehaviour:
   _enemies:
   - {fileID: 273975744}
   - {fileID: 1378905832}
+  dmgOutsideShadow: 2
+  _timeToDealDmgOutside: 1
 --- !u!4 &870550241
 Transform:
   m_ObjectHideFlags: 0
@@ -7834,7 +7836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec56298519192e44ab49d2e5dc4cecdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsWeakened: 0
+  Status: 0
 --- !u!1 &1442748859
 GameObject:
   m_ObjectHideFlags: 0
