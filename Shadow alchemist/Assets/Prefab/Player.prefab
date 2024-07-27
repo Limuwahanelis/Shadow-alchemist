@@ -2522,9 +2522,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ground:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1536
   groundCheckWidth: 0.68
-  groundCheckHeight: 0.15
+  groundCheckHeight: 0.11
   groundCheckPos: {fileID: 7340837962693590337}
   slideColWallCheck: {fileID: 8953816675118419728}
   wallCheckPos: {fileID: 0}
@@ -2555,7 +2555,7 @@ MonoBehaviour:
   SlamSpeed: 0
   attackDamage: 0
   _spriteRenderer: {fileID: 7288626959781552909}
-  playerHitSprite: {fileID: 0}
+  playerHitSprite: {fileID: 12150104, guid: 587ec5e70366bb04390d27788970684d, type: 3}
   _playerMovement: {fileID: 8079469185935410053}
   _playerController: {fileID: 539854141104504480}
   _animMan: {fileID: 9207697299974687746}
@@ -2582,8 +2582,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43567e2f9f0d57e419bbd2a0a690c132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpeed: 4
-  _jumpStrength: 10
+  _playerSpeed: 6.5
+  _jumpStrength: 9.5
   _rb: {fileID: 7068385989780141892}
   _player: {fileID: 539854141104504480}
   _dodgeSpeed: 5
