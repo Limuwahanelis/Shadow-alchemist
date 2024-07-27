@@ -89,7 +89,7 @@ public class PlayerCombat : MonoBehaviour
         for (; index < hitEnemies.Count; index++)
         {
             IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
-            if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage,PlayerHealthSystem.DamageType.ENEMY,transform.position));
+            if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage,PlayerHealthSystem.DamageType.PLAYER, transform.position));
         }
         yield return null;
         while (true)
@@ -107,39 +107,12 @@ public class PlayerCombat : MonoBehaviour
                 {
                     hitEnemies.Add(colliders[i]);
                     IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
-                    if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
+                    if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.PLAYER, transform.position));
                 }
             }
             yield return null;
         }
     }
-    //public IEnumerator AirAttackCor()
-    //{
-    //    float airAttackTime = 0f;
-    //    //List<Collider2D> hitEnemies = new List<Collider2D>(Physics2D.OverlapCircleAll(_fistAttack1Pos.position, _fistAttack1Size, enemyLayer));
-    //    int index = 0;
-    //    for (; index < hitEnemies.Count; index++)
-    //    {
-    //        IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
-    //        if (tmp != null) tmp.TakeDamage(new DamageInfo(attackDamage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
-    //    }
-    //    yield return null;
-    //    while (airAttackTime <= _animMan.GetAnimationLength("Air attack"))
-    //    {
-    //        Collider2D[] colliders = Physics2D.OverlapCircleAll(_fistAttack1Pos.position, _fistAttack1Size, enemyLayer);
-    //        for (int i = 0; i < colliders.Length; i++)
-    //        {
-    //            if (!hitEnemies.Contains(colliders[i]))
-    //            {
-    //                hitEnemies.Add(colliders[i]);
-    //                IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
-    //                if (tmp != null) tmp.TakeDamage(new DamageInfo(attackDamage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
-    //            }
-    //        }
-    //        airAttackTime += Time.deltaTime;
-    //        yield return null;
-    //    }
-    //}
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

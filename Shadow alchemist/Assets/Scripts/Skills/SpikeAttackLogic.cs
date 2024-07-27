@@ -18,19 +18,31 @@ public class SpikeAttackLogic : MonoBehaviour
     private float _time;
     private bool _isDespawning = false;
     private bool _isFirstHit = true;
+    private Coroutine _despawnCor;
+    private ControllableShadow _originShadow;
     private void Update()
     {
         if (_isDespawning) return;
+        if(!_originShadow.ShadowBounds.Contains(transform.position))
+        {
+            StopAttckCor();
+            _animationManager.PlayAnimation("Reverse spike");
+            _isDespawning = true;
+            StartCoroutine(DespawnCor());
+            return;
+        }
         _time += Time.deltaTime;
         if(_time > _timeToDespawnSpike)
         {
+            StopAttckCor();
             _animationManager.PlayAnimation("Reverse spike");
             _isDespawning = true;
             StartCoroutine(DespawnCor());
         }
     }
-    public void SetUp(float time)
+    public void SetUp(float time,ControllableShadow shadow)
     {
+        _originShadow = shadow;
         _timeToDespawnSpike = time;
         StartAttackCor();
     }
@@ -45,7 +57,7 @@ public class SpikeAttackLogic : MonoBehaviour
     public IEnumerator DespawnCor()
     {
         yield return new WaitForSeconds(_animationManager.GetAnimationLength("Spike"));
-        StopAttckCor();
+        
         Destroy(gameObject);
     }
     public IEnumerator AttackCor()
@@ -57,12 +69,17 @@ public class SpikeAttackLogic : MonoBehaviour
             IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
             if (tmp != null)
             {
-                tmp.TakeDamage(new DamageInfo(_damage, PlayerHealthSystem.DamageType.SHADOW_SPIKE, transform.position));
                 if (_isFirstHit)
                 {
-                    _isFirstHit = false;
-                    _timeToDespawnSpike += _durationOnHit;
+
+                    if (hitEnemies[index].GetComponentInParent<EnemyWeakendStatus>().Status == EnemyWeakendStatus.WeakenStatus.WEAKEN)
+                    {
+                        _isFirstHit = false;
+                        _timeToDespawnSpike += _durationOnHit;
+                    }
                 }
+                tmp.TakeDamage(new DamageInfo(_damage, PlayerHealthSystem.DamageType.SHADOW_SPIKE, transform.position));
+
             }
         }
         yield return null;
@@ -77,12 +94,17 @@ public class SpikeAttackLogic : MonoBehaviour
                     IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
                     if (tmp != null)
                     {
-                        tmp.TakeDamage(new DamageInfo(_damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
                         if (_isFirstHit)
                         {
-                            _isFirstHit = false;
-                            _timeToDespawnSpike += _durationOnHit;
+
+                            if (hitEnemies[index].GetComponentInParent<EnemyWeakendStatus>().Status == EnemyWeakendStatus.WeakenStatus.WEAKEN)
+                            {
+                                _isFirstHit = false;
+                                _timeToDespawnSpike += _durationOnHit;
+                            }
                         }
+                        tmp.TakeDamage(new DamageInfo(_damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
+
 
                     }
                 }

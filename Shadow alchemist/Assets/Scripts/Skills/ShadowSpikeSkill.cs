@@ -62,7 +62,7 @@ public class ShadowSpikeSkill : MonoBehaviour
             Vector3 spawnPos = _startTrans.position;
             spawnPos.x += i * _distanceBetweenSpikes* _spikeDirection;
             SpikeAttackLogic spike = Instantiate(_spikePrefab, spawnPos, _spikePrefab.transform.rotation, null).GetComponent<SpikeAttackLogic>();
-            spike.SetUp(2 * _spikeAnimMan.GetAnimationLength("Spike"));
+            spike.SetUp(2 * _spikeAnimMan.GetAnimationLength("Spike"),_shadowToSpawnSpikes);
             _time = 0;
             Vector3 tmp = spawnPos;
             tmp.x -= 1.5f;
