@@ -19,4 +19,9 @@ public static class Logger
         Debug.LogWarning(message);
     }
 
+    public static void Error(object message) 
+    {
+        Debug.LogError(message);
+    }
+
 }

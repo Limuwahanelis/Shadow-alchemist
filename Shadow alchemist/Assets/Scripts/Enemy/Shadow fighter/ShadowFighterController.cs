@@ -85,10 +85,14 @@ public class ShadowFighterController : EnemyController
     {
         if (_enemyWeakendStatus.Status != EnemyWeakendStatus.WeakenStatus.NONE) return;
         _enemyWeakendStatus.Status = EnemyWeakendStatus.WeakenStatus.WEAKEN;
+        if(info.damageType!=HealthSystem.DamageType.ENEMY)
+        {
+            EnemyState newState = GetState(typeof(ShadowFighterStatePushed));
+            ChangeState(newState);
+            ((ShadowFighterStatePushed)newState).SetUpState(_context, info);
+        }
         _sweatDropSprite.SetActive(true);
-        EnemyState newState = GetState(typeof(ShadowFighterStatePushed));
-        ChangeState(newState);
-        ((ShadowFighterStatePushed) newState).SetUpState(_context,info);
+
     }
     private void LeaveWeakendState()
     {
