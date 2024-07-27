@@ -11,7 +11,7 @@ public class PlayerCastingShadowSpikesState : PlayerState
     }
     public override void Update()
     {
-
+        PerformInputCommand();
     }
 
     public override void SetUpState(PlayerContext context)

@@ -57,7 +57,8 @@ public class PlayerAttackingState : PlayerAttackState
         }
         else if(_time>= _comboEndWindow)
         {
-            ChangeState(PlayerIdleState.StateType);
+            if(_stateTypeToChangeFromInputCommand!=null) ChangeState(_stateTypeToChangeFromInputCommand);
+            else ChangeState(PlayerIdleState.StateType);
         }
     }
 
@@ -79,6 +80,22 @@ public class PlayerAttackingState : PlayerAttackState
         _comboEndWindow = _currentAttack.AttackWindowEnd / _animSpeed;
         _attackDamageStartWindow = _currentAttack.AttackDamageWindowStart / _animSpeed;
         _attackDamageEndWindow = _currentAttack.AttackDamageWindowEnd / _animSpeed;
+    }
+    public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
+    {
+        switch (controlInput)
+        {
+            case PlayerInputHandler.ShadowControlInputs.ENTER:
+                {
+                    if (_context.shadowControl.Shadow != null) _stateTypeToChangeFromInputCommand = PlayerShadowControlState.StateType; break;
+                }
+            case PlayerInputHandler.ShadowControlInputs.SHADOW_SPIKE:
+                {
+                    if (_context.shadowControl.Shadow != null) _stateTypeToChangeFromInputCommand = PlayerCastingShadowSpikesState.StateType; break;
+                }
+
+        }
+
     }
     public override void Dodge()
     {

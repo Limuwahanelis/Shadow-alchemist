@@ -20,7 +20,8 @@ public class PlayerDodgingState : PlayerState
         if (_time >= _dodgeTime)
         {
             _context.playerMovement.StopPlayer();
-                ChangeState(PlayerIdleState.StateType);
+            if(_stateTypeToChangeFromInputCommand != null) ChangeState(_stateTypeToChangeFromInputCommand);
+             else ChangeState(PlayerIdleState.StateType);
             _context.playerDodge.SetEnemyCollider(true);
         }
     }
@@ -35,14 +36,35 @@ public class PlayerDodgingState : PlayerState
 #else 
         _dodgeTime /= _context.animationManager.GetAnimationSpeed("Dodge");
 #endif
-        Logger.Log("doge start");
         _time = 0;
         Logger.Log(_dodgeTime);
         _context.animationManager.PlayAnimation("Dodge");
         _context.playerMovement.Dodge();
         _context.playerDodge.SetEnemyCollider(false);
     }
+    public override void Attack(PlayerCombat.AttackModifiers modifier = PlayerCombat.AttackModifiers.NONE)
+    {
+        _stateTypeToChangeFromInputCommand = PlayerAttackingState.StateType;
+    }
+    public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
+    {
+        switch (controlInput)
+        {
+            case PlayerInputHandler.ShadowControlInputs.ENTER:
+                {
+                    if (_context.shadowControl.Shadow != null) _stateTypeToChangeFromInputCommand = PlayerShadowControlState.StateType; break;
+                }
+            case PlayerInputHandler.ShadowControlInputs.SHADOW_SPIKE:
+                {
+                    if (_context.shadowControl.Shadow != null) _stateTypeToChangeFromInputCommand = PlayerCastingShadowSpikesState.StateType; break;
+                }
 
+        }
+    }
+    public override void Jump()
+    {
+        _stateTypeToChangeFromInputCommand = PlayerJumpingState.StateType;
+    }
     public override void Dodge()
     {
         
