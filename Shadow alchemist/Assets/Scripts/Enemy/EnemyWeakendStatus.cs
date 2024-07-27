@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class EnemyWeakendStatus : MonoBehaviour
 {
-    public bool IsWeakened;
+    public enum WeakenStatus
+    {
+        NONE,WEAKEN,STUNNED
+    }
+    public WeakenStatus Status;
+    //public bool IsWeakened;
 }

@@ -28,6 +28,7 @@ public class ShadowFighterStateStunned : EnemyState
         _context = (ShadowFighterContext)context;
         _context.animMan.SetAnimator(false);
         _context.combat.SetStunViusals(true);
+        _context.weakendStatus.Status=EnemyWeakendStatus.WeakenStatus.STUNNED;
     }
 
     public override void InterruptState()

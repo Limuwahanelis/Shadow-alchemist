@@ -15,4 +15,5 @@ public abstract class EnemyContext
     public EnemyEngageLevel engageLevel;
     public EnemyWeakendStatus weakendStatus;
     public Func<Action, Coroutine> WaitFrameAndPerformFunction;
+    
 }

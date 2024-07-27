@@ -16,6 +16,7 @@ public class ShadowSpikeSkill : MonoBehaviour
     private Coroutine _castSpikeCor;
     float _spikeAnimLength;
     float _time;
+    private float _spikeDirection;
     private void Start()
     {
         _spikeAnimLength = _spikeAnimMan.GetAnimationLength("Spike");
@@ -29,27 +30,19 @@ public class ShadowSpikeSkill : MonoBehaviour
     {
         _shadowToSpawnSpikes = _shadow;
     }
-    public void CastSpikes()
+    public void CastSpikes(float direction)
     {
-        _castSpikeCor=StartCoroutine(SpikeSpawnCor());
+        _spikeDirection = direction;
+        _castSpikeCor =StartCoroutine(SpikeSpawnCor());
     }
     public void StopCastingSpikes()
     {
         if(_castSpikeCor!=null)
         {
-            //_castSpikeCor
             StopCoroutine(_castSpikeCor);
-            //DespawnRemainingSpikes();
             _castSpikeCor = null;
         }
     }
-    //public void DespawnRemainingSpikes()
-    //{
-    //    for(int i=0;i< _attackLogicList.Count;i++)
-    //    {
-    //        StartCoroutine(DespawnSpikeCor(_attackLogicList[i]));
-    //    }
-    //}
     IEnumerator DespawnSpikeCor(SpikeAttackLogic spikeLogic)
     {
         yield return new WaitForSeconds(_spikeAnimLength);
@@ -58,7 +51,6 @@ public class ShadowSpikeSkill : MonoBehaviour
     IEnumerator SpikeSpawnCor()
     {
         yield return new WaitForSeconds(_firstSpikeDelay);
-        //List<SpikeAttackLogic> _attackLogicList;
         for (int i = 0; i < 30; i++)
         {
 
@@ -68,7 +60,7 @@ public class ShadowSpikeSkill : MonoBehaviour
                 yield return null;
             }
             Vector3 spawnPos = _startTrans.position;
-            spawnPos.x -= i * _distanceBetweenSpikes;
+            spawnPos.x += i * _distanceBetweenSpikes* _spikeDirection;
             SpikeAttackLogic spike = Instantiate(_spikePrefab, spawnPos, _spikePrefab.transform.rotation, null).GetComponent<SpikeAttackLogic>();
             spike.SetUp(2 * _spikeAnimMan.GetAnimationLength("Spike"));
             _time = 0;

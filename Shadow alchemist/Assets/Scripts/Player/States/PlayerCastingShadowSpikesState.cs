@@ -19,7 +19,7 @@ public class PlayerCastingShadowSpikesState : PlayerState
         base.SetUpState(context);
         _context.playerMovement.StopPlayer();
         _context.shadowSpikeSkill.SetOriginShadow(_context.shadowControl.Shadow);
-        _context.shadowSpikeSkill.CastSpikes();
+        _context.shadowSpikeSkill.CastSpikes(_context.playerMovement.FlipSide);
         _context.animationManager.PlayAnimation("Shadow cast");
     }
     public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)

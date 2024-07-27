@@ -27,11 +27,6 @@ public class ShadowFighterStateAttacking : EnemyState
 
     public override void Update()
     {
-        //if (Vector2.Distance(_context.enemyTransform.position, _context.playerTransform.position) > _context.maxPlayerRange)
-        //{
-        //    ChangeState(ShadowFighterStateChasePlayer.StateType);
-        //    _nextAttack = false;
-        //}
         _time += Time.deltaTime;
 
         switch(_comboCounter)
@@ -43,32 +38,13 @@ public class ShadowFighterStateAttacking : EnemyState
         // sub result - <0 mewans palyer is on right, else its on left. mult result - <0 player is in front, else player is behind
         if ((_context.enemyTransform.position.x - _context.playerTransform.position.x) * ((int)_context.movement.FlipSide) <= 0)
         {
-            //if (_context.playerTransform.position.x > _context.enemyTransform.position.x) _nextAttack = false;
-             if (_context.playerTransform.position.x > _context.enemyTransform.position.x - _context.maxPlayerRange) _nextAttack = true;
+             if (_context.playerTransform.position.x > _context.enemyTransform.position.x - _context.maxPlayerRange) _nextAttack = false;
             else _nextAttack = false;
         }
         else
         {
-            //if (_context.playerTransform.position.x > _context.enemyTransform.position.x) _nextAttack = false;
-            //else if (_context.playerTransform.position.x > _context.enemyTransform.position.x - _context.maxPlayerRange) _nextAttack = true;
             _nextAttack = false;
         }
-        //{
-        //    _context.movement.FlipEnemy();
-        //}
-        //if (_context.movement.FlipSide == GlobalEnums.HorizontalDirections.RIGHT)
-        //{
-        //    if (_context.playerTransform.position.x < _context.enemyTransform.position.x) _nextAttack = false;
-        //    //else if (_context.playerTransform.position.x < _context.enemyTransform.position.x + _context.maxPlayerRange) _nextAttack = true;
-        //    else _nextAttack = true;
-        //}
-        //else
-        //{
-        //    if (_context.playerTransform.position.x > _context.enemyTransform.position.x) _nextAttack = false;
-        //    else if (_context.playerTransform.position.x > _context.enemyTransform.position.x - _context.maxPlayerRange) _nextAttack = true;
-        //    else _nextAttack = false;
-        //}
-
 
 
         if (_nextAttack)

@@ -146,7 +146,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _animationManager: {fileID: -8588208090283106988}
-  _durationOnHit: 4
+  _durationOnHit: 10
 --- !u!1 &7842871872889967787
 GameObject:
   m_ObjectHideFlags: 0

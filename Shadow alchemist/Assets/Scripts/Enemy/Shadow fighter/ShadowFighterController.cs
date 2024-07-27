@@ -11,6 +11,7 @@ public class ShadowFighterController : EnemyController
     [SerializeField] PlayerDetection _frontDetection;
     [SerializeField] ShadowFighterCombat _shadowFighterCombat;
     [SerializeField] GameObject _sweatDropSprite;
+    [SerializeField] EnemyChecks _enemyChecks;
     [SerializeField] float _minPlayerRange;
     [SerializeField] float _maxPlayerRange;
     [SerializeField] float _distanceFromShadowBounds;
@@ -25,8 +26,8 @@ public class ShadowFighterController : EnemyController
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
     .Where(type => typeof(EnemyState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
         _healthSystem.OnDeathEvent += ShadowFighterDeath;
-        _healthSystem.OnWeakendStateReached += ShowSweatDrop;
-        _healthSystem.OnWeakendStateEnded += HideSweatDrop;
+        _healthSystem.OnWeakendStateReached += EnterWeakendState;
+        _healthSystem.OnWeakendStateEnded += LeaveWeakendState;
         _healthSystem.OnHitEvent += TryStun;
         _context = new ShadowFighterContext
         {
@@ -42,7 +43,9 @@ public class ShadowFighterController : EnemyController
             movement = _shadowFighterMovement,
             combat = _shadowFighterCombat,
             patrolPointIndex = 0,
-            distanceFromShadowBounds=_distanceFromShadowBounds,
+            distanceFromShadowBounds = _distanceFromShadowBounds,
+            weakendStatus = _enemyWeakendStatus,
+            enemyChecks = _enemyChecks,
             minPlayerRange = _minPlayerRange,
             maxPlayerRange = _maxPlayerRange,
             maxPlayerEngageDistance=_maxPlayerEngageDistance,
@@ -69,22 +72,28 @@ public class ShadowFighterController : EnemyController
     {
         if(info.damageType==HealthSystem.DamageType.SHADOW_SPIKE)
         {
-            if(_enemyWeakendStatus.IsWeakened)
+            if(_enemyWeakendStatus.Status==EnemyWeakendStatus.WeakenStatus.WEAKEN)
             {
                 EnemyState newState = GetState(typeof(ShadowFighterStateStunned));
                 newState.SetUpState(_context);
+                ChangeState(newState);
                 _currentEnemyState = newState;
             }
         }
     }
-    private void ShowSweatDrop()
+    private void EnterWeakendState(DamageInfo info)
     {
-        _enemyWeakendStatus.IsWeakened = true;
+        if (_enemyWeakendStatus.Status != EnemyWeakendStatus.WeakenStatus.NONE) return;
+        _enemyWeakendStatus.Status = EnemyWeakendStatus.WeakenStatus.WEAKEN;
         _sweatDropSprite.SetActive(true);
+        EnemyState newState = GetState(typeof(ShadowFighterStatePushed));
+        ChangeState(newState);
+        ((ShadowFighterStatePushed) newState).SetUpState(_context,info);
     }
-    private void HideSweatDrop()
+    private void LeaveWeakendState()
     {
-        _enemyWeakendStatus.IsWeakened = false;
+        if (_enemyWeakendStatus.Status!=EnemyWeakendStatus.WeakenStatus.WEAKEN) return;
+        _enemyWeakendStatus.Status = EnemyWeakendStatus.WeakenStatus.NONE;
         _sweatDropSprite.SetActive(false);
     }
     public override void KillByLeavingShadow()
@@ -94,8 +103,8 @@ public class ShadowFighterController : EnemyController
         WaitFrameAndExecuteFunction(() =>
         {
             EnemyState newState = GetState(typeof(ShadowFighterStateDead));
+            ChangeState(newState);
             newState.SetUpState(_context);
-            _currentEnemyState = newState;
         });
 
     }
@@ -103,8 +112,10 @@ public class ShadowFighterController : EnemyController
     {
         _healthSystem.OnDeathEvent -= ShadowFighterDeath;
         _originShadow.RemoveEnemyFromShadow(this);
-        HideSweatDrop();
+        _enemyWeakendStatus.Status = EnemyWeakendStatus.WeakenStatus.NONE;
+        _sweatDropSprite.SetActive(false);
         EnemyState newState = GetState(typeof(ShadowFighterStateDead));
+        ChangeState(newState);
         newState.SetUpState(_context);
         _currentEnemyState = newState;
     }
@@ -125,7 +136,7 @@ public class ShadowFighterController : EnemyController
     {
         _healthSystem.OnHitEvent -= TryStun;
         _healthSystem.OnDeathEvent -= ShadowFighterDeath;
-        _healthSystem.OnWeakendStateReached -= ShowSweatDrop;
-        _healthSystem.OnWeakendStateEnded -= HideSweatDrop;
+        _healthSystem.OnWeakendStateReached -= EnterWeakendState;
+        _healthSystem.OnWeakendStateEnded -= LeaveWeakendState;
     }
 }

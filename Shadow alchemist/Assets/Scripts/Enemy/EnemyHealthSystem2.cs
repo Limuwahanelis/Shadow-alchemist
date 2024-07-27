@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyHealthSystem2 : HealthSystem
 {
-    public Action OnWeakendStateReached;
+    public Action<DamageInfo> OnWeakendStateReached;
     public Action OnWeakendStateEnded;
     [Header("Weakend State"), SerializeField] int _damageRequiredToReachWeakendState;
     [SerializeField] float _weakendStateDuration;
@@ -17,7 +17,7 @@ public class EnemyHealthSystem2 : HealthSystem
         hpBar.SetHealth(currentHP);
         if(currentHP<maxHP-( _wekaendStateNum*_damageRequiredToReachWeakendState))
         {
-            OnWeakendStateReached?.Invoke();
+            OnWeakendStateReached?.Invoke(info);
             _wekaendStateNum++;
             if (_weakendCoroutine == null)
             {
