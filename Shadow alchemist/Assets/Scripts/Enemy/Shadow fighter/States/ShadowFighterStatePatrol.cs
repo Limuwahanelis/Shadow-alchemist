@@ -50,6 +50,14 @@ public class ShadowFighterStatePatrol : EnemyState
         _context.engageLevel.engageLevel = EnemyEngageLevel.Level.ENGAGED;
         ChangeState(ShadowFighterStateChasePlayer.StateType);
     }
+    public override void Hit(DamageInfo damageInfo)
+    {
+        if(_context.engageLevel.engageLevel!=EnemyEngageLevel.Level.ENGAGED)
+        {
+            _context.engageLevel.engageLevel = EnemyEngageLevel.Level.ENGAGED;
+            ChangeState(ShadowFighterStateChasePlayer.StateType);
+        }
+    }
     public override void InterruptState()
     {
         _context.frontPlayerDetection.OnPlayerDetectedUnity.RemoveListener(PlayerDetected);

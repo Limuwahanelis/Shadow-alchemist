@@ -37,6 +37,11 @@ public class ShadowFighterStateIdle : EnemyState
         _time += Time.deltaTime;
     }
 
+    public override void Hit(DamageInfo damageInfo)
+    {
+        _context.engageLevel.engageLevel = EnemyEngageLevel.Level.ENGAGED;
+        ChangeState(ShadowFighterStateChasePlayer.StateType);
+    }
     public override void SetUpState(EnemyContext context)
     {
         base.SetUpState(context);
