@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5341621357297858411}
   - component: {fileID: 3459179224173730237}
-  m_Layer: 0
+  - component: {fileID: 1862860271086964641}
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,9 +67,29 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0046494305, y: 0}
-  m_Size: {x: 0.529996, y: 2.0892382}
+  m_Offset: {x: -0.0046494305, y: 0.021707892}
+  m_Size: {x: 0.529996, y: 2.0458224}
   m_Direction: 0
+--- !u!114 &1862860271086964641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 872637514785788940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b29bcb28ef6f24a82de73fa8e9c5d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _exludeFromHitting:
+    serializedVersion: 2
+    m_Bits: 3959
+  _pushType: 2
+  _damageType: 2
+  _pushCollidingObject: 1
+  _damageCollidingObject: 1
+  damage: 2
 --- !u!1 &1407378695137115941
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,10 +630,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInvincible: 0
   hpBar: {fileID: 40199828508363928}
-  maxHP: 60
-  currentHP: 60
-  _damageRequiredToReachWeakendState: 20
-  _weakendStateDuration: 3
+  maxHP: 80
+  currentHP: 80
+  _damageRequiredToReachWeakendState: 30
+  _weakendStateDuration: 6
 --- !u!114 &2705622364695391369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,7 +733,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 500821169
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 56618686b0d08e546ae5e6bea35849af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -814,7 +835,7 @@ GameObject:
   - component: {fileID: 6651401013124457681}
   - component: {fileID: 2394404732963980046}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -876,7 +897,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 500821169
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 7334920154252683886, guid: 03dcbd058d9bbab4084040136046fab2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

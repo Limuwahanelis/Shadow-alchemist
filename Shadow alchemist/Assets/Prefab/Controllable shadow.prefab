@@ -140,8 +140,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 196493305
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: a879dce7a2641834f8bf02597b0ce6f1, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.8784314}
@@ -294,9 +294,9 @@ SpriteMask:
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_MaskAlphaCutoff: 0.2
-  m_FrontSortingLayerID: 0
+  m_FrontSortingLayerID: 196493305
   m_BackSortingLayerID: 0
-  m_FrontSortingLayer: 0
+  m_FrontSortingLayer: 5
   m_BackSortingLayer: 0
   m_FrontSortingOrder: 10
   m_BackSortingOrder: 8
@@ -440,6 +440,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shadow: {fileID: 2080716647947369973}
   _shadowCollider: {fileID: 5449879963913693113}
+  _isTriangle: 0
+  _isHorizontal: 1
   _shadowMask: {fileID: 8844613119017229819}
   scaleToPoSrate: 2
   _totalShadowbarValue: 4
@@ -447,6 +449,8 @@ MonoBehaviour:
   _resetShadowCollider: {fileID: 8508400456371213525}
   _lefBorder: {fileID: 647645908192470119}
   _rightBorder: {fileID: 4774035346438814953}
+  _upperBorder: {fileID: 0}
+  _lowerBorder: {fileID: 0}
   _spriteMask: {fileID: 4328624099662242860}
   _segments:
   - {fileID: 9020711361063240896}
