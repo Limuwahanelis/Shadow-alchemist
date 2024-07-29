@@ -99,7 +99,15 @@ public class PlayerMovement : MonoBehaviour
     public void PushPlayer(Vector3 pushForce, IDamager playerPusher)
     {
         StopPlayer();
-        if (pushForce == Vector3.zero) pushForce = _pushHandle.GetVector();
+        if (pushForce == Vector3.zero)
+        {
+            pushForce = _pushHandle.GetVector();
+            if (playerPusher != null)
+            {
+                if(FlipSide == -1) pushForce.x = -pushForce.x;
+            }
+           
+        }
         // _player.currentState.Push(playerPusher, _playerCols);
         _rb.AddForce(pushForce*_pushForce, ForceMode2D.Impulse);
 
