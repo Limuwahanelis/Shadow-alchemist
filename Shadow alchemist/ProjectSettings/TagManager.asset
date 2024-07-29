@@ -17,8 +17,8 @@ TagManager:
   - Ground
   - Spikes
   - test
-  - 
-  - 
+  - Missile
+  - Enemy ground
   - 
   - 
   - 
@@ -44,14 +44,26 @@ TagManager:
   - name: test
     uniqueID: 1106826657
     locked: 0
-  - name: test2
-    uniqueID: 2486097745
+  - name: BG
+    uniqueID: 3121833065
     locked: 0
-  - name: Enemy
-    uniqueID: 500821169
+  - name: Props
+    uniqueID: 433232437
+    locked: 0
+  - name: Traps
+    uniqueID: 3745285053
+    locked: 0
+  - name: Ground
+    uniqueID: 196493305
+    locked: 0
+  - name: Non shadow BG
+    uniqueID: 3064518339
     locked: 0
   - name: Player
     uniqueID: 2114120551
+    locked: 0
+  - name: Enemy
+    uniqueID: 500821169
     locked: 0
   - name: UI
     uniqueID: 831282173
