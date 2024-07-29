@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player fist attack 3
   m_EditorClassIdentifier: 
   _associatedAnimation: {fileID: 7400000, guid: 72b0cc2325e65a34b8fe902edc54833d, type: 2}
-  _damage: 15
+  _damage: 12
   _useFrames: 1
   _nextAttackWindowStart: 0.6666667
   _nextAttackWindowEnd: 1.0833334
