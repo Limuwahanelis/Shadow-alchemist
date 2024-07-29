@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Unity.Mathematics;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,8 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     public Bounds ShadowBounds => _spriteMask.bounds;
     [SerializeField] Transform _shadow;
     [Header("Shadow"),SerializeField] Collider2D _shadowCollider;
+    [Tooltip("Set curve value at begining and end to 0. Set its value at lowest/highest point. Create polygon collider as child of SHAdow Controller.Check its points. "), SerializeField] bool _ajustColliderByCurve;
+    [SerializeField] AnimationCurve _curve;
     [SerializeField] bool _isTriangle;
     [SerializeField] bool _isHorizontal = true;
     [SerializeField] Transform _shadowMask;
@@ -42,9 +45,11 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     private DIR _lastTransmutationDirection=DIR.NONE;
     private bool _isReverting = false;
     private Vector2[] _points;
-    private void Start()
+    private Vector2[] _originalPositions;
+    protected void Start()
     {
-        if (_isTriangle) _points = ((PolygonCollider2D)_shadowCollider).points;
+        if (_isTriangle|| _ajustColliderByCurve) _points = ((PolygonCollider2D)_shadowCollider).points;
+        if (_ajustColliderByCurve) _originalPositions = ((PolygonCollider2D)_shadowCollider).points;
         _originalPosition = _shadow.position;
     }
     #region ShadowMove
@@ -55,17 +60,37 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
             StopCoroutine(_revertMoveCor);
             _revertMoveCor = null;
         }
+
+        
         if (_isHorizontal)
         {
             if (direction == Vector2.right)
                 if (_shadow.transform.position.x - _shadow.transform.localScale.x / 2 < _lefBorder.position.x)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                    if (_ajustColliderByCurve)
+                    {
+                        for (int i = 0; i < _points.Length; i++)
+                        {
+                            _points[i] += direction * moveSpeed * Time.deltaTime;
+                            _originalPositions[i] += direction * moveSpeed * Time.deltaTime;
+                        }
+                         ((PolygonCollider2D)_shadowCollider).points = _points;
+                    }
                 }
             if (direction == Vector2.left)
                 if (_shadow.transform.position.x + _shadow.transform.localScale.x / 2 > _rightBorder.position.x)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                    if (_ajustColliderByCurve)
+                    {
+                        for (int i = 0; i < _points.Length; i++)
+                        {
+                            _points[i] += direction * moveSpeed * Time.deltaTime;
+                            _originalPositions[i] += direction * moveSpeed * Time.deltaTime;
+                        }
+                         ((PolygonCollider2D)_shadowCollider).points = _points;
+                    }
                 }
         }
         else
@@ -76,7 +101,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
                 }
             if (direction == Vector2.down)
-                if (_shadow.transform.position.y + _shadow.transform.localScale.y / 2 > _upperBorder.position.x)
+                if (_shadow.transform.position.y + _shadow.transform.localScale.y / 2 > _lowerBorder.position.y)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
                 }
@@ -107,6 +132,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
     {
         _placedShadows.Remove(shadow);
         shadow.OnLeftParentShadow -= RemovePlacedShadow;
+        RevertTransmutationFromPlacedShadow(shadow.ShadowBarCost);
         Destroy(shadow.gameObject);
         
         //_takenVal -= shadow.ShadowBarCos;
@@ -180,9 +206,8 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                 _shadowMask.localScale = newScale;
                 newPosition.y += _transmutateValue / scaleToPoSrate;
                 _shadowMask.localPosition = newPosition;
-                _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.UP)]].position.y, _segments[_segmentsTakenPerSide[((int)DIR.UP)] + 1].position.y, _spriteMask.bounds.min.y)
-                    + math.unlerp(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _spriteMask.bounds.max.y);//math.remap( ,_spriteMask.bounds.max.x) //_totalShadowbarValue * _curve.Evaluate(scaleBound+ _transmutateValue) - _totalShadowbarValue * _curve.Evaluate(scaleBound);
-                if (_spriteMask.bounds.min.y >= _segments[_segmentsTakenPerSide[((int)DIR.DOWN)] + 1].position.y)
+                SetValueForShadowBar();
+                if (_spriteMask.bounds.min.y >= _segments[(_segments.Count - 2)-_segmentsTakenPerSide[((int)DIR.DOWN)] ].position.y)
                 {
                     _shadowSegmentsList.Add(DIR.DOWN);
                     _segmentsTakenPerSide[((int)DIR.DOWN)]++;
@@ -199,9 +224,9 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                 _shadowMask.localScale = newScale;
                 newPosition.y -= _transmutateValue / scaleToPoSrate;
                 _shadowMask.localPosition = newPosition;
-                _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.UP)]].position.y, _segments[_segmentsTakenPerSide[((int)DIR.UP)] + 1].position.y, _spriteMask.bounds.min.y)
-        + math.unlerp(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _spriteMask.bounds.max.y);
-                if (_spriteMask.bounds.max.y <= _segments[_segments.Count - 2 - _segmentsTakenPerSide[((int)DIR.UP)]].position.y)
+                SetValueForShadowBar();// _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.UP)]].position.y, _segments[_segmentsTakenPerSide[((int)DIR.UP)] + 1].position.y, _spriteMask.bounds.min.y)
+        //+ math.unlerp(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _spriteMask.bounds.max.y);
+                if (_spriteMask.bounds.max.y <= _segments[_segmentsTakenPerSide[((int)DIR.UP)]+1].position.y)
                 {
                     _shadowSegmentsList.Add(DIR.UP);
                     _segmentsTakenPerSide[((int)DIR.UP)]++;
@@ -222,6 +247,42 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
             ((PolygonCollider2D)_shadowCollider).points = _points;
         }
         _transmutateValue = 0;
+        if(_ajustColliderByCurve)
+        {
+            _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+            _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+            _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+            _points[_points.Length - 1].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+            _points[_points.Length - 1].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+            _points[_points.Length - 2].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+            if (directionTotakeFrom == Vector2.left)
+            {
+
+                
+                for (int i = 2; i < _points.Length-2; i++)
+                {
+                    //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                    if (_points[i - 1].x > _points[i].x) _points[i].x = _points[i - 1].x;
+                   // Logger.Log($"To ervaluate: {transform.InverseTransformPoint(_spriteMask.bounds.min).x} is: {-_curve.Evaluate(transform.InverseTransformPoint(_spriteMask.bounds.min).x)}");
+                    _points[i].y = _curve.Evaluate(_points[i].x);
+                }
+            }
+            else if(directionTotakeFrom == Vector2.right)
+            {
+
+                
+                for (int i = _points.Length - 3; i >= 2; i--)
+                {
+                    //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                    if (_points[i + 1].x < _points[i].x) _points[i].x = _points[i + 1].x;
+                    //Logger.Log($"To ervaluate: {transform.InverseTransformPoint(_spriteMask.bounds.min).x} is: {-_curve.Evaluate(transform.InverseTransformPoint(_spriteMask.bounds.min).x)}");
+                    _points[i].y = _curve.Evaluate(_points[i].x);
+                }
+            }
+             ((PolygonCollider2D)_shadowCollider).points = _points;
+
+
+        }
     }
     private void SetValueForShadowBar()
     {
@@ -232,8 +293,8 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
         }
         else
         {
-            _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.UP)]].position.y, _segments[_segmentsTakenPerSide[((int)DIR.UP)] + 1].position.y, _spriteMask.bounds.min.y)
-    + math.unlerp(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _spriteMask.bounds.max.y);//math.remap( ,_spriteMask.bounds.max.x) //_totalShadowbarValue * _curve.Evaluate(scaleBound+ _transmutateValue) - _totalShadowbarValue * _curve.Evaluate(scaleBound);
+            _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.UP)]].position.y, _segments[ _segmentsTakenPerSide[((int)DIR.UP)]+1 ].position.y, _spriteMask.bounds.max.y)
+            + math.unlerp(_segments[(_segments.Count - 1) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _spriteMask.bounds.min.y);//math.remap( ,_spriteMask.bounds.max.x) //_totalShadowbarValue * _curve.Evaluate(scaleBound+ _transmutateValue) - _totalShadowbarValue * _curve.Evaluate(scaleBound);
         }
     }
     public void RevertNonSegmentShadowbar()
@@ -307,6 +368,33 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                             _segmentsTakenPerSide[((int)DIR.LEFT)]--;
                             _segmentsTaken--;
                         }
+                        if (_ajustColliderByCurve)
+                        {
+                            _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                            _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+                            _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                            _points[_points.Length - 1].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+                            _points[_points.Length - 1].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+                            _points[_points.Length - 2].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+
+                            for (int j = 2; j < _points.Length - 2; j++)
+                            {
+                                if (_points[j].x > transform.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)] + 1].position).x) continue;
+                                //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                                if (_points[j - 1].x < _points[j].x) _points[j].x = _points[j - 1].x;
+                                if (transform.InverseTransformPoint(_spriteMask.bounds.max).x > _originalPositions[j].x && transform.InverseTransformPoint(_spriteMask.bounds.min).x < _originalPositions[j].x)
+                                {
+                                    _points[j] = _originalPositions[j];
+                                    continue;
+                                }
+                                // Logger.Log($"To ervaluate: {transform.InverseTransformPoint(_spriteMask.bounds.min).x} is: {-_curve.Evaluate(transform.InverseTransformPoint(_spriteMask.bounds.min).x)}");
+                                _points[j].y = _curve.Evaluate(_points[j].x);
+                            }
+
+                            ((PolygonCollider2D)_shadowCollider).points = _points;
+
+
+                        }
                         break;
                     }
                 case DIR.RIGHT:
@@ -322,12 +410,42 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                             isClear = true;
 
                             float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).x- _shadow.InverseTransformPoint(_segments[_segments.Count - 1 -_segmentsTakenPerSide[((int)DIR.RIGHT)] + 1].position).x;
+                            //float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).x -_shadow.InverseTransformPoint(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position).x 
                             newScale.x -= diff;
                             _shadowMask.localScale = newScale;
                             newPosition.x -= diff / scaleToPoSrate;
                             _shadowMask.localPosition = newPosition;
                             _segmentsTakenPerSide[((int)DIR.RIGHT)]--;
                             _segmentsTaken--;
+                        }
+                        if (_ajustColliderByCurve)
+                        {
+                            _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                            _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+                            _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                            _points[_points.Length - 1].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+                            _points[_points.Length - 1].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+                            _points[_points.Length - 2].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+
+
+                            for (int j = _points.Length - 3; j >= 2; j--)
+                            {
+                                //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                                if (_points[j].x < transform.InverseTransformPoint(_segments[_segments.Count - 2 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position).x) continue;
+                                if (_points[j + 1].x > _points[j].x) _points[j].x = _points[j + 1].x;
+                                if (transform.InverseTransformPoint(_spriteMask.bounds.max).x > _originalPositions[j].x && transform.InverseTransformPoint(_spriteMask.bounds.min).x < _originalPositions[j].x)
+                                {
+                                    _points[j] = _originalPositions[j];
+                                    continue;
+                                }
+                                //Logger.Log($"To ervaluate: {transform.InverseTransformPoint(_spriteMask.bounds.min).x} is: {-_curve.Evaluate(transform.InverseTransformPoint(_spriteMask.bounds.min).x)}");
+                                _points[j].y = _curve.Evaluate(_points[j].x);
+                            }
+
+
+                             ((PolygonCollider2D)_shadowCollider).points = _points;
+
+
                         }
                         break;
                     }
@@ -339,16 +457,16 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                         _shadowMask.localScale = newScale;
                         newPosition.y += _revertTransmutateValue / scaleToPoSrate;
                         _shadowMask.localPosition = newPosition;
-                        if (_spriteMask.bounds.max.y >= _segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.UP)] + 1].position.y)
+                        if (_spriteMask.bounds.max.y >= _segments[ _segmentsTakenPerSide[((int)DIR.UP)] - 1].position.y)
                         {
                             isClear = true;
 
-                            float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).y - _shadow.InverseTransformPoint(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.UP)] + 1].position).y;
+                            float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).y - _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.UP)] - 1].position).y;
                             newScale.y -= diff;
                             _shadowMask.localScale = newScale;
                             newPosition.y -= diff / scaleToPoSrate;
                             _shadowMask.localPosition = newPosition;
-                            _segmentsTakenPerSide[((int)DIR.RIGHT)]--;
+                            _segmentsTakenPerSide[((int)DIR.UP)]--;
                             _segmentsTaken--;
                         }
                         break; 
@@ -361,11 +479,11 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                         _shadowMask.localScale = newScale;
                         newPosition.y -= _revertTransmutateValue / scaleToPoSrate;
                         _shadowMask.localPosition = newPosition;
-                        if (_spriteMask.bounds.min.y <= _segments[_segmentsTakenPerSide[((int)DIR.DOWN)] - 1].position.y)
+                        if (_spriteMask.bounds.min.y <= _segments[_segments.Count-1- _segmentsTakenPerSide[((int)DIR.DOWN)]+1].position.y)
                         {
                             isClear = true;
 
-                            float diff = _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.DOWN)] - 1].position).y - _shadow.InverseTransformPoint(_spriteMask.bounds.min).y;
+                            float diff = _shadow.InverseTransformPoint(_segments[_segments.Count - 1-_segmentsTakenPerSide[((int)DIR.DOWN)]+1].position).y - _shadow.InverseTransformPoint(_spriteMask.bounds.min).y;
                             newScale.y -= diff;
                             _shadowMask.localScale = newScale;
                             newPosition.y += diff / scaleToPoSrate;
@@ -399,8 +517,9 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                     case DIR.UP:
                         {
                             if (_isHorizontal) break;
-                            float diff = _shadow.InverseTransformPoint(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.UP)]].position).y - _shadow.InverseTransformPoint(_spriteMask.bounds.max).y;
-                            if (math.abs(diff - 0) < 0.001f) continue;
+                            float diff = _shadow.InverseTransformPoint(_segments[ _segmentsTakenPerSide[((int)DIR.UP)]].position).y - _shadow.InverseTransformPoint(_spriteMask.bounds.max).y;
+                            Logger.Log(diff);
+                            if (math.abs(diff - 0) < 0.001f || diff<0) continue;
                             isAllClear = false;
                             newScale.y += diff;
                             _shadowMask.localScale = newScale;
@@ -411,7 +530,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                     case DIR.DOWN: 
                         {
                             if (_isHorizontal) break;
-                            float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.min).y - _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.DOWN)]].position).y;
+                            float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.min).y - _shadow.InverseTransformPoint(_segments[(_segments.Count - 1) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position).y;
                             if (math.abs(diff - 0) < 0.001f) continue;
                             isAllClear = false;
                             newScale.y += diff;
@@ -430,7 +549,38 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                             _shadowMask.localScale = newScale;
                             newPosition.x -= diff / scaleToPoSrate;
                             _shadowMask.localPosition = newPosition;
+
+                            if (_ajustColliderByCurve)
+                            {
+                                _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                                _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+                                _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                                _points[_points.Length - 1].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+                                _points[_points.Length - 1].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+                                _points[_points.Length - 2].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+
+
+
+                                for (int j = 2; j < _points.Length - 2; j++)
+                                {
+                                    //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                                    if (_points[j].x > transform.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]+1].position).x) continue;
+                                    if (_points[j - 1].x < _points[j].x) _points[j].x = _points[j - 1].x;
+                                    if (transform.InverseTransformPoint(_spriteMask.bounds.max).x > _originalPositions[j].x && transform.InverseTransformPoint(_spriteMask.bounds.min).x < _originalPositions[j].x)
+                                    {
+                                        _points[j] = _originalPositions[j];
+                                        continue;
+                                    }
+                                    // Logger.Log($"To ervaluate: {transform.InverseTransformPoint(_spriteMask.bounds.min).x} is: {-_curve.Evaluate(transform.InverseTransformPoint(_spriteMask.bounds.min).x)}");
+                                    _points[j].y = _curve.Evaluate(_points[j].x);
+                                }
+
+                                ((PolygonCollider2D)_shadowCollider).points = _points;
+
+
+                            }
                             break;
+
                         }
                     case DIR.RIGHT:
                         {
@@ -442,6 +592,37 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                             _shadowMask.localScale = newScale;
                             newPosition.x += diff / scaleToPoSrate;
                             _shadowMask.localPosition = newPosition;
+                            if (_ajustColliderByCurve)
+                            {
+                                _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                                _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+                                _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                                _points[_points.Length - 1].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+                                _points[_points.Length - 1].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
+                                _points[_points.Length - 2].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
+
+
+
+
+
+                                for (int j = _points.Length - 3; j >= 2; j--)
+                                {
+                                    if (_points[j].x < transform.InverseTransformPoint(_segments[_segments.Count - 2 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position).x) continue;
+                                    //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
+                                    if (_points[j + 1].x > _points[j].x) _points[j].x = _points[j + 1].x;
+                                    if (transform.InverseTransformPoint(_spriteMask.bounds.max).x > _originalPositions[j].x && transform.InverseTransformPoint(_spriteMask.bounds.min).x< _originalPositions[j].x)
+                                    {
+                                        _points[j] = _originalPositions[j];
+                                        continue;
+                                    }
+                                    //Logger.Log($"To ervaluate: {transform.InverseTransformPoint(_spriteMask.bounds.min).x} is: {-_curve.Evaluate(transform.InverseTransformPoint(_spriteMask.bounds.min).x)}");
+                                    _points[j].y = _curve.Evaluate(_points[j].x);
+                                }
+
+                            ((PolygonCollider2D)_shadowCollider).points = _points;
+
+
+                            }
                             break;
                         }
 
