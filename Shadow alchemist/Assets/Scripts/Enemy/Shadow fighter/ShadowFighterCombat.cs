@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-public class ShadowFighterCombat : MonoBehaviour
+public class ShadowFighterCombat : MonoBehaviour,IDamager
 {
     public enum AttackType
     {
@@ -11,6 +11,8 @@ public class ShadowFighterCombat : MonoBehaviour
     public ComboList ShadowFighterCombos => _comboList;
     //public ComboList SkeletonCombos => _comboList;
     public float[] AttacksDelays => _attacksDelays;
+
+    public Vector3 Position => transform.position;
 
 #if UNITY_EDITOR
     [SerializeField] bool _debug;
@@ -58,8 +60,11 @@ public class ShadowFighterCombat : MonoBehaviour
         int index = 0;
         for (; index < hitEnemies.Count; index++)
         {
+            IPushable tmp2 = hitEnemies[index].GetComponentInParent<IPushable>();
+            if (tmp2 != null) tmp2.Push(HealthSystem.DamageType.ENEMY,this);
             IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
             if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
+
         }
         yield return null;
         while (true)
@@ -76,8 +81,11 @@ public class ShadowFighterCombat : MonoBehaviour
                 if (!hitEnemies.Contains(colliders[i]))
                 {
                     hitEnemies.Add(colliders[i]);
+                    IPushable tmp2 = hitEnemies[index].GetComponentInParent<IPushable>();
+                    if (tmp2 != null) tmp2.Push(Vector2.zero, HealthSystem.DamageType.ENEMY, this);
                     IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
                     if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
+
                 }
             }
             yield return null;
@@ -98,4 +106,14 @@ public class ShadowFighterCombat : MonoBehaviour
         }
     }
 #endif
+    public void ResumeCollisons(Collider2D[] playerCols)
+    {
+        
+    }
+
+    public void PreventCollisions(Collider2D[] playerCols)
+    {
+       
+    }
+
 }
