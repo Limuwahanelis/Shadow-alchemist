@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      desert4_0: 282999234846195167
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
