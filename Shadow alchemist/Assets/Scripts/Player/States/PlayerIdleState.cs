@@ -13,6 +13,7 @@ public class PlayerIdleState : PlayerState
     public override void Update()
     {
         PerformInputCommand();
+        if (!_context.checks.IsOnGround) ChangeState(PlayerInAirState.StateType);
     }
     public override void Move(Vector2 direction)
     {
