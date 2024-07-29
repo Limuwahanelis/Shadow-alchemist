@@ -76,6 +76,10 @@ public class PlayerInAirState : PlayerState
     //    }
     //    if(_context.canPerformAirCombo) ChangeState(PlayerInAirAttackingState.StateType);
     //}
+    public override void Push()
+    {
+        base.Push();
+    }
     public override void UndoComand()
     {
         _jumpOnLanding = false;

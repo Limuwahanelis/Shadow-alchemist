@@ -38,7 +38,7 @@ public class ShadowFighterStateAttacking : EnemyState
         // sub result - <0 mewans palyer is on right, else its on left. mult result - <0 player is in front, else player is behind
         if ((_context.enemyTransform.position.x - _context.playerTransform.position.x) * ((int)_context.movement.FlipSide) <= 0)
         {
-             if (_context.playerTransform.position.x > _context.enemyTransform.position.x - _context.maxPlayerRange) _nextAttack = false;
+             if (Math.Abs(_context.enemyTransform.position.x - _context.playerTransform.position.x )  < _context.maxPlayerRange) _nextAttack = true;
             else _nextAttack = false;
         }
         else

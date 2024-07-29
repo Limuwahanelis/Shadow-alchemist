@@ -44,7 +44,7 @@ public class PlayerPushedState : PlayerState
         base.SetUpState(context);
         _context.animationManager.PlayAnimation("Idle");
         _context.animationManager.SetAnimator(false);
-        //_context.combat.ChangeSpriteToPushed();
+        _context.combat.ChangeSpriteToPushed();
     }
     public override void Push()
     {

@@ -17,6 +17,7 @@ public class PlayerShadowMovingState : PlayerState
     public override void Update()
     {
         PerformInputCommand();
+        
     }
     public override void Move(Vector2 direction)
     {

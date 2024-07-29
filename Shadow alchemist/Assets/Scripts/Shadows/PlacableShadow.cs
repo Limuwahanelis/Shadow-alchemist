@@ -18,9 +18,17 @@ public class PlacableShadow : MonoBehaviour
     [SerializeField] float _shadowBarCost;
     [SerializeField] Rigidbody2D _rb;
     [SerializeField] Collider2D _col;
+    [SerializeField] SpriteRenderer _spriteRenderer;
+    [SerializeField] Color _wrongColor;
+    private Color _originalColor;
     private ControllableShadow _parentShadow;
     private Collider2D _shadowParentCol;
     private List<Collider2D> _collidersInside= new List<Collider2D>();
+    private Coroutine _palcementCor;
+    private void Start()
+    {
+        _originalColor = _spriteRenderer.color;
+    }
     public void Move(Vector2 direction)
     {
         _rb.MovePosition(_rb.position+direction);
@@ -28,6 +36,12 @@ public class PlacableShadow : MonoBehaviour
     public void ChageTriggerToCol()
     {
         _col.isTrigger = false;
+        if (_palcementCor != null)
+        {
+            StopCoroutine(_palcementCor); _palcementCor = null;
+            _spriteRenderer.color = _originalColor;
+        }
+
     }
     public void SetParentShadow(ControllableShadow shadow,Collider2D shadwoCol)
     {
@@ -52,5 +66,27 @@ public class PlacableShadow : MonoBehaviour
         {
             OnLeftParentShadow?.Invoke(this);
         }
+    }
+    public void StartCantPlaceCor()
+    {
+        if(_palcementCor!=null)
+        {
+            StopCoroutine(_palcementCor);
+            _palcementCor = null;
+        }
+        _palcementCor = StartCoroutine(CantPlaceShadowCor());
+    }
+    IEnumerator CantPlaceShadowCor()
+    {
+        float _time = 0;
+
+        _spriteRenderer.color = _wrongColor;
+        while (_time < 2)
+        {
+            _spriteRenderer.color = Color.Lerp(_wrongColor, _originalColor, _time / 2);
+            _time += Time.deltaTime;
+            yield return null;
+        }
+        _spriteRenderer.color = _originalColor;
     }
 }

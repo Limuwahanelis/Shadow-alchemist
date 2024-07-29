@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShadowFighterController : EnemyController
@@ -23,12 +24,14 @@ public class ShadowFighterController : EnemyController
 
     void Start()
     {
+        if (_playerTransform == null) _playerTransform= ((PlayerController)FindFirstObjectByType(typeof(PlayerController))).transform;
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
     .Where(type => typeof(EnemyState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
         _healthSystem.OnDeathEvent += ShadowFighterDeath;
         _healthSystem.OnWeakendStateReached += EnterWeakendState;
         _healthSystem.OnWeakendStateEnded += LeaveWeakendState;
         _healthSystem.OnHitEvent += TryStun;
+        _healthSystem.OnHitEvent += Hit;
         _context = new ShadowFighterContext
         {
             enemyTransform = transform,
@@ -67,6 +70,10 @@ public class ShadowFighterController : EnemyController
     void Update()
     {
         _currentEnemyState?.Update();
+    }
+    private void Hit(DamageInfo info)
+    {
+        _currentEnemyState.Hit(info);
     }
     private void TryStun(DamageInfo info)
     {
@@ -148,6 +155,7 @@ public class ShadowFighterController : EnemyController
     }
     private void OnDestroy()
     {
+        _healthSystem.OnHitEvent -= Hit;
         _healthSystem.OnHitEvent -= TryStun;
         _healthSystem.OnDeathEvent -= ShadowFighterDeath;
         _healthSystem.OnWeakendStateReached -= EnterWeakendState;
