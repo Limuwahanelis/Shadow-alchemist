@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ShadowBar : MonoBehaviour
 {
+    public float CurrentValue => _currentValue;
     [SerializeField] GameObject _fill;
     [SerializeField] float _max;
     [SerializeField] float _min;
@@ -28,7 +29,7 @@ public class ShadowBar : MonoBehaviour
         position.y = mappedPos;
         _fill.transform.localScale = scale;
         _fill.transform.localPosition = position;
-        _currentValue = remappedValue;
+        _currentValue = newValue;
     }
     private void OnValidate()
     {
