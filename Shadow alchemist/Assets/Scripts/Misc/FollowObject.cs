@@ -5,7 +5,9 @@ using UnityEngine;
 public class FollowObject : MonoBehaviour
 {
     [SerializeField] Transform _objectToFollow;
+    [SerializeField] bool _excludeYAxis;
     Vector3 _offset;
+    Vector3 _pos;
     // Update is called once per frame
     private void Start()
     {
@@ -13,6 +15,13 @@ public class FollowObject : MonoBehaviour
     }
     void Update()
     {
-        transform.position = _objectToFollow.position-_offset;
+        if ((_excludeYAxis))
+        {
+            _pos = _objectToFollow.position - _offset;
+            _pos.y = transform.position.y;
+            transform.position = _pos;
+        }
+        else transform.position = _objectToFollow.position - _offset;
+
     }
 }

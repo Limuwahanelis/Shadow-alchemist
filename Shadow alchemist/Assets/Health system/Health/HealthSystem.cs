@@ -16,7 +16,8 @@ public class HealthSystem : MonoBehaviour,IDamagable
         TRAPS = 8,
         SHADOW_SPIKE=16,
         PLAYER=32,
-        ALL = 64,
+        BOSS=64,
+        ALL = 128,
     }
     public Action<DamageInfo> OnHitEvent;
     public Action OnDeathEvent;

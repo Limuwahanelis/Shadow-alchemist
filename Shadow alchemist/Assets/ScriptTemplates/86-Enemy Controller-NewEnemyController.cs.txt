@@ -22,6 +22,7 @@ public class #SCRIPTNAME# : EnemyController
             playerTransform = _playerTransform,
             engageLevel = _enemyEngageLevel,
             weakendStatus = _enemyWeakendStatus,
+            coroutineHolder = this,
 
         };
         EnemyState.GetState getState = GetState;
