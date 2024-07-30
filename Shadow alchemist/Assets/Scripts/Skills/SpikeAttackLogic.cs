@@ -20,16 +20,23 @@ public class SpikeAttackLogic : MonoBehaviour
     private bool _isFirstHit = true;
     private Coroutine _despawnCor;
     private ControllableShadow _originShadow;
+    private bool _isInFullShadow;
     private void Update()
     {
         if (_isDespawning) return;
-        if(!_originShadow.ShadowBounds.Contains(transform.position))
+        if (_isInFullShadow)
         {
-            StopAttckCor();
-            _animationManager.PlayAnimation("Reverse spike");
-            _isDespawning = true;
-            StartCoroutine(DespawnCor());
-            return;
+        }
+        else
+        {
+            if (!_originShadow.ShadowBounds.Contains(transform.position))
+            {
+                StopAttckCor();
+                _animationManager.PlayAnimation("Reverse spike");
+                _isDespawning = true;
+                StartCoroutine(DespawnCor());
+                return;
+            }
         }
         _time += Time.deltaTime;
         if(_time > _timeToDespawnSpike)
@@ -39,6 +46,12 @@ public class SpikeAttackLogic : MonoBehaviour
             _isDespawning = true;
             StartCoroutine(DespawnCor());
         }
+    }
+    public void SetUp(float time, bool isInFullShadow)
+    {
+        _isInFullShadow = isInFullShadow;
+        _timeToDespawnSpike = time;
+        StartAttackCor();
     }
     public void SetUp(float time,ControllableShadow shadow)
     {

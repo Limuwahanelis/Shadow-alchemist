@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664f9e6bf8ab36141a05df560a9faec2, type: 3}
   m_Name: Boss normal attack
   m_EditorClassIdentifier: 
-  _associatedAnimation: {fileID: 0}
+  _associatedAnimation: {fileID: 7400000, guid: 31bf85a07b97dd14c97da7316678ddd8, type: 2}
   _damage: 10
   _useFrames: 1
   _nextAttackWindowStart: 0
   _nextAttackWindowEnd: 0
   _nextAttackWindowStartFrame: 0
   _nextAttackWindowEndFrame: 0
-  _attackDamageStartFrame: 90
+  _attackDamageStartFrame: 91
   _attackDamageEndFrame: 100
-  _attackDamageStart: 0
-  _attackDamageEnd: 0
+  _attackDamageStart: 1.529201
+  _attackDamageEnd: 1.6804408
