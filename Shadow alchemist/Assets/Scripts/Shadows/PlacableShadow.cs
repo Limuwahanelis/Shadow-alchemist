@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class PlacableShadow : MonoBehaviour
 {
+    public Action<PlacableShadow> OnMaxTimeReached;
     public Action<PlacableShadow> OnLeftParentShadow;
     public float ShadowBarCost => _shadowBarCost;
     public bool CanBePlaced
     {
         get
         {
-            if(_collidersInside.Count==1)return true;
+            if(_isInFullShadow)
+            {
+                if(_collidersInside.Count==0) return true;
+            }
+            else if(_collidersInside.Count==1)return true;
             return false;
         }
     }
@@ -20,6 +25,7 @@ public class PlacableShadow : MonoBehaviour
     [SerializeField] Collider2D _col;
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] Color _wrongColor;
+    private bool _isInFullShadow;
     private Color _originalColor;
     private ControllableShadow _parentShadow;
     private Collider2D _shadowParentCol;
@@ -49,6 +55,10 @@ public class PlacableShadow : MonoBehaviour
         _shadowParentCol = shadwoCol;
         _collidersInside.Add(shadwoCol);
     }
+    public void SetFullShadow()
+    {
+        _isInFullShadow = true;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!_collidersInside.Contains(collision))
@@ -75,6 +85,16 @@ public class PlacableShadow : MonoBehaviour
             _palcementCor = null;
         }
         _palcementCor = StartCoroutine(CantPlaceShadowCor());
+    }
+    public void StartTimeLimit()
+    {
+        StartCoroutine(TimeLimit());
+    }
+    IEnumerator TimeLimit()
+    {
+        yield return new WaitForSeconds(3f);
+        OnMaxTimeReached?.Invoke(this);
+
     }
     IEnumerator CantPlaceShadowCor()
     {

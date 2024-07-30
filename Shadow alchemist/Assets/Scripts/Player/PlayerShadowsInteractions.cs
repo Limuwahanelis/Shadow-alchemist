@@ -14,14 +14,17 @@ public class PlayerShadowsInteractions : MonoBehaviour
     public ITransmutableSadow TransmutableShadow => _transmutablkeShadow;
     public PlacableShadow ShadowToPlace => _currentlyPlacingShadow;
     public float ShadowPlacingSpeed => _shadowPlacingSpeed;
+    public bool FullShadow => _fullShadow;
     public ShadowBar ShadowBar =>_shadowBar;
     [SerializeField] float _shadowPlacingSpeed;
     [SerializeField] ShadowBar _shadowBar;
     [SerializeField] Transform _shadowSpawnPoint;
     [SerializeField] Transform _shadowSpawnPoint2;
+    [SerializeField] bool _fullShadow;
     private PlacableShadow _currentlyPlacingShadow;
     private ITransmutableSadow _transmutablkeShadow;
     private float _shadowBarValue;
+    private List<PlacableShadow> _placedShadows= new List<PlacableShadow>();
     private void Update()
     {
         if(Shadow==null) return;
@@ -29,9 +32,18 @@ public class PlayerShadowsInteractions : MonoBehaviour
     }
     public void SpawnShadow(GameObject _shadowPrefab)
     {
-        _currentlyPlacingShadow = Instantiate(_shadowPrefab, Shadow.IsHorizontal?_shadowSpawnPoint.position: _shadowSpawnPoint2.position, _shadowPrefab.transform.rotation,null).GetComponent<PlacableShadow>();
-        _currentlyPlacingShadow.SetParentShadow(_shadow, _shadow.ShadowCollider);
-        _currentlyPlacingShadow.OnLeftParentShadow += ForceDespawn;
+        if(_fullShadow)
+        {
+            _currentlyPlacingShadow = Instantiate(_shadowPrefab, _shadowSpawnPoint.position, _shadowPrefab.transform.rotation, null).GetComponent<PlacableShadow>();
+            _currentlyPlacingShadow.SetFullShadow();
+        }
+        else
+        {
+            _currentlyPlacingShadow = Instantiate(_shadowPrefab, Shadow.IsHorizontal ? _shadowSpawnPoint.position : _shadowSpawnPoint2.position, _shadowPrefab.transform.rotation, null).GetComponent<PlacableShadow>();
+            _currentlyPlacingShadow.SetParentShadow(_shadow, _shadow.ShadowCollider);
+            _currentlyPlacingShadow.OnLeftParentShadow += ForceDespawn;
+        }
+
         Logger.Log($"{ _currentlyPlacingShadow}  {ShadowToPlace}");
     }
     public void ForceDespawn(PlacableShadow newShadow)
@@ -55,7 +67,20 @@ public class PlayerShadowsInteractions : MonoBehaviour
             Logger.Log("Placed");
             _currentlyPlacingShadow.OnLeftParentShadow -= ForceDespawn;
             _currentlyPlacingShadow.ChageTriggerToCol();
-            _shadow.PlaceNewShadow(_currentlyPlacingShadow);
+            if(!_fullShadow) _shadow.PlaceNewShadow(_currentlyPlacingShadow);
+            else
+            {
+                if (_placedShadows.Count >= 3)
+                {
+                    _placedShadows[0].OnMaxTimeReached -= PlacedShadowTimeLimitreached;
+                    Destroy(_placedShadows[0].gameObject);
+                    _placedShadows.RemoveAt(0);
+
+                }
+                _currentlyPlacingShadow.StartTimeLimit();
+                _currentlyPlacingShadow.OnMaxTimeReached += PlacedShadowTimeLimitreached;
+                _placedShadows.Add(_currentlyPlacingShadow);
+            }
             _currentlyPlacingShadow = null;
             return true;
         }
@@ -66,6 +91,12 @@ public class PlayerShadowsInteractions : MonoBehaviour
             return false;
         }
         
+    }
+    private void PlacedShadowTimeLimitreached(PlacableShadow shadow)
+    {
+        shadow.OnMaxTimeReached -= PlacedShadowTimeLimitreached;
+        Destroy(shadow.gameObject);
+        _placedShadows.Remove(shadow);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

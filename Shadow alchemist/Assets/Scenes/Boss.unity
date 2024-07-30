@@ -893,6 +893,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1868123658969505569, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868123658969505569, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868123658969505569, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 249.48769
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868123658969505569, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882842330687734404, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882842330687734404, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882842330687734404, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 136.5577
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882842330687734404, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2425925776315117358, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: _playerCols.Array.size
       value: 2
@@ -912,6 +944,18 @@ PrefabInstance:
     - target: {fileID: 2621413242125829931, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822996520566731100, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328005179847929583, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: _fullShadow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5146429223529363631, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6211147572631444681, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: m_LocalPosition.x
@@ -960,6 +1004,30 @@ PrefabInstance:
     - target: {fileID: 7557222278633596403, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.4200852
+      objectReference: {fileID: 0}
+    - target: {fileID: 7940972932847968264, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8366309981412018908, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006986946444145441, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006986946444145441, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006986946444145441, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006986946444145441, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1019,7 +1087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &470803436
 Animator:
   serializedVersion: 7

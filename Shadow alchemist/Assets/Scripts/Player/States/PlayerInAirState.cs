@@ -61,7 +61,7 @@ public class PlayerInAirState : PlayerState
     }
     public override void Jump()
     {
-        _jumpOnLanding = true;
+        _stateTypeToChangeFromInputCommand = PlayerJumpingState.StateType;
     }
     public override void Move(Vector2 direction)
     {
