@@ -15,4 +15,5 @@ public class BossContext : EnemyContext
     public BossChargeInfo chargeInfo;
     public Transform leftChargeStop;
     public Transform rightChargeStop;
+    public Collider2D lanceCollider;
 }

@@ -93,6 +93,10 @@ public class PlayerHealthSystem : HealthSystem,IPushable
             if (_pushInvincibiltyType == damageType || _pushInvincibiltyType == DamageType.ALL) return;
             //_playerMovement.PushPlayer(direction, pushHandle.GetVector() * pushForce, pusher);
             OnPushed?.Invoke(pushDirection, pusher);
+            if (damageType == DamageType.BOSS)
+            {
+                if (pusher != null) pusher.PreventCollisions(_playerCols);
+            }
             StartCoroutine(PushCor(pusher));
         }
     }

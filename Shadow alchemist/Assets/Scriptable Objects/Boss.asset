@@ -30,7 +30,7 @@ MonoBehaviour:
     speed: 1
     layer: 0
   - name: Idle
-    duration: 0.51666665
+    duration: 0.68333334
     speed: 1
     layer: 0
   - name: Attack
@@ -39,6 +39,18 @@ MonoBehaviour:
     layer: 0
   - name: Charge stop
     duration: 0.016666668
+    speed: 1
+    layer: 0
+  - name: Shadow crash
+    duration: 0.93333334
+    speed: 1
+    layer: 0
+  - name: Kneel loop
+    duration: 1.0166667
+    speed: 1
+    layer: 0
+  - name: Get up
+    duration: 0.51666665
     speed: 1
     layer: 0
   animatorController: {fileID: 9100000, guid: 7d19695b62f38a4438c4f5dfca766cce, type: 2}

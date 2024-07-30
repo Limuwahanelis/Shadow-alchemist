@@ -61,6 +61,18 @@ public class BossStateTeleport : EnemyState
                         }
 
                     }
+                    else if(_context.currentPhase==BossController.BossPhase.CHARGE)
+                    {
+                        if (_context.indexOfTeleportPos == 0)
+                        {
+                            if (_context.movement.FlipSide == GlobalEnums.HorizontalDirections.LEFT) _context.movement.FlipEnemy();
+                        }
+                        else if (_context.indexOfTeleportPos == 2)
+                        {
+                            if (_context.movement.FlipSide == GlobalEnums.HorizontalDirections.RIGHT) _context.movement.FlipEnemy();
+                        }
+                    }
+                    
                     _context.animMan.PlayAnimation("teleport show");
                     _hasteleported = true;
                     _time = 0;

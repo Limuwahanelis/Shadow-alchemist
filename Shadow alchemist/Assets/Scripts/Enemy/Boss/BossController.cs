@@ -15,6 +15,7 @@ public class BossController : EnemyController
     [Header("Charge"),SerializeField] BossChargeInfo _chargeInfo;
     [SerializeField] Transform _leftChargeStop;
     [SerializeField] Transform _rightChargeStop;
+    [SerializeField] Collider2D _lanceCollider;
     [Header("Teleportation"),SerializeField] Transform[] _teleportationPoints;
 
     [Header("Missiles"), SerializeField] SpawnShadowMissilesBoss _leftMissileSpawner;
@@ -47,6 +48,7 @@ public class BossController : EnemyController
             chargeInfo = _chargeInfo,
             leftChargeStop = _leftChargeStop,
             rightChargeStop = _rightChargeStop,
+            lanceCollider = _lanceCollider,
 
         };
         EnemyState.GetState getState = GetState;
@@ -54,7 +56,7 @@ public class BossController : EnemyController
         {
             _enemyStates.Add(state, (EnemyState)Activator.CreateInstance(state, getState));
         }
-        EnemyState newState = GetState(BossStateCharge.StateType);
+        EnemyState newState = GetState(BossStateInitialPhase.StateType);
         newState.SetUpState(_context);
         _currentEnemyState = newState;
     }

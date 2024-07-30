@@ -36,6 +36,7 @@ public class BossStateCastTopMissiles : EnemyState
         _animationTime = _context.animMan.GetAnimationLength("Cast missiles");
         _context.animMan.PlayAnimation("Cast missiles");
         _time = 0;
+        _hasFiredMissiles = false;
 
     }
 

@@ -19,7 +19,7 @@ public class BossCombat : MonoBehaviour,IDamager
 
     [SerializeField] LayerMask _hitLayer;
     [SerializeField] Collider2D _col;
-
+    [SerializeField] Collider2D _laceCol;
     [Header("Stun"), SerializeField] Sprite _stunSprite;
     [SerializeField] Sprite _normalSprite;
     [SerializeField] SpriteRenderer _spriteRenderer;
@@ -59,7 +59,7 @@ public class BossCombat : MonoBehaviour,IDamager
         for (; index < hitEnemies.Count; index++)
         {
             IPushable tmp2 = hitEnemies[index].GetComponentInParent<IPushable>();
-            if (tmp2 != null) tmp2.Push(HealthSystem.DamageType.BOSS, this);
+            if (tmp2 != null) tmp2.Push(Vector2.zero, HealthSystem.DamageType.BOSS, this);
             IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
             if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
 
@@ -80,7 +80,7 @@ public class BossCombat : MonoBehaviour,IDamager
                 {
                     hitEnemies.Add(colliders[i]);
                     IPushable tmp2 = hitEnemies[index].GetComponentInParent<IPushable>();
-                    if (tmp2 != null) tmp2.Push( HealthSystem.DamageType.BOSS, this);
+                    if (tmp2 != null) tmp2.Push(Vector2.zero, HealthSystem.DamageType.BOSS, this);
                     IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
                     if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
 
@@ -109,6 +109,8 @@ public class BossCombat : MonoBehaviour,IDamager
         foreach (Collider2D col in playerCols)
         {
             Physics2D.IgnoreCollision(col, _col,false);
+            Physics2D.IgnoreCollision(col, _laceCol, false);
+            
         }
     }
 
@@ -117,6 +119,7 @@ public class BossCombat : MonoBehaviour,IDamager
         foreach (Collider2D col in playerCols)
         {
             Physics2D.IgnoreCollision(col, _col,true);
+            Physics2D.IgnoreCollision(col, _laceCol, true);
         }
     }
 }
