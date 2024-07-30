@@ -1127,6 +1127,7 @@ MonoBehaviour:
   _shadowBar: {fileID: 7566495022321768174}
   _shadowSpawnPoint: {fileID: 8808726845868083243}
   _shadowSpawnPoint2: {fileID: 8089676614538284709}
+  _fullShadow: 0
 --- !u!114 &2301894783809989241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3005,6 +3006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyCol: {fileID: 2822997024649502939}
+  _healthSystem: {fileID: 2425925776315117358}
 --- !u!1 &7102802092777858392
 GameObject:
   m_ObjectHideFlags: 0

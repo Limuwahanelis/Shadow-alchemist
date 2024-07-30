@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static HealthSystem;
 
 public class PlayerHealthSystem : HealthSystem,IPushable
 {
@@ -31,7 +32,7 @@ public class PlayerHealthSystem : HealthSystem,IPushable
     {
         if (currentHP>0)
         {
-            if (_invincibiltyType==info.damageType || _invincibiltyType==DamageType.ALL) return;
+            if ((_invincibiltyType & info.damageType)== info.damageType) return;
             currentHP -= info.dmg;
             if(hpBar!=null) hpBar.SetHealth(currentHP);
 
@@ -65,11 +66,11 @@ public class PlayerHealthSystem : HealthSystem,IPushable
         _pushInvincibiltyType = DamageType.NONE;
     }
 
-    public void Push(PlayerHealthSystem.DamageType damageType, IDamager pusher = null)
+    public void Push(DamageType damageType, IDamager pusher = null)
     {
         if (currentHP > 0)
         {
-            if (_pushInvincibiltyType == damageType || _pushInvincibiltyType == DamageType.ALL) return;
+            if ((damageType & _pushInvincibiltyType )==damageType) return;
             //_playerMovement.PushPlayer(pushHandle.GetVector() * pushForce,pusher);
             OnPushed?.Invoke(Vector3.zero, pusher);
             if (pusher != null) pusher.PreventCollisions(_playerCols);
@@ -80,7 +81,7 @@ public class PlayerHealthSystem : HealthSystem,IPushable
     {
         if (currentHP > 0)
         {
-            if (_pushInvincibiltyType == damageType || _pushInvincibiltyType == DamageType.ALL) return;
+            if ((_pushInvincibiltyType & damageType) == damageType ) return;
             //_playerMovement.PushPlayer(direction, pushHandle.GetVector() * pushForce, null);
             OnPushed?.Invoke(pushDirection, null);
             StartCoroutine(PushCor(null));
@@ -90,7 +91,7 @@ public class PlayerHealthSystem : HealthSystem,IPushable
     {
         if (currentHP > 0)
         {
-            if (_pushInvincibiltyType == damageType || _pushInvincibiltyType == DamageType.ALL) return;
+            if ((_pushInvincibiltyType & damageType) == damageType ) return;
             //_playerMovement.PushPlayer(direction, pushHandle.GetVector() * pushForce, pusher);
             OnPushed?.Invoke(pushDirection, pusher);
             if (damageType == DamageType.BOSS)

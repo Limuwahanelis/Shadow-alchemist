@@ -11,13 +11,13 @@ public class HealthSystem : MonoBehaviour,IDamagable
     public enum DamageType
     {
         NONE = 0,
-        ENEMY = 2,
-        MISSILE = 4,
-        TRAPS = 8,
-        SHADOW_SPIKE=16,
-        PLAYER=32,
-        BOSS=64,
-        ALL = 128,
+        ENEMY = 1,
+        MISSILE = 2,
+        TRAPS = 4,
+        SHADOW_SPIKE=8,
+        PLAYER=16,
+        BOSS=32,
+        ALL = ~0,
     }
     public Action<DamageInfo> OnHitEvent;
     public Action OnDeathEvent;

@@ -41,6 +41,8 @@ public class PlayerDodgingState : PlayerState
         _context.animationManager.PlayAnimation("Dodge");
         _context.playerMovement.Dodge();
         _context.playerDodge.SetEnemyCollider(false);
+        _context.playerDodge.SetInvincibility(HealthSystem.DamageType.ALL^HealthSystem.DamageType.MISSILE);
+        _context.playerDodge.SetPushInvincibility(HealthSystem.DamageType.ALL ^ HealthSystem.DamageType.MISSILE);
     }
     public override void Attack(PlayerCombat.AttackModifiers modifier = PlayerCombat.AttackModifiers.NONE)
     {
@@ -72,6 +74,7 @@ public class PlayerDodgingState : PlayerState
 
     public override void InterruptState()
     {
-        
+        _context.playerDodge.SetInvincibility(HealthSystem.DamageType.NONE);
+        _context.playerDodge.SetPushInvincibility(HealthSystem.DamageType.NONE);
     }
 }
