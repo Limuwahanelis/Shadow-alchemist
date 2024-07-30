@@ -45,6 +45,8 @@ public class PlayerPushedState : PlayerState
         _context.animationManager.PlayAnimation("Idle");
         _context.animationManager.SetAnimator(false);
         _context.combat.ChangeSpriteToPushed();
+        _context.shadowControlModeSelectionUI.SetVisiblity(false);
+        _context.placableShadowSelection.SetSelectionVisibility(false);
     }
     public override void Push()
     {

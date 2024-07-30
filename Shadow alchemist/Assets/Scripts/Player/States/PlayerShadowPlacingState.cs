@@ -87,7 +87,7 @@ public class PlayerShadowPlacingState : PlayerState
     }
     public override void InterruptState()
     {
-     
+        _context.shadowControl.DespawnShadow();
     }
     private void ShowShadowSelection()
     {
