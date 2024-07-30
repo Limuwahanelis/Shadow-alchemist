@@ -46,7 +46,13 @@ public class HealthSystem : MonoBehaviour,IDamagable
         if (!_isAlive) return;
         if (currentHP <= 0) Kill();
     }
-
+    public void TakeDamageSilent(DamageInfo info)
+    {
+        currentHP -= info.dmg;
+        hpBar.SetHealth(currentHP);
+        if (!_isAlive) return;
+        if (currentHP <= 0) Kill();
+    }
     public virtual void Kill()
     {
         _isAlive = false;

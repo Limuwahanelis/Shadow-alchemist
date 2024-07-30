@@ -25,7 +25,9 @@ public class BossStateHitPlayerPlacedShadow : EnemyState
         }
         if(_time> _stunDuration) 
         {
-            // change state
+            _context.weakendStatus.Status = EnemyWeakendStatus.WeakenStatus.NONE;
+            _context.sweatDrop.SetActive(false);
+            ChangeState(BossStateRecoveryFromShadowCollision.StateType);
         }
     }
 
@@ -35,17 +37,25 @@ public class BossStateHitPlayerPlacedShadow : EnemyState
         _context = (BossContext)context;
         _crushAnimLength = _context.animMan.GetAnimationLength("Shadow crash");
         _context.animMan.PlayAnimation("Shadow crash");
+        _context.weakendStatus.Status = EnemyWeakendStatus.WeakenStatus.WEAKEN;
         _time = 0;
+        _stunDuration = 15f;
+        _context.healthSystem.TakeDamageSilent(new DamageInfo(20, HealthSystem.DamageType.ENEMY, _context.enemyTransform.position));
+        _context.sweatDrop.SetActive(true);
     }
     public override void Hit(DamageInfo damageInfo)
     {
         if(damageInfo.damageType==HealthSystem.DamageType.SHADOW_SPIKE)
         {
-            // ADD hit from spikes
+            Logger.Log("HIT from spikes");
+            _context.sweatDrop.SetActive(false);
+            _context.healthSystem.TakeDamageSilent(new DamageInfo(30, HealthSystem.DamageType.ENEMY, _context.enemyTransform.position));
+            _stunDuration += 10f;
+            _context.weakendStatus.Status = EnemyWeakendStatus.WeakenStatus.STUNNED;
         }
     }
     public override void InterruptState()
     {
-     
+        _context.sweatDrop.SetActive(false);
     }
 }

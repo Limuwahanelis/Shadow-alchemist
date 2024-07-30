@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static EnemyWeakendStatus;
 
 public class BossController : EnemyController
 {
@@ -11,7 +12,9 @@ public class BossController : EnemyController
         MISSILES_TOP,NORMAL_ATTACK,MISSLES_SIDES,CHARGE
     }
     [Header("Boss"),SerializeField] BossCombat _combat;
+    [SerializeField] HealthSystem _healthSys;
     [SerializeField] BossMovement _movement;
+    [SerializeField] GameObject _sweatDrop;
     [Header("Charge"),SerializeField] BossChargeInfo _chargeInfo;
     [SerializeField] Transform _leftChargeStop;
     [SerializeField] Transform _rightChargeStop;
@@ -26,6 +29,7 @@ public class BossController : EnemyController
 
     void Start()
     {
+        _healthSys.OnHitEvent += TryStun;
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
     .Where(type => typeof(EnemyState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
 
@@ -49,7 +53,8 @@ public class BossController : EnemyController
             leftChargeStop = _leftChargeStop,
             rightChargeStop = _rightChargeStop,
             lanceCollider = _lanceCollider,
-
+            sweatDrop=_sweatDrop,
+            healthSystem=_healthSys,
         };
         EnemyState.GetState getState = GetState;
         foreach (Type state in states)
@@ -69,6 +74,16 @@ public class BossController : EnemyController
     {
         _currentEnemyState?.FixedUpdate();
     }
+    private void TryStun(DamageInfo info)
+    {
+        if (info.damageType == HealthSystem.DamageType.SHADOW_SPIKE)
+        {
+            if (_enemyWeakendStatus.Status == EnemyWeakendStatus.WeakenStatus.WEAKEN)
+            {
+                _currentEnemyState.Hit(info);
+            }
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Logger.Log(collision.rigidbody.gameObject);
@@ -76,5 +91,9 @@ public class BossController : EnemyController
         {
             _currentEnemyState.Hit(new DamageInfo());
         }
+    }
+    private void OnDestroy()
+    {
+        _healthSys.OnHitEvent -= TryStun;
     }
 }
