@@ -236,7 +236,7 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
                 if (_lastTransmutationDirection != DIR.DOWN && _lastTransmutationDirection != DIR.NONE) return;
                 if (_shadowMask.localScale.y < 0) return;
                 _lastTransmutationDirection = DIR.DOWN;
-                _transmutateValue = Time.deltaTime * 2f;
+                _transmutateValue = Time.deltaTime * _transmutationSpeed;
                 newScale.y -= _transmutateValue;
                 _shadowMask.localScale = newScale;
                 newPosition.y += _transmutateValue / scaleToPoSrate;
@@ -253,8 +253,8 @@ public class ControllableShadow : MonoBehaviour, IMovableShadow,ITransmutableSad
             {
                 if (_lastTransmutationDirection != DIR.UP && _lastTransmutationDirection != DIR.NONE) return;
                 if (_shadowMask.localScale.y < 0) return;
-                _lastTransmutationDirection = DIR.UP;
-                _transmutateValue = Time.deltaTime * 2f;
+                _lastTransmutationDirection = DIR.UP;   
+                _transmutateValue = Time.deltaTime * _transmutationSpeed;
                 newScale.y -= _transmutateValue;
                 _shadowMask.localScale = newScale;
                 newPosition.y -= _transmutateValue / scaleToPoSrate;
