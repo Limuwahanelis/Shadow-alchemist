@@ -80,6 +80,7 @@ public class BossStateCharge : EnemyState
     public override void Hit(DamageInfo damageInfo)
     {
         _context.coroutineHolder.StopCoroutine(_attackCor);
+        _context.chargeInfo.ResetCharge();
         _attackCor = null;
         ChangeState(BossStateHitPlayerPlacedShadow.StateType);
     }

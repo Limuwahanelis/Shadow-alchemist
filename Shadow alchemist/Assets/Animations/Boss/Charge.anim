@@ -22,13 +22,13 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 1873279338, guid: e55d00467302edd41921939124e228c8, type: 3}
-    - time: 0.41666666
+    - time: 2.0166667
       value: {fileID: 514141753, guid: e55d00467302edd41921939124e228c8, type: 3}
-    - time: 0.48333332
+    - time: 2.0833333
       value: {fileID: -1319926868, guid: e55d00467302edd41921939124e228c8, type: 3}
-    - time: 0.6666667
+    - time: 2.2666667
       value: {fileID: -186466548, guid: e55d00467302edd41921939124e228c8, type: 3}
-    - time: 0.9166667
+    - time: 2.5166667
       value: {fileID: 33519462, guid: e55d00467302edd41921939124e228c8, type: 3}
     attribute: m_Sprite
     path: main body/sprite
@@ -62,7 +62,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.93333334
+    m_StopTime: 2.5333333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -82,7 +82,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.48333332
+  - time: 2.0833333
     functionName: StartCharge
     data: 
     objectReferenceParameter: {fileID: 0}

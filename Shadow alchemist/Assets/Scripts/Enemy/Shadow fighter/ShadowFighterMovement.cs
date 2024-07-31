@@ -13,6 +13,10 @@ public class ShadowFighterMovement : MonoBehaviour
     [SerializeField] float _pushForce;
     private int _flipSide = 1;
     Vector3 _mainbodyScale;
+    private void Start()
+    {
+        _mainbodyScale = _shadowFighter.MainBody.transform.localScale;
+    }
     public void Move(Vector2 direction)
     {
         if (direction.x > 0)

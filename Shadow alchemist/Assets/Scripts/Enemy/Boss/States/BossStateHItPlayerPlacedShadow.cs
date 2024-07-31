@@ -10,7 +10,8 @@ public class BossStateHitPlayerPlacedShadow : EnemyState
     private BossContext _context;
     private float _time;
     private float _crushAnimLength;
-    private float _stunDuration = 15f;
+    private float _stunDuration = 5f;
+    private bool _isKneeling = false;
     public BossStateHitPlayerPlacedShadow(GetState function) : base(function)
     {
     }
@@ -18,10 +19,14 @@ public class BossStateHitPlayerPlacedShadow : EnemyState
     public override void Update()
     {
         _time += Time.deltaTime;
-        if(_time > _crushAnimLength) 
+        if (!_isKneeling)
         {
-            _context.animMan.PlayAnimation("Kneel loop");
-            _time = 0;
+            if (_time > _crushAnimLength)
+            {
+                _isKneeling = true;
+                _context.animMan.PlayAnimation("Kneel loop");
+                _time = 0;
+            }
         }
         if(_time> _stunDuration) 
         {
@@ -39,7 +44,8 @@ public class BossStateHitPlayerPlacedShadow : EnemyState
         _context.animMan.PlayAnimation("Shadow crash");
         _context.weakendStatus.Status = EnemyWeakendStatus.WeakenStatus.WEAKEN;
         _time = 0;
-        _stunDuration = 15f;
+        _stunDuration = 2f;
+        _isKneeling = false;
         _context.healthSystem.TakeDamageSilent(new DamageInfo(20, HealthSystem.DamageType.ENEMY, _context.enemyTransform.position));
         _context.sweatDrop.SetActive(true);
     }

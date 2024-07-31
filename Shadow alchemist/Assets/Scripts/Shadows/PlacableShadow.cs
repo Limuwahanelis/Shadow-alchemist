@@ -31,6 +31,7 @@ public class PlacableShadow : MonoBehaviour
     private Collider2D _shadowParentCol;
     private List<Collider2D> _collidersInside= new List<Collider2D>();
     private Coroutine _palcementCor;
+    private Coroutine _timeLimitCor;
     private void Start()
     {
         _originalColor = _spriteRenderer.color;
@@ -88,7 +89,16 @@ public class PlacableShadow : MonoBehaviour
     }
     public void StartTimeLimit()
     {
-        StartCoroutine(TimeLimit());
+        _timeLimitCor=StartCoroutine(TimeLimit());
+    }
+    public void ForceDestroy()
+    {
+        if(_timeLimitCor!=null)
+        {
+            StopCoroutine(_timeLimitCor);
+            _timeLimitCor = null;
+        }
+        OnMaxTimeReached?.Invoke(this);
     }
     IEnumerator TimeLimit()
     {

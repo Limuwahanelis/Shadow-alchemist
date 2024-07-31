@@ -23,6 +23,7 @@ public class Missile : MonoBehaviour,IDamager
         _direction = direction;
         _animManager.PlayAnimation("Start");
         _crushed = false;
+        _col.enabled = true;
     }
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class Missile : MonoBehaviour,IDamager
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (_crushed) return;
         _rb.MovePosition(_rb.position+_direction*Time.deltaTime*_speed);
@@ -48,6 +49,7 @@ public class Missile : MonoBehaviour,IDamager
         if (_crushed) return;
         _crushed = true;
         _animManager.PlayAnimation("Crush");
+        _col.enabled = false;
         StartCoroutine(DestroyAfterCrush(_animManager.GetAnimationLength("Crush")));
     }
 

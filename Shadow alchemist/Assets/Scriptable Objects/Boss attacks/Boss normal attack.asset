@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Boss normal attack
   m_EditorClassIdentifier: 
   _associatedAnimation: {fileID: 7400000, guid: 31bf85a07b97dd14c97da7316678ddd8, type: 2}
-  _damage: 10
+  _damage: 20
   _useFrames: 1
   _nextAttackWindowStart: 0
   _nextAttackWindowEnd: 0
   _nextAttackWindowStartFrame: 0
   _nextAttackWindowEndFrame: 0
-  _attackDamageStartFrame: 91
-  _attackDamageEndFrame: 100
-  _attackDamageStart: 1.529201
-  _attackDamageEnd: 1.6804408
+  _attackDamageStartFrame: 70
+  _attackDamageEndFrame: 90
+  _attackDamageStart: 1.1666666
+  _attackDamageEnd: 1.5

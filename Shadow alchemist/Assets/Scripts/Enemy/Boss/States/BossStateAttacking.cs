@@ -37,6 +37,8 @@ public class BossStateAttacking : EnemyState
         _context = (BossContext)context;
         _context.animMan.PlayAnimation("Attack");
         _attackAnimLength= _context.animMan.GetAnimationLength("Attack");
+        _isDealingDmg = false;
+        _checkForDmg = true;
         _time = 0;
     }
     public virtual void AttackCheck(BossCombat.AttackType attackType)
@@ -49,7 +51,7 @@ public class BossStateAttacking : EnemyState
                 {
                     _attackCor = _context.coroutineHolder.StartCoroutine(_context.combat.AttackCor(attackType));
                     _isDealingDmg = true;
-                    _checkForDmg = false;
+                    _checkForDmg = true;
                 }
             }
             else

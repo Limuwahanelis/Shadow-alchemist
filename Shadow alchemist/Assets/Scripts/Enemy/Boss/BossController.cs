@@ -15,6 +15,7 @@ public class BossController : EnemyController
     [SerializeField] HealthSystem _healthSys;
     [SerializeField] BossMovement _movement;
     [SerializeField] GameObject _sweatDrop;
+    [SerializeField] GameObject _gameWonPanel;
     [Header("Charge"),SerializeField] BossChargeInfo _chargeInfo;
     [SerializeField] Transform _leftChargeStop;
     [SerializeField] Transform _rightChargeStop;
@@ -30,6 +31,7 @@ public class BossController : EnemyController
     void Start()
     {
         _healthSys.OnHitEvent += TryStun;
+        _healthSys.OnDeathEvent += BossDeath;
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
     .Where(type => typeof(EnemyState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
 
@@ -74,6 +76,13 @@ public class BossController : EnemyController
     {
         _currentEnemyState?.FixedUpdate();
     }
+    private void BossDeath()
+    {
+        _gameWonPanel.SetActive(true);
+        EnemyState newState = GetState(BossStateDead.StateType);
+        newState.SetUpState(_context);
+        ChangeState(newState);
+    }
     private void TryStun(DamageInfo info)
     {
         if (info.damageType == HealthSystem.DamageType.SHADOW_SPIKE)
@@ -89,7 +98,9 @@ public class BossController : EnemyController
         Logger.Log(collision.rigidbody.gameObject);
         if(collision.rigidbody.GetComponent<PlacableShadow>())
         {
+            collision.rigidbody.GetComponent<PlacableShadow>().ForceDestroy();
             _currentEnemyState.Hit(new DamageInfo());
+
         }
     }
     private void OnDestroy()
