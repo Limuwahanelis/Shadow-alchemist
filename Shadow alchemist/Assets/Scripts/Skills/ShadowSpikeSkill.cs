@@ -16,6 +16,7 @@ public class ShadowSpikeSkill : MonoBehaviour
     private Coroutine _castSpikeCor;
     float _spikeAnimLength;
     float _time;
+    private bool _fullShadow;
     private float _spikeDirection;
     private void Start()
     {
@@ -25,6 +26,10 @@ public class ShadowSpikeSkill : MonoBehaviour
     private void Update()
     {
 
+    }
+    public void SetFullShadow(bool inFullshadow)
+    {
+        _fullShadow = inFullshadow;
     }
     public void SetOriginShadow(ControllableShadow _shadow)
     {
@@ -62,10 +67,12 @@ public class ShadowSpikeSkill : MonoBehaviour
             Vector3 spawnPos = _startTrans.position;
             spawnPos.x += i * _distanceBetweenSpikes* _spikeDirection;
             SpikeAttackLogic spike = Instantiate(_spikePrefab, spawnPos, _spikePrefab.transform.rotation, null).GetComponent<SpikeAttackLogic>();
+            if(_fullShadow) spike.SetUp(2 * _spikeAnimMan.GetAnimationLength("Spike"),_fullShadow);
             spike.SetUp(2 * _spikeAnimMan.GetAnimationLength("Spike"),_shadowToSpawnSpikes);
             _time = 0;
             Vector3 tmp = spawnPos;
             tmp.x += 1.5f*_spikeDirection;
+            if (_fullShadow) continue;
             if (!_shadowToSpawnSpikes.ShadowBounds.Contains(tmp)) yield break;
 
         }

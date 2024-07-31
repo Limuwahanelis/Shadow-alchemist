@@ -50,7 +50,7 @@ public class PlayerWalkingState : PlayerState
     {
         if(controlInput==PlayerInputHandler.ShadowControlInputs.SHADOW_SPIKE)
         {
-            if(_context.shadowControl.Shadow)
+            if(_context.shadowControl.Shadow || _context.shadowControl.FullShadow)
             {
                 ChangeState(PlayerCastingShadowSpikesState.StateType);
             }

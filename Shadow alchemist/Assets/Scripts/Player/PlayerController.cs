@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlacableShadowSelection _placableShadowSelection;
     [SerializeField] ShadowControlModeSelectionUI _shadowControlModeSelectionUI;
     [SerializeField] ShadowSpikeSkill _shadowSpikeSkill;
+    [SerializeField] GameObject _gameOverPanel;
     private PlayerState _currentPlayerState;
     private PlayerContext _context;
     private Dictionary<Type, PlayerState> playerStates = new Dictionary<Type, PlayerState>();
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _playerHealthSystem.OnPushed += PushPlayer;
+        _playerHealthSystem.OnDeathEvent += PlayerDeath;
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
             .Where(type => typeof(PlayerState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
 
@@ -81,6 +83,14 @@ public class PlayerController : MonoBehaviour
         _currentPlayerState.InterruptState();
         _currentPlayerState = newState;
     }
+    private void PlayerDeath()
+    {
+        _playerMovement.SetRBMaterial(PlayerMovement.PhysicMaterialType.NONE);
+        PlayerState newState = GetState(typeof(PlayerDeadState));
+        ChangeState(newState);
+        newState.SetUpState(_context); ;
+        _gameOverPanel.SetActive(true);
+    }
     public void PushPlayer(Vector3 pushDIrection, IDamager pusher)
     {
         _playerMovement.PushPlayer(pushDIrection, pusher);
@@ -107,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
+        _playerHealthSystem.OnDeathEvent -= PlayerDeath;
         _playerHealthSystem.OnPushed -= PushPlayer;
     }
 }

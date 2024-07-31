@@ -38,7 +38,7 @@ MonoBehaviour:
     speed: 1
     layer: 0
   - name: Dead
-    duration: 0.59999996
+    duration: 0.84999996
     speed: 1
     layer: 0
   - name: Drop Bomb

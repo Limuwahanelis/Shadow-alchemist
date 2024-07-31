@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4387605885601924540}
   - component: {fileID: 3134355402275760492}
   - component: {fileID: 7871850170357316635}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Wooden missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,8 +53,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _rb: {fileID: 4387605885601924540}
-  _speed: 15
+  _speed: 9
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _animManager: {fileID: 3134355402275760492}
+  _col: {fileID: 0}
 --- !u!95 &5613583804793571077
 Animator:
   serializedVersion: 7
@@ -174,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 540797305818739617}
   - component: {fileID: 6207377155048933625}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -32,7 +32,15 @@ public class PlayerShadowPlacingState : PlayerState
     {
         if (_isSelectingPlacableShadow)
         {
-            if (_context.shadowControl.Shadow.TakenShadowBarValueFromTransmutation >= _context.placableShadowSelection.CurrentlyHighlihtedShadow.ShadowBarCost)
+             if (_context.shadowControl.FullShadow)
+            {
+                _isSelectingPlacableShadow = false;
+                _context.placableShadowSelection.SelectShadow();
+                _context.shadowControl.PlacingShadowDespawned += ForcedShadowDespawn;
+                _context.placableShadowSelection.SetSelectionVisibility(false);
+                _isPlacingShadow = true;
+            }
+            else if (_context.shadowControl.Shadow.TakenShadowBarValueFromTransmutation >= _context.placableShadowSelection.CurrentlyHighlihtedShadow.ShadowBarCost)
             {
                 // select which shadow to spawn, spawn it but not place it yet
                 _isSelectingPlacableShadow = false;
@@ -41,6 +49,7 @@ public class PlayerShadowPlacingState : PlayerState
                 _context.placableShadowSelection.SetSelectionVisibility(false);
                 _isPlacingShadow = true;
             }
+
         }
         else if(_isPlacingShadow)
         {
@@ -56,6 +65,7 @@ public class PlayerShadowPlacingState : PlayerState
     {
         if (_isSelectingPlacableShadow)
         {
+            if (_context.shadowControl.FullShadow) return;
             _context.shadowControl.Shadow.RemoveRecentShadow();
         }
         else
@@ -68,11 +78,16 @@ public class PlayerShadowPlacingState : PlayerState
     {
         _context.shadowControl.DespawnShadow();
         _context.placableShadowSelection.SetSelectionVisibility(false);
+        if (_context.shadowControl.FullShadow)
+        {
+            ChangeState(PlayerIdleState.StateType);
+            return;
+        }
         ChangeState(PlayerShadowControlState.StateType);
     }
     public override void InterruptState()
     {
-     
+        _context.shadowControl.DespawnShadow();
     }
     private void ShowShadowSelection()
     {

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664f9e6bf8ab36141a05df560a9faec2, type: 3}
+  m_Name: Boss normal attack
+  m_EditorClassIdentifier: 
+  _associatedAnimation: {fileID: 7400000, guid: 31bf85a07b97dd14c97da7316678ddd8, type: 2}
+  _damage: 20
+  _useFrames: 1
+  _nextAttackWindowStart: 0
+  _nextAttackWindowEnd: 0
+  _nextAttackWindowStartFrame: 0
+  _nextAttackWindowEndFrame: 0
+  _attackDamageStartFrame: 70
+  _attackDamageEndFrame: 90
+  _attackDamageStart: 1.1666666
+  _attackDamageEnd: 1.5

@@ -18,7 +18,8 @@ public class PlayerCastingShadowSpikesState : PlayerState
     {
         base.SetUpState(context);
         _context.playerMovement.StopPlayer();
-        _context.shadowSpikeSkill.SetOriginShadow(_context.shadowControl.Shadow);
+        if(_context.shadowControl.FullShadow) _context.shadowSpikeSkill.SetFullShadow(_context.shadowControl.FullShadow);
+        else _context.shadowSpikeSkill.SetOriginShadow(_context.shadowControl.Shadow);
         _context.shadowSpikeSkill.CastSpikes(_context.playerMovement.FlipSide);
         _context.animationManager.PlayAnimation("Shadow cast");
     }
@@ -34,5 +35,6 @@ public class PlayerCastingShadowSpikesState : PlayerState
     public override void InterruptState()
     {
         _context.shadowSpikeSkill.StopCastingSpikes();
+        _context.shadowSpikeSkill.SetFullShadow(false);
     }
 }

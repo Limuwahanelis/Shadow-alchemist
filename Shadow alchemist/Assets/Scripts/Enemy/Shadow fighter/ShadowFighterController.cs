@@ -123,6 +123,7 @@ public class ShadowFighterController : EnemyController
         _enemyAnimationManager.SetAnimator(true);
         WaitFrameAndExecuteFunction(() =>
         {
+            _sweatDropSprite.SetActive(false);
             EnemyState newState = GetState(typeof(ShadowFighterStateDead));
             ChangeState(newState);
             newState.SetUpState(_context);

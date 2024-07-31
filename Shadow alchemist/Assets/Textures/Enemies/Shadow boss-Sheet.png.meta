@@ -1,0 +1,877 @@
+fileFormatVersion: 2
+guid: e55d00467302edd41921939124e228c8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5390117016684739436
+    second: Shadow boss-Sheet 1_0
+  - first:
+      213: -7744422479392640627
+    second: Shadow boss-Sheet 1_1
+  - first:
+      213: -4454522697545004933
+    second: Shadow boss-Sheet 1_2
+  - first:
+      213: -2104969090163750248
+    second: Shadow boss-Sheet 1_3
+  - first:
+      213: 5695230126083783194
+    second: Shadow boss-Sheet 1_4
+  - first:
+      213: -7143779657665761405
+    second: Shadow boss-Sheet 1_5
+  - first:
+      213: -7209862847967204521
+    second: Shadow boss-Sheet 1_6
+  - first:
+      213: 5075196617249358941
+    second: Shadow boss-Sheet 1_7
+  - first:
+      213: -4946265335569452814
+    second: Shadow boss-Sheet 1_8
+  - first:
+      213: 29013400600433876
+    second: Shadow boss-Sheet 1_9
+  - first:
+      213: -528063873493278747
+    second: Shadow boss-Sheet 1_10
+  - first:
+      213: -4910636192797097564
+    second: Shadow boss-Sheet 1_11
+  - first:
+      213: -579454253557159980
+    second: Shadow boss-Sheet 1_12
+  - first:
+      213: -5727044151924196316
+    second: Shadow boss-Sheet 1_13
+  - first:
+      213: -419824026293299721
+    second: Shadow boss-Sheet 1_14
+  - first:
+      213: -8143260162980934937
+    second: Shadow boss-Sheet 1_15
+  - first:
+      213: -6141392979364618526
+    second: Shadow boss-Sheet 1_16
+  - first:
+      213: -2087112751277903292
+    second: Shadow boss-Sheet 1_17
+  - first:
+      213: -1910419142102581996
+    second: Shadow boss-Sheet 1_18
+  - first:
+      213: 4225358875514595579
+    second: Shadow boss-Sheet 1_19
+  - first:
+      213: -4297930064032221692
+    second: Shadow boss-Sheet 1_20
+  - first:
+      213: 220798074961390442
+    second: Shadow boss-Sheet 1_21
+  - first:
+      213: -778089773687869525
+    second: Shadow boss-Sheet 1_22
+  - first:
+      213: -3377080139576010448
+    second: Shadow boss-Sheet 1_23
+  - first:
+      213: 1716817500611512111
+    second: Shadow boss-Sheet 1_24
+  - first:
+      213: 1377426788651257972
+    second: Shadow boss-Sheet 1_25
+  - first:
+      213: -9216648556573439087
+    second: Shadow boss-Sheet 1_26
+  - first:
+      213: 7005808715082064084
+    second: Shadow boss-Sheet 1_27
+  - first:
+      213: 5624042381945746926
+    second: Shadow boss-Sheet 1_28
+  - first:
+      213: 7371812013392376696
+    second: Shadow boss-Sheet 1_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 511
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 293abf63e6d79124f926d64e17a294e4
+      internalID: -491734178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 511
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9403230a28dc45049ad8b7438b09bf73
+      internalID: 285423938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 511
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6456b579d18aaa459d7366505725599
+      internalID: 1930549247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_3
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 511
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5375cd8f44412e49b7d0acda6e8e5d5
+      internalID: 1873279338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 438
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 665ec3e2b6ab34b4ca9d59bc073dc3f8
+      internalID: 514141753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 438
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 025c4a295565032479d167d228b054d9
+      internalID: -1319926868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_6
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 438
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb22b1c771202704492763d90ab28c6c
+      internalID: -186466548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_7
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 438
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e4dd2a8a79266840afae77d5535b659
+      internalID: 33519462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 365
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37943b80eee3aa34e8fca280cf2e1aa1
+      internalID: 1777648403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_9
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 365
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfaf3ce59e4db5f459103331b50be9b5
+      internalID: -1605718465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_10
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 365
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d00aa8f5cee74c4e9063fb8553a6973
+      internalID: -1732824178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_11
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 365
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7e21311eee6c274fa936d123902b0d7
+      internalID: 1488381959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 292
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9db524792aeef164fa29e8f788f68975
+      internalID: -183138228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_13
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 292
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26d23f7d9d7386b4eb92319d7ec90218
+      internalID: 945583810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_14
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 292
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1624076190bcc6841ad1a3db3b167041
+      internalID: 1730712066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_15
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 292
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 832e37d44abf34e4893d09b45b67922c
+      internalID: -1192713615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 219
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5c67638d6dad13458f5fb8d44b93df3
+      internalID: 1296827079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_17
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 219
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f784394db9987c479638f3ec9190f9f
+      internalID: -1591213897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_18
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 219
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1914d8e958e94ad44b1b83eefaa37225
+      internalID: 1390061811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_19
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 219
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64b890b75f23c0e418cf528c85425d70
+      internalID: -1690171522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 146
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3566fa9a1d9c4ef4c80a799c80be26ed
+      internalID: -58471630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_21
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 146
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd2469e6db97ece4fb832ebe6857ff1c
+      internalID: -673941997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_22
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 146
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8ab8cc7868b88444b46955d0d8d5bc1
+      internalID: -1051582445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_23
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 146
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aecc57e425502d4b8e4fc464471a521
+      internalID: -2146836361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 73
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 893a506e09283f7469abac7dcb4f43ca
+      internalID: 1861225914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_25
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 73
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af0da29be2a19564ba01e75f145c93ff
+      internalID: 1468606810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_26
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 73
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8258ea0852929c94fb9ba10444a722eb
+      internalID: -1483771206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_27
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 73
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd577b6edceb45b4f8d2e8d5055d54a7
+      internalID: -245282390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b221109fcbfbf3a48a1bf165b295c1ac
+      internalID: -1050254344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shadow boss-Sheet 1_29
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 80
+        height: 73
+      alignment: 9
+      pivot: {x: 0.2254272, y: 0.331}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b6b7e00b7d4ee74985ba0f15d6b567d
+      internalID: 1012511037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: edd852361c627d14287c20e480126cfc
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Shadow boss-Sheet 1_0: -491734178
+      Shadow boss-Sheet 1_1: 285423938
+      Shadow boss-Sheet 1_10: -1732824178
+      Shadow boss-Sheet 1_11: 1488381959
+      Shadow boss-Sheet 1_12: -183138228
+      Shadow boss-Sheet 1_13: 945583810
+      Shadow boss-Sheet 1_14: 1730712066
+      Shadow boss-Sheet 1_15: -1192713615
+      Shadow boss-Sheet 1_16: 1296827079
+      Shadow boss-Sheet 1_17: -1591213897
+      Shadow boss-Sheet 1_18: 1390061811
+      Shadow boss-Sheet 1_19: -1690171522
+      Shadow boss-Sheet 1_2: 1930549247
+      Shadow boss-Sheet 1_20: -58471630
+      Shadow boss-Sheet 1_21: -673941997
+      Shadow boss-Sheet 1_22: -1051582445
+      Shadow boss-Sheet 1_23: -2146836361
+      Shadow boss-Sheet 1_24: 1861225914
+      Shadow boss-Sheet 1_25: 1468606810
+      Shadow boss-Sheet 1_26: -1483771206
+      Shadow boss-Sheet 1_27: -245282390
+      Shadow boss-Sheet 1_28: -1050254344
+      Shadow boss-Sheet 1_29: 1012511037
+      Shadow boss-Sheet 1_3: 1873279338
+      Shadow boss-Sheet 1_4: 514141753
+      Shadow boss-Sheet 1_5: -1319926868
+      Shadow boss-Sheet 1_6: -186466548
+      Shadow boss-Sheet 1_7: 33519462
+      Shadow boss-Sheet 1_8: 1777648403
+      Shadow boss-Sheet 1_9: -1605718465
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

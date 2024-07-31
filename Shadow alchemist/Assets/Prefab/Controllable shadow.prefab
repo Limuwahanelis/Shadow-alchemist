@@ -440,6 +440,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shadow: {fileID: 2080716647947369973}
   _shadowCollider: {fileID: 5449879963913693113}
+  _ajustColliderByCurve: 0
+  _transmutationSpeed: 2
+  _curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _isTriangle: 0
   _isHorizontal: 1
   _shadowMask: {fileID: 8844613119017229819}

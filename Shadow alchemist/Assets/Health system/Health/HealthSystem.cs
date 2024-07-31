@@ -11,12 +11,13 @@ public class HealthSystem : MonoBehaviour,IDamagable
     public enum DamageType
     {
         NONE = 0,
-        ENEMY = 2,
-        MISSILE = 4,
-        TRAPS = 8,
-        SHADOW_SPIKE=16,
-        PLAYER=32,
-        ALL = 64,
+        ENEMY = 1,
+        MISSILE = 2,
+        TRAPS = 4,
+        SHADOW_SPIKE=8,
+        PLAYER=16,
+        BOSS=32,
+        ALL = ~0,
     }
     public Action<DamageInfo> OnHitEvent;
     public Action OnDeathEvent;
@@ -45,7 +46,13 @@ public class HealthSystem : MonoBehaviour,IDamagable
         if (!_isAlive) return;
         if (currentHP <= 0) Kill();
     }
-
+    public void TakeDamageSilent(DamageInfo info)
+    {
+        currentHP -= info.dmg;
+        hpBar.SetHealth(currentHP);
+        if (!_isAlive) return;
+        if (currentHP <= 0) Kill();
+    }
     public virtual void Kill()
     {
         _isAlive = false;
