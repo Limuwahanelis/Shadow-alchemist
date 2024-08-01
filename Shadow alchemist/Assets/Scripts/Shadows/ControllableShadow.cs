@@ -17,14 +17,14 @@ public class ControllableShadow : MonoBehaviour
     public Bounds ShadowBounds => _spriteMask.bounds;
     [SerializeField] protected Transform _shadow;
     [Header("Shadow"),SerializeField] protected Collider2D _shadowCollider;
-    [Tooltip("Set curve value at begining and end to 0. Set its value at lowest/highest point. Create polygon collider as child of SHAdow Controller.Check its points. "), SerializeField] bool _ajustColliderByCurve;
+    //[Tooltip("Set curve value at begining and end to 0. Set its value at lowest/highest point. Create polygon collider as child of SHAdow Controller.Check its points. "), SerializeField] bool _ajustColliderByCurve;
     [SerializeField] protected float _transmutationSpeed=2f;
-    [SerializeField] AnimationCurve _curve;
+   // [SerializeField] AnimationCurve _curve;
    // [SerializeField] bool _isTriangle;
     [SerializeField] protected bool _isHorizontal = true;
     [SerializeField] protected Transform _shadowMask;
     [SerializeField] protected float scaleToPoSrate = 2f;
-    [SerializeField] protected float _totalShadowbarValue;
+    //[SerializeField] protected float _totalShadowbarValue;
     [SerializeField] protected float _distanceToResetShadow;
     [SerializeField] protected CircleCollider2D  _resetShadowCollider;
     [Header("Borders"),SerializeField] protected Transform _lefBorder;
@@ -45,90 +45,63 @@ public class ControllableShadow : MonoBehaviour
     protected DIR _lastTransmutationDirection =DIR.NONE;
     protected bool _isReverting = false;
     protected Vector2 _shadowShift;
-   // private Vector2[] _points;
-   // private Vector2[] _originalPositions;
-
-    //private float _curveShift = 0;
-    protected void Start()
+    protected virtual void Start()
     {
-
-        //if (_ajustColliderByCurve)
-        //{
-        //    _points = ((PolygonCollider2D)_shadowCollider).points;
-        //     _originalPositions = ((PolygonCollider2D)_shadowCollider).points;
-
-        //}
-        //if (_ajustColliderByCurve) _originalPositions = ((PolygonCollider2D)_shadowCollider).points;
         _originalPosition = _shadow.position;
     }
     #region ShadowMove
     public virtual void MoveShadow(float moveSpeed,Vector2 direction)
     {
-        if(_revertMoveCor!=null)
+        if (_revertMoveCor != null)
         {
             StopCoroutine(_revertMoveCor);
+            _isReverting = false;
             _revertMoveCor = null;
         }
 
-        
+
         if (_isHorizontal)
         {
+
             if (direction == Vector2.right)
             {
-                if (_shadow.transform.position.x - _shadow.transform.localScale.x / 2 < _lefBorder.position.x)
+                if (_shadow.transform.position.x < _rightBorder.position.x)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
-
-                //    if (_ajustColliderByCurve)
-                //    {
-                //        for (int i = 0; i < _points.Length; i++)
-                //        {
-                //            _points[i] += direction * moveSpeed * Time.deltaTime;
-                //            _originalPositions[i] += direction * moveSpeed * Time.deltaTime;
-                //        }
-                //         ((PolygonCollider2D)_shadowCollider).points = _points;
-                //    }
-                //    _curveShift += direction.x * moveSpeed * Time.deltaTime;
+                    _shadowShift.x += direction.x * moveSpeed * Time.deltaTime;
                 }
+
             }
             if (direction == Vector2.left)
             {
-                if (_shadow.transform.position.x + _shadow.transform.localScale.x / 2 > _rightBorder.position.x)
+                if (_shadow.transform.position.x > _lefBorder.position.x)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
-                    //    if (_ajustColliderByCurve)
-                    //    {
-                    //        for (int i = 0; i < _points.Length; i++)
-                    //        {
-
-                    //            _points[i] += direction * moveSpeed * Time.deltaTime;
-                    //            _originalPositions[i] += direction * moveSpeed * Time.deltaTime;
-                    //        }
-                    //         ((PolygonCollider2D)_shadowCollider).points = _points;
-                    //    }
-                    //    _curveShift += direction.x * moveSpeed * Time.deltaTime;
-                    //}
+                    _shadowShift.x += direction.x * moveSpeed * Time.deltaTime;
                 }
             }
         }
         else
         {
+
             if (direction == Vector2.up)
             {
-                if (_shadow.transform.position.y - _shadow.transform.localScale.y / 2 < _upperBorder.position.y)
+                if (_shadow.transform.position.y < _upperBorder.position.y)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                    _shadowShift.y += direction.y * moveSpeed * Time.deltaTime;
                 }
             }
             if (direction == Vector2.down)
             {
-                if (_shadow.transform.position.y + _shadow.transform.localScale.y / 2 > _lowerBorder.position.y)
+                if (_shadow.transform.position.y > _lowerBorder.position.y)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                    _shadowShift.y += direction.y * moveSpeed * Time.deltaTime;
                 }
             }
+
         }
-        _shadowShift = direction * moveSpeed * Time.deltaTime;
 
     }
     public virtual void RevertMove()
@@ -247,8 +220,7 @@ public class ControllableShadow : MonoBehaviour
                 _shadowMask.localScale = newScale;
                 newPosition.y -= _transmutateValue / scaleToPoSrate;
                 _shadowMask.localPosition = newPosition;
-                SetValueForShadowBar();// _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.UP)]].position.y, _segments[_segmentsTakenPerSide[((int)DIR.UP)] + 1].position.y, _spriteMask.bounds.min.y)
-        //+ math.unlerp(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _spriteMask.bounds.max.y);
+                SetValueForShadowBar();
                 if (_spriteMask.bounds.max.y <= _segments[_segmentsTakenPerSide[((int)DIR.UP)]+1].position.y)
                 {
                     _shadowSegmentsList.Add(DIR.UP);
@@ -259,40 +231,6 @@ public class ControllableShadow : MonoBehaviour
         }
 
         _transmutateValue = 0;
-        //if(_ajustColliderByCurve)
-        //{
-        //    _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-        //    _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
-        //    _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-        //    _points[_points.Length - 1].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
-        //    _points[_points.Length - 1].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
-        //    _points[_points.Length - 2].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
-        //    if (directionTotakeFrom == Vector2.left)
-        //    {
-
-                
-        //        for (int i = 2; i < _points.Length-2; i++)
-        //        {
-        //            //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-        //            if (_points[i - 1].x > _points[i].x) _points[i].x = _points[i - 1].x;
-        //            _points[i].y = _curve.Evaluate(_points[i].x-_curveShift);
-        //        }
-        //    }
-        //    else if(directionTotakeFrom == Vector2.right)
-        //    {
-
-                
-        //        for (int i = _points.Length - 3; i >= 2; i--)
-        //        {
-        //            //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-        //            if (_points[i + 1].x < _points[i].x) _points[i].x = _points[i + 1].x;
-        //            _points[i].y = _curve.Evaluate(_points[i].x- _curveShift);
-        //        }
-        //    }
-        //     ((PolygonCollider2D)_shadowCollider).points = _points;
-
-
-        //}
     }
     protected void SetValueForShadowBar()
     {
@@ -309,14 +247,18 @@ public class ControllableShadow : MonoBehaviour
     }
     public void RevertNonSegmentShadowbar()
     {
+        if(_isReverting) return;
         StartCoroutine(RevertNonBarTransmutation());
     }
+
+    // TO DO: check if is everting then prevent it.
     public void RevertTransmutationFromPlacedShadow(float _shadowBarCost)
     {
         StartCoroutine(RevertLastBarTransmutation());
     }
     public void RevertTransmutation()
     {
+        if (_isReverting) return;
         if (_valueForShadowPlacing+_placedShadows.Count > _segmentsTaken)
         {
             StartCoroutine(RevertNonBarTransmutation());
@@ -640,6 +582,44 @@ public class ControllableShadow : MonoBehaviour
         }
         _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count;
         _lastTransmutationDirection = DIR.NONE;
+    }
+
+    protected bool RevertHorizontalTransmutation(DIR revertDirection, bool revertSegment)
+    {
+        Vector2 newScale = _shadowMask.localScale;
+        Vector2 newPosition = _shadowMask.localPosition;
+        newScale.x += _revertTransmutateValue;
+        _shadowMask.localScale = newScale;
+        if (revertDirection == DIR.RIGHT)
+        {
+            newPosition.x += _revertTransmutateValue / scaleToPoSrate;
+            _shadowMask.localPosition = newPosition;
+            if (_spriteMask.bounds.max.x >= _segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)] + (revertSegment ? 1 : 0)].position.x)
+            {
+                float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).x - _shadow.InverseTransformPoint(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)] + (revertSegment ? 1 : 0)].position).x;
+                newScale.x -= diff;
+                _shadowMask.localScale = newScale;
+                newPosition.x -= diff / scaleToPoSrate;
+                _shadowMask.localPosition = newPosition;
+                return true;
+            }
+            else return false;
+        }
+        else
+        {
+            newPosition.x -= _revertTransmutateValue / scaleToPoSrate;
+            _shadowMask.localPosition = newPosition;
+            if (_spriteMask.bounds.min.x <= _segments[_segmentsTakenPerSide[((int)DIR.LEFT)] - (revertSegment ? 1 : 0)].position.x)
+            {
+                float diff = _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)] - (revertSegment ? 1 : 0)].position).x - _shadow.InverseTransformPoint(_spriteMask.bounds.min).x;
+                newScale.x -= diff;
+                _shadowMask.localScale = newScale;
+                newPosition.x += diff / scaleToPoSrate;
+                _shadowMask.localPosition = newPosition;
+                return true;
+            }
+            else return false;
+        }
     }
     private void OnDrawGizmosSelected()
     {
