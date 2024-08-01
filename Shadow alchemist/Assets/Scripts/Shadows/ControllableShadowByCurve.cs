@@ -61,7 +61,7 @@ public class ControllableShadowByCurve : ControllableShadow
     {
         Vector2 newScale = _shadowMask.localScale;
         Vector2 newPosition = _shadowMask.localPosition;
-        _revertTransmutateValue = Time.deltaTime * 2f;
+        _revertTransmutateValue = Time.deltaTime * _transmutationSpeed;
         _isReverting = true;
         bool isAllClear = false;
         while (!isAllClear)
@@ -123,6 +123,7 @@ public class ControllableShadowByCurve : ControllableShadow
     {
         Vector2 newScale = _shadowMask.localScale;
         Vector2 newPosition = _shadowMask.localPosition;
+        _revertTransmutateValue = Time.deltaTime * _transmutationSpeed;
         bool isClear = false;
         DIR tmp = _shadowSegmentsList[_shadowSegmentsList.Count - 1];
         _shadowSegmentsList.RemoveAt(_shadowSegmentsList.Count - 1);
@@ -156,7 +157,6 @@ public class ControllableShadowByCurve : ControllableShadow
                 case DIR.UP:
                     {
                         if (_isHorizontal) break;
-                        _revertTransmutateValue = Time.deltaTime * 2f;
                         newScale.y += _revertTransmutateValue;
                         _shadowMask.localScale = newScale;
                         newPosition.y += _revertTransmutateValue / scaleToPoSrate;
@@ -178,7 +178,6 @@ public class ControllableShadowByCurve : ControllableShadow
                 case DIR.DOWN:
                     {
                         if (_isHorizontal) break;
-                        _revertTransmutateValue = Time.deltaTime * 2f;
                         newScale.y += _revertTransmutateValue;
                         _shadowMask.localScale = newScale;
                         newPosition.y -= _revertTransmutateValue / scaleToPoSrate;

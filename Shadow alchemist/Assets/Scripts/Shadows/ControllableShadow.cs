@@ -303,12 +303,13 @@ public class ControllableShadow : MonoBehaviour
         _shadowSegmentsList.RemoveAt(_shadowSegmentsList.Count - 1);
         while(!isClear)
         {
+            _revertTransmutateValue = Time.deltaTime * _transmutationSpeed;
             switch(tmp)
             {
                 case DIR.LEFT: 
                     {
                         if (!_isHorizontal) break;
-                        _revertTransmutateValue = Time.deltaTime * 2f;
+                        
                         newScale.x += _revertTransmutateValue;
                         _shadowMask.localScale = newScale;
                         newPosition.x -= _revertTransmutateValue / scaleToPoSrate;
@@ -325,38 +326,11 @@ public class ControllableShadow : MonoBehaviour
                             _segmentsTakenPerSide[((int)DIR.LEFT)]--;
                             _segmentsTaken--;
                         }
-                        //if (_ajustColliderByCurve)
-                        //{
-                        //    _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                        //    _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
-                        //    _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                        //    _points[_points.Length - 1].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
-                        //    _points[_points.Length - 1].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
-                        //    _points[_points.Length - 2].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
-
-                        //    for (int j = 2; j < _points.Length - 2; j++)
-                        //    {
-                        //        if (_points[j].x > transform.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)] + 1].position).x) continue;
-                        //        //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                        //        if (_points[j - 1].x < _points[j].x) _points[j].x = _points[j - 1].x;
-                        //        if (transform.InverseTransformPoint(_spriteMask.bounds.max).x > _originalPositions[j].x && transform.InverseTransformPoint(_spriteMask.bounds.min).x < _originalPositions[j].x)
-                        //        {
-                        //            _points[j] = _originalPositions[j];
-                        //            continue;
-                        //        }
-                        //        _points[j].y = _curve.Evaluate(_points[j].x- _curveShift);
-                        //    }
-
-                        //    ((PolygonCollider2D)_shadowCollider).points = _points;
-
-
-                        //}
                         break;
                     }
                 case DIR.RIGHT:
                     {
                         if (!_isHorizontal) break;
-                        _revertTransmutateValue = Time.deltaTime * 2f;
                         newScale.x += _revertTransmutateValue;
                         _shadowMask.localScale = newScale;
                         newPosition.x += _revertTransmutateValue / scaleToPoSrate;
@@ -374,40 +348,11 @@ public class ControllableShadow : MonoBehaviour
                             _segmentsTakenPerSide[((int)DIR.RIGHT)]--;
                             _segmentsTaken--;
                         }
-                        //if (_ajustColliderByCurve)
-                        //{
-                        //    _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                        //    _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
-                        //    _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                        //    _points[_points.Length - 1].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
-                        //    _points[_points.Length - 1].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
-                        //    _points[_points.Length - 2].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
-
-
-                        //    for (int j = _points.Length - 3; j >= 2; j--)
-                        //    {
-                        //        //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                        //        if (_points[j].x < transform.InverseTransformPoint(_segments[_segments.Count - 2 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position).x) continue;
-                        //        if (_points[j + 1].x > _points[j].x) _points[j].x = _points[j + 1].x;
-                        //        if (transform.InverseTransformPoint(_spriteMask.bounds.max).x > _originalPositions[j].x && transform.InverseTransformPoint(_spriteMask.bounds.min).x < _originalPositions[j].x)
-                        //        {
-                        //            _points[j] = _originalPositions[j];
-                        //            continue;
-                        //        }
-                        //        _points[j].y = _curve.Evaluate(_points[j].x - _curveShift);
-                        //    }
-
-
-                        //     ((PolygonCollider2D)_shadowCollider).points = _points;
-
-
-                        //}
                         break;
                     }
                 case DIR.UP: 
                     {
                         if (_isHorizontal) break;
-                        _revertTransmutateValue = Time.deltaTime * 2f;
                         newScale.y += _revertTransmutateValue;
                         _shadowMask.localScale = newScale;
                         newPosition.y += _revertTransmutateValue / scaleToPoSrate;
@@ -429,7 +374,6 @@ public class ControllableShadow : MonoBehaviour
                 case DIR.DOWN:
                     {
                         if (_isHorizontal) break;
-                        _revertTransmutateValue = Time.deltaTime * 2f;
                         newScale.y += _revertTransmutateValue;
                         _shadowMask.localScale = newScale;
                         newPosition.y -= _revertTransmutateValue / scaleToPoSrate;
