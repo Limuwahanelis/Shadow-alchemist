@@ -7,12 +7,12 @@ public struct DamageInfo
     public int dmg;
     public HealthSystem.DamageType damageType;
     public Vector3 dmgPosition;
-    public IDamager damager;
-    public DamageInfo(int dmg, HealthSystem.DamageType damageType,Vector3 dmgPosition,IDamager damager  = null) 
+    public Collider2D[] involvedColliders;
+    public DamageInfo(int dmg, HealthSystem.DamageType damageType,Vector3 dmgPosition,Collider2D[] colliders=null) 
     {
         this.dmg = dmg;
         this.damageType = damageType;
         this.dmgPosition = dmgPosition;
-        this.damager = damager;
+        involvedColliders = colliders;
     }
 }

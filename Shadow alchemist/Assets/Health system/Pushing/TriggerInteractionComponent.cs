@@ -3,20 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerInteractionComponent : MonoBehaviour,IDamager
+public class TriggerInteractionComponent : MonoBehaviour
 {
-    
+    [SerializeField] Collider2D _col;
     [SerializeField] protected HealthSystem.DamageType _pushType;
     [SerializeField] protected HealthSystem.DamageType _damageType;
     [SerializeField] protected bool _pushCollidingObject;
     [SerializeField] protected bool _damageCollidingObject;
     [SerializeField] protected int damage;
 
-    public Vector3 Position { get => transform.position; }
+    protected PushInfo _pushInfo;
+    protected DamageInfo _damageInfo;
 
     private void Start()
     {
-
+        _pushInfo = new PushInfo(_pushType, transform.position,new Collider2D[] { _col });
+        _damageInfo = new DamageInfo(damage,_damageType,transform.position,new Collider2D[] { _col });
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -24,28 +26,20 @@ public class TriggerInteractionComponent : MonoBehaviour,IDamager
         if (_pushCollidingObject)
         {
             IPushable toPush = collision.transform.GetComponentInParent<IPushable>();
-            if (toPush != null) toPush.Push(_pushType);
+            if (toPush != null)
+            {
+                _pushInfo.pushPosition = transform.position;
+                toPush.Push(_pushInfo);
+            }
         }
         if (_damageCollidingObject)
         {
             IDamagable toDamage = collision.transform.GetComponentInParent<IDamagable>();
-            if (toDamage != null) toDamage.TakeDamage(new DamageInfo(damage, _damageType, transform.position,this));
-        }
-    }
-    public void ResumeCollisons(Collider2D[] playerCols)
-    {
-        foreach (Collider2D col in playerCols)
-        {
-            Physics2D.IgnoreCollision(col, GetComponent<Collider2D>(), false);
-        }
-
-    }
-
-    public void PreventCollisions(Collider2D[] playerCols)
-    {
-        foreach (Collider2D col in playerCols)
-        {
-            Physics2D.IgnoreCollision(col, GetComponent<Collider2D>(), true);
+            if (toDamage != null)
+            {
+                _damageInfo.dmgPosition = transform.position;
+                toDamage.TakeDamage(_damageInfo);
+            }
         }
     }
 }

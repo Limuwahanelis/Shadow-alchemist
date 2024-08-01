@@ -96,39 +96,16 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb.velocity=velocity;
     }
-    public void PushPlayer(Vector3 pushForce, IDamager playerPusher)
+    public void PushPlayer(PushInfo pushInfo)
     {
         StopPlayer();
-        if (pushForce == Vector3.zero)
+        Vector2 pushDirection= _pushHandle.GetVector();
+        
+        if (!pushInfo.pushType.HasFlag(HealthSystem.DamageType.TRAPS))
         {
-            pushForce = _pushHandle.GetVector();
-            if (playerPusher != null)
-            {
-                if(FlipSide == -1) pushForce.x = -pushForce.x;
-            }
-           
+            if (HelperClass.CheckIfObjectIsBehind(transform.position, pushInfo.pushPosition, (GlobalEnums.HorizontalDirections)_flipSide)) pushDirection.x = -pushDirection.x;
         }
-        // _player.currentState.Push(playerPusher, _playerCols);
-        _rb.AddForce(pushForce*_pushForce, ForceMode2D.Impulse);
-
-        //StartCoroutine(PushCor());
-
-    }
-    public void PushPlayer(playerDirection pushDirection, Vector3 PushForce, IDamager playerPusher)
-    {
-        StopPlayer();
-        if (pushDirection == playerDirection.RIGHT)
-        {
-            PushForce = new Vector3(Mathf.Abs(PushForce.x), PushForce.y, PushForce.z);
-        }
-        else
-        {
-            PushForce = new Vector3(-Mathf.Abs(PushForce.x), PushForce.y, PushForce.z);
-        }
-       // _player.currentState.Push(playerPusher, _playerCols);
-        _rb.AddForce(PushForce, ForceMode2D.Impulse);
-
-        // StartCoroutine(PushCor());
+        _rb.AddForce(pushDirection * _pushForce, ForceMode2D.Impulse);
 
     }
 }

@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-public class ShadowFighterCombat : MonoBehaviour,IDamager
+public class ShadowFighterCombat : MonoBehaviour
 {
     public enum AttackType
     {
@@ -41,6 +42,14 @@ public class ShadowFighterCombat : MonoBehaviour,IDamager
 
     [Header("Attacks delays")]
     [SerializeField] float[] _attacksDelays;
+
+    private DamageInfo _damageInfo;
+    private PushInfo _pushInfo;
+    private void Start()
+    {
+        _damageInfo = new DamageInfo(0,HealthSystem.DamageType.ENEMY,transform.position);
+        _pushInfo = new PushInfo(HealthSystem.DamageType.ENEMY, transform.position);
+    }
     public void SetStunViusals(bool value)
     {
         if (value) _spriteRenderer.sprite = _stunSprite;
@@ -60,10 +69,7 @@ public class ShadowFighterCombat : MonoBehaviour,IDamager
         int index = 0;
         for (; index < hitEnemies.Count; index++)
         {
-            IPushable tmp2 = hitEnemies[index].GetComponentInParent<IPushable>();
-            if (tmp2 != null) tmp2.Push(HealthSystem.DamageType.ENEMY,this);
-            IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
-            if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
+            Attack(hitEnemies, index, attackType);
 
         }
         yield return null;
@@ -81,14 +87,28 @@ public class ShadowFighterCombat : MonoBehaviour,IDamager
                 if (!hitEnemies.Contains(colliders[i]))
                 {
                     hitEnemies.Add(colliders[i]);
-                    IPushable tmp2 = hitEnemies[index].GetComponentInParent<IPushable>();
-                    if (tmp2 != null) tmp2.Push(Vector2.zero, HealthSystem.DamageType.ENEMY, this);
-                    IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
-                    if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
+                    Attack(hitEnemies, i, attackType);
 
                 }
             }
             yield return null;
+        }
+    }
+
+    private void Attack(in List<Collider2D> _cols,int index,AttackType attackType)
+    {
+        IPushable tmp2 = _cols[index].GetComponentInParent<IPushable>();
+        if (tmp2 != null)
+        {
+            _pushInfo.pushPosition = transform.position;
+            tmp2.Push(_pushInfo);
+        }
+        IDamagable tmp = _cols[index].GetComponentInParent<IDamagable>();
+        if (tmp != null)
+        {
+            _damageInfo.dmg = _comboList.comboList[((int)attackType)].Damage;
+            _damageInfo.dmgPosition = transform.position;
+            tmp.TakeDamage(_damageInfo);
         }
     }
 
