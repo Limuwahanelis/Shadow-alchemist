@@ -91,9 +91,9 @@ public class PlayerController : MonoBehaviour
         newState.SetUpState(_context); ;
         _gameOverPanel.SetActive(true);
     }
-    public void PushPlayer(Vector3 pushDIrection, IDamager pusher)
+    public void PushPlayer(PushInfo psuhInfo)
     {
-        _playerMovement.PushPlayer(pushDIrection, pusher);
+        _playerMovement.PushPlayer(psuhInfo);
         _currentPlayerState.Push();
     }
     public Coroutine WaitAndExecuteFunction(float timeToWait, Action function)

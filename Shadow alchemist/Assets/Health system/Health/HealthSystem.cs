@@ -24,7 +24,7 @@ public class HealthSystem : MonoBehaviour,IDamagable
     public int CurrentHP => currentHP;
     public int MaxHP => maxHP;
 
-
+    [SerializeField] protected Collider2D[] _colliders;
     [SerializeField] protected bool isInvincible;
     [SerializeField] protected HealthBar hpBar;
     [SerializeField] protected int maxHP;
@@ -46,7 +46,11 @@ public class HealthSystem : MonoBehaviour,IDamagable
         if (!_isAlive) return;
         if (currentHP <= 0) Kill();
     }
-    public void TakeDamageSilent(DamageInfo info)
+    /// <summary>
+    /// Deals damage wihtout rasing any events.
+    /// </summary>
+    /// <param name="info"></param>
+    public virtual void TakeDamageWithoutNotify(DamageInfo info)
     {
         currentHP -= info.dmg;
         hpBar.SetHealth(currentHP);
@@ -63,9 +67,25 @@ public class HealthSystem : MonoBehaviour,IDamagable
         }
         else OnDeathEvent.Invoke();
     }
-
-    public void MissileLeftCollider(Collider2D missile)
+    protected void PreventCollisions(Collider2D[] collidersToPreventCollisionsFrom)
     {
-        
+        foreach(Collider2D collider in collidersToPreventCollisionsFrom)
+        {
+            foreach(Collider2D myCol in _colliders)
+            {
+                Physics2D.IgnoreCollision(collider, myCol, true);
+            }
+        }
+    }
+
+    protected void RestoreCollisions(Collider2D[] collidersToRestoreCollisionsFrom)
+    {
+        foreach (Collider2D collider in collidersToRestoreCollisionsFrom)
+        {
+            foreach (Collider2D myCol in _colliders)
+            {
+                Physics2D.IgnoreCollision(collider, myCol, false);
+            }
+        }
     }
 }

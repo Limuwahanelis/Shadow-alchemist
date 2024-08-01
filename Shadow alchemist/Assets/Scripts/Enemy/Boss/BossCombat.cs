@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BossCombat : MonoBehaviour,IDamager
+public class BossCombat : MonoBehaviour
 {
     public enum AttackType
     {
@@ -39,6 +39,14 @@ public class BossCombat : MonoBehaviour,IDamager
 
     [Header("Attacks delays")]
     [SerializeField] float[] _attacksDelays;
+
+    private DamageInfo _damageInfo;
+    private PushInfo _pushInfo;
+    private void Start()
+    {
+        _damageInfo = new DamageInfo(0,HealthSystem.DamageType.ENEMY,transform.position);
+        _pushInfo = new PushInfo(HealthSystem.DamageType.ENEMY, transform.position);
+    }
     public void SetStunViusals(bool value)
     {
         if (value) _spriteRenderer.sprite = _stunSprite;
@@ -51,7 +59,6 @@ public class BossCombat : MonoBehaviour,IDamager
         {
             case AttackType.NORMAL_ATTACK: hitEnemies = Physics2D.OverlapBoxAll(_normalAttack.position, _normalAttackSize, 0, _hitLayer).ToList(); break;
             case AttackType.CHARGE: hitEnemies = Physics2D.OverlapBoxAll(_normalAttack.position, _normalAttackSize, 0, _hitLayer).ToList(); break;
-                //case AttackType.Fist1Attack2: hitEnemies = Physics2D.OverlapCircleAll(_chargeAttack.position, _chargeAttackSize, _hitLayer).ToList(); break;
         }
 
 
@@ -59,9 +66,18 @@ public class BossCombat : MonoBehaviour,IDamager
         for (; index < hitEnemies.Count; index++)
         {
             IPushable tmp2 = hitEnemies[index].GetComponentInParent<IPushable>();
-            if (tmp2 != null) tmp2.Push(Vector2.zero, HealthSystem.DamageType.BOSS, this);
+            if (tmp2 != null)
+            {
+                _pushInfo.pushPosition = transform.position;
+                tmp2.Push(_pushInfo);
+            }
             IDamagable tmp = hitEnemies[index].GetComponentInParent<IDamagable>();
-            if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
+            if (tmp != null)
+            {
+                _damageInfo.dmg = _comboList.comboList[((int)attackType)].Damage;
+                _damageInfo.dmgPosition = transform.position;
+                tmp.TakeDamage(_damageInfo);
+            }
 
         }
         yield return null;
@@ -72,7 +88,6 @@ public class BossCombat : MonoBehaviour,IDamager
             {
                 case AttackType.NORMAL_ATTACK: colliders = Physics2D.OverlapBoxAll(_normalAttack.position, _normalAttackSize, 0, _hitLayer); break;
                 case AttackType.CHARGE: colliders = Physics2D.OverlapBoxAll(_normalAttack.position, _normalAttackSize, 0, _hitLayer); break;
-               // case AttackType.Fist2Attack1: colliders = Physics2D.OverlapCircleAll(_fistAttack2Pos.position, _fistAttack2Size, 0, _hitLayer); break;
             }
             for (int i = 0; i < colliders.Length; i++)
             {
@@ -80,9 +95,18 @@ public class BossCombat : MonoBehaviour,IDamager
                 {
                     hitEnemies.Add(colliders[i]);
                     IPushable tmp2 = hitEnemies[index].GetComponentInParent<IPushable>();
-                    if (tmp2 != null) tmp2.Push(Vector2.zero, HealthSystem.DamageType.BOSS, this);
+                    if (tmp2 != null)
+                    {
+                        _pushInfo.pushPosition = transform.position;
+                        tmp2.Push(_pushInfo);
+                    }
                     IDamagable tmp = colliders[i].GetComponentInParent<IDamagable>();
-                    if (tmp != null) tmp.TakeDamage(new DamageInfo(_comboList.comboList[((int)attackType)].Damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
+                    if (tmp != null)
+                    {
+                        _damageInfo.dmg = _comboList.comboList[((int)attackType)].Damage;
+                        _damageInfo.dmgPosition = transform.position;
+                        tmp.TakeDamage(_damageInfo);
+                    }
 
                 }
             }
@@ -104,22 +128,4 @@ public class BossCombat : MonoBehaviour,IDamager
         }
     }
 #endif
-    public void ResumeCollisons(Collider2D[] playerCols)
-    {
-        foreach (Collider2D col in playerCols)
-        {
-            Physics2D.IgnoreCollision(col, _col,false);
-            Physics2D.IgnoreCollision(col, _laceCol, false);
-            
-        }
-    }
-
-    public void PreventCollisions(Collider2D[] playerCols)
-    {
-        foreach (Collider2D col in playerCols)
-        {
-            Physics2D.IgnoreCollision(col, _col,true);
-            Physics2D.IgnoreCollision(col, _laceCol, true);
-        }
-    }
 }

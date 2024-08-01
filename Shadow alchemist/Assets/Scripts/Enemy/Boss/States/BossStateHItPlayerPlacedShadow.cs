@@ -46,7 +46,7 @@ public class BossStateHitPlayerPlacedShadow : EnemyState
         _time = 0;
         _stunDuration = 2f;
         _isKneeling = false;
-        _context.healthSystem.TakeDamageSilent(new DamageInfo(20, HealthSystem.DamageType.ENEMY, _context.enemyTransform.position));
+        _context.healthSystem.TakeDamageWithoutNotify(new DamageInfo(20, HealthSystem.DamageType.ENEMY, _context.enemyTransform.position));
         _context.sweatDrop.SetActive(true);
     }
     public override void Hit(DamageInfo damageInfo)
@@ -55,7 +55,7 @@ public class BossStateHitPlayerPlacedShadow : EnemyState
         {
             Logger.Log("HIT from spikes");
             _context.sweatDrop.SetActive(false);
-            _context.healthSystem.TakeDamageSilent(new DamageInfo(30, HealthSystem.DamageType.ENEMY, _context.enemyTransform.position));
+            _context.healthSystem.TakeDamageWithoutNotify(new DamageInfo(30, HealthSystem.DamageType.ENEMY, _context.enemyTransform.position));
             _stunDuration += 10f;
             _context.weakendStatus.Status = EnemyWeakendStatus.WeakenStatus.STUNNED;
         }

@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Missile : MonoBehaviour,IDamager
+public class Missile : MonoBehaviour
 {
     public UnityEvent<Missile> OnMissileCrushed;
     [SerializeField] Rigidbody2D _rb;
@@ -12,10 +12,11 @@ public class Missile : MonoBehaviour,IDamager
     [SerializeField] LayerMask _playerLayer;
     [SerializeField] AnimationManager _animManager;
     [SerializeField] Collider2D _col;
+    [SerializeField] int _damage;
     private Vector2 _direction;
     private bool _crushed = false;
-
-    public Vector3 Position => transform.position;
+    private DamageInfo _damageInfo;
+    private PushInfo _pushInfo;
 
     public void SetUp(Vector2 direction)
     {
@@ -28,7 +29,8 @@ public class Missile : MonoBehaviour,IDamager
     // Start is called before the first frame update
     void Start()
     {
-        
+        _damageInfo = new DamageInfo(_damage,HealthSystem.DamageType.MISSILE,transform.position);
+        _pushInfo = new PushInfo(HealthSystem.DamageType.MISSILE,transform.position);
     }
 
     // Update is called once per frame
@@ -42,8 +44,10 @@ public class Missile : MonoBehaviour,IDamager
     {
         if (_playerLayer == (_playerLayer | (1 << collision.collider.gameObject.layer)))
         {
-            collision.collider.GetComponentInParent<PlayerHealthSystem>().Push(HealthSystem.DamageType.MISSILE, this);
-            collision.collider.GetComponentInParent<PlayerHealthSystem>().TakeDamage(new DamageInfo(12, HealthSystem.DamageType.MISSILE, transform.position));
+            _pushInfo.pushPosition = transform.position;
+            _damageInfo.dmgPosition = transform.position;
+            collision.collider.GetComponentInParent<PlayerHealthSystem>().Push(_pushInfo);
+            collision.collider.GetComponentInParent<PlayerHealthSystem>().TakeDamage(_damageInfo);
             return;
         }
         if (_crushed) return;
@@ -64,21 +68,5 @@ public class Missile : MonoBehaviour,IDamager
     private void OnDestroy()
     {
         OnMissileCrushed.RemoveAllListeners();
-    }
-
-    public void ResumeCollisons(Collider2D[] playerCols)
-    {
-        foreach (Collider2D col in playerCols)
-        {
-            Physics2D.IgnoreCollision(col, _col, false);
-        }
-    }
-
-    public void PreventCollisions(Collider2D[] playerCols)
-    {
-        foreach(Collider2D col in playerCols)
-        {
-            Physics2D.IgnoreCollision(col, _col,true);
-        }
     }
 }
