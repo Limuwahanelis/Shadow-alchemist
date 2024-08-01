@@ -68,6 +68,7 @@ public class ControllableShadow : MonoBehaviour
                 if (_shadow.transform.position.x < _rightBorder.position.x)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                    _shadowMask.transform.Translate(direction * moveSpeed * Time.deltaTime);
                     _shadowShift.x += direction.x * moveSpeed * Time.deltaTime;
                 }
 
@@ -77,6 +78,7 @@ public class ControllableShadow : MonoBehaviour
                 if (_shadow.transform.position.x > _lefBorder.position.x)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                    _shadowMask.transform.Translate(direction * moveSpeed * Time.deltaTime);
                     _shadowShift.x += direction.x * moveSpeed * Time.deltaTime;
                 }
             }
@@ -89,6 +91,7 @@ public class ControllableShadow : MonoBehaviour
                 if (_shadow.transform.position.y < _upperBorder.position.y)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                    _shadowMask.transform.Translate(direction * moveSpeed * Time.deltaTime);
                     _shadowShift.y += direction.y * moveSpeed * Time.deltaTime;
                 }
             }
@@ -97,6 +100,7 @@ public class ControllableShadow : MonoBehaviour
                 if (_shadow.transform.position.y > _lowerBorder.position.y)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
+                    _shadowMask.transform.Translate(direction * moveSpeed * Time.deltaTime);
                     _shadowShift.y += direction.y * moveSpeed * Time.deltaTime;
                 }
             }
@@ -147,7 +151,7 @@ public class ControllableShadow : MonoBehaviour
     public virtual void Transmutate(Vector2 directionTotakeFrom)
     {
 
-        Vector2 newScale = _shadowMask.localScale;
+        Vector2 newScale = _shadowMask.lossyScale;
         Vector3 newPosition = _shadowMask.localPosition;
         if (_isHorizontal)
         {
@@ -158,7 +162,8 @@ public class ControllableShadow : MonoBehaviour
                 _lastTransmutationDirection = DIR.LEFT;
                 _transmutateValue = Time.deltaTime * _transmutationSpeed;
                 newScale.x -= _transmutateValue;
-                _shadowMask.localScale = newScale;
+                 _shadowMask.localScale = newScale;
+                //Logger.Log($"lossy: {_shadowMask.lossyScale} conver: {_shadowMask.TransformPoint(_shadowMask.localScale)}");
                 newPosition.x += _transmutateValue / scaleToPoSrate;
                 _shadowMask.localPosition = newPosition;
                 _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]].position.x, _segments[_segmentsTakenPerSide[((int)DIR.LEFT)] + 1].position.x, _spriteMask.bounds.min.x)
