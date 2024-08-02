@@ -31,7 +31,6 @@ public class PlacableShadow : MonoBehaviour
     private ControllableShadow _parentShadow;
     private Collider2D _shadowParentCol;
     private List<Collider2D> _collidersInside= new List<Collider2D>();
-    private Coroutine _palcementCor;
     private Coroutine _timeLimitCor;
     private void Start()
     {
@@ -52,12 +51,6 @@ public class PlacableShadow : MonoBehaviour
     public void ChageTriggerToCol()
     {
         _col.isTrigger = false;
-        if (_palcementCor != null)
-        {
-            StopCoroutine(_palcementCor); _palcementCor = null;
-            _spriteRenderer.color = _originalColor;
-        }
-
     }
     public void SetParentShadow(ControllableShadow shadow,Collider2D shadwoCol)
     {
@@ -83,15 +76,6 @@ public class PlacableShadow : MonoBehaviour
             _collidersInside.Remove(collision);
         }
     }
-    public void StartCantPlaceCor()
-    {
-        if(_palcementCor!=null)
-        {
-            StopCoroutine(_palcementCor);
-            _palcementCor = null;
-        }
-        _palcementCor = StartCoroutine(CantPlaceShadowCor());
-    }
     public void StartTimeLimit()
     {
         _timeLimitCor=StartCoroutine(TimeLimit());
@@ -110,18 +94,5 @@ public class PlacableShadow : MonoBehaviour
         yield return new WaitForSeconds(3f);
         OnMaxTimeReached?.Invoke(this);
 
-    }
-    IEnumerator CantPlaceShadowCor()
-    {
-        float _time = 0;
-
-        _spriteRenderer.color = _wrongColor;
-        while (_time < 2)
-        {
-            _spriteRenderer.color = Color.Lerp(_wrongColor, _originalColor, _time / 2);
-            _time += Time.deltaTime;
-            yield return null;
-        }
-        _spriteRenderer.color = _originalColor;
     }
 }

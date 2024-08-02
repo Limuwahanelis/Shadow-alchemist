@@ -76,8 +76,6 @@ public class PlayerShadowsInteractions : MonoBehaviour
         }
         else
         {
-            Logger.Log("Can't place");
-            _currentlyPlacingShadow.StartCantPlaceCor();
             return false;
         }
         
