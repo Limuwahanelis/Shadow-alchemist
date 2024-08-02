@@ -25,7 +25,7 @@ public class PlayerShadowMovingState : PlayerState
     }
     public override void Attack(PlayerCombat.AttackModifiers modifier)
     {
-        
+        ChangeState(PlayerShadowControlState.StateType);
     }
     public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
     {

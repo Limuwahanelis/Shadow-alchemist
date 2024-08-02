@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlacableShadow : MonoBehaviour
 {
     public Action<PlacableShadow> OnMaxTimeReached;
-    public Action<PlacableShadow> OnLeftParentShadow;
+    //public Action<PlacableShadow> OnLeftParentShadow;
+    private bool _isPlaced = false;
     public float ShadowBarCost => _shadowBarCost;
     public bool CanBePlaced
     {
@@ -16,7 +17,7 @@ public class PlacableShadow : MonoBehaviour
             {
                 if(_collidersInside.Count==0) return true;
             }
-            else if(_collidersInside.Count==1)return true;
+            else if(_collidersInside.Count==1 && _collidersInside[0] == _shadowParentCol) return true;
             return false;
         }
     }
@@ -30,11 +31,18 @@ public class PlacableShadow : MonoBehaviour
     private ControllableShadow _parentShadow;
     private Collider2D _shadowParentCol;
     private List<Collider2D> _collidersInside= new List<Collider2D>();
-    private Coroutine _palcementCor;
     private Coroutine _timeLimitCor;
     private void Start()
     {
         _originalColor = _spriteRenderer.color;
+    }
+    private void Update()
+    {
+        if (CanBePlaced)
+        {
+            _spriteRenderer.color = _originalColor;
+        }
+        else _spriteRenderer.color = _wrongColor;
     }
     public void Move(Vector2 direction)
     {
@@ -43,12 +51,6 @@ public class PlacableShadow : MonoBehaviour
     public void ChageTriggerToCol()
     {
         _col.isTrigger = false;
-        if (_palcementCor != null)
-        {
-            StopCoroutine(_palcementCor); _palcementCor = null;
-            _spriteRenderer.color = _originalColor;
-        }
-
     }
     public void SetParentShadow(ControllableShadow shadow,Collider2D shadwoCol)
     {
@@ -73,19 +75,6 @@ public class PlacableShadow : MonoBehaviour
         {
             _collidersInside.Remove(collision);
         }
-        if (collision== _shadowParentCol)
-        {
-            OnLeftParentShadow?.Invoke(this);
-        }
-    }
-    public void StartCantPlaceCor()
-    {
-        if(_palcementCor!=null)
-        {
-            StopCoroutine(_palcementCor);
-            _palcementCor = null;
-        }
-        _palcementCor = StartCoroutine(CantPlaceShadowCor());
     }
     public void StartTimeLimit()
     {
@@ -105,18 +94,5 @@ public class PlacableShadow : MonoBehaviour
         yield return new WaitForSeconds(3f);
         OnMaxTimeReached?.Invoke(this);
 
-    }
-    IEnumerator CantPlaceShadowCor()
-    {
-        float _time = 0;
-
-        _spriteRenderer.color = _wrongColor;
-        while (_time < 2)
-        {
-            _spriteRenderer.color = Color.Lerp(_wrongColor, _originalColor, _time / 2);
-            _time += Time.deltaTime;
-            yield return null;
-        }
-        _spriteRenderer.color = _originalColor;
     }
 }

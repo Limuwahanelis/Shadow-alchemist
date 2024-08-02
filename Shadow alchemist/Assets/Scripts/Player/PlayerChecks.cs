@@ -49,8 +49,12 @@ public class PlayerChecks : MonoBehaviour
             _isRayHittingGround = false;
         }
 
+
+
         Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheckPos.position, new Vector2(groundCheckWidth, groundCheckHeight), 0, ground);
         _isOnGround = colliders.Length > 0;
+        colliders = Physics2D.OverlapBoxAll(ceilingCheckPos.position, new Vector2(ceilingCheckWidth, ceilingCheckHeight), 0, ground);
+        _isNearCeiling = colliders.Length > 0;
         if (_potentialWallCol)
         {
             if (Physics2D.OverlapBox(wallCheck2Pos.position, new Vector2(WallCheckWidth, WallCheckHeight), 0, ground))
