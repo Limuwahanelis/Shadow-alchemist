@@ -10,6 +10,7 @@ public class ControllableShadowByCurve : ControllableShadow
     private Vector2[] _points;
     private Vector2[] _originalPositions;
     private Vector2 _lastFrameShadowShift;
+    
     protected override void Start()
     {
         _curve = new AnimationCurve();

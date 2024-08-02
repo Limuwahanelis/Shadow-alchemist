@@ -1,3 +1,4 @@
+using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -18,22 +19,16 @@ public class ControllableShadow : MonoBehaviour
     public Bounds ShadowBounds => _spriteMask.bounds;
     [SerializeField] protected Transform _shadow;
     [Header("Shadow"),SerializeField] protected Collider2D _shadowCollider;
-    //[Tooltip("Set curve value at begining and end to 0. Set its value at lowest/highest point. Create polygon collider as child of SHAdow Controller.Check its points. "), SerializeField] bool _ajustColliderByCurve;
     [SerializeField] protected float _transmutationSpeed=2f;
-   // [SerializeField] AnimationCurve _curve;
-   // [SerializeField] bool _isTriangle;
     [SerializeField] protected bool _isHorizontal = true;
     [SerializeField] protected Transform _shadowMask;
     [SerializeField] protected float scaleToPoSrate = 2f;
-    //[SerializeField] protected float _totalShadowbarValue;
     [SerializeField] protected float _distanceToResetShadow;
     [SerializeField] protected CircleCollider2D  _resetShadowCollider;
-    [Header("Borders"),SerializeField] protected ShadowRangeIndicator _leftRangeIndicator;
-    [SerializeField] protected ShadowRangeIndicator _rightRangeIndicator;
-    [SerializeField] protected Transform _upperBorder;
-    [SerializeField] protected Transform _lowerBorder;
-    [SerializeField] protected ShadowRangeIndicator _upperRangeIndicator;
-    [SerializeField] protected ShadowRangeIndicator _lowerRangeIndicator;
+    [Header("Borders"),SerializeField, ConditionalField(nameof(_isHorizontal))] protected ShadowRangeIndicator _leftRangeIndicator;
+    [SerializeField, ConditionalField(nameof(_isHorizontal))] protected ShadowRangeIndicator _rightRangeIndicator;
+    [SerializeField, ConditionalField(nameof(_isHorizontal), inverse: true)] protected ShadowRangeIndicator _upperRangeIndicator;
+    [SerializeField, ConditionalField(nameof(_isHorizontal), inverse: true)] protected ShadowRangeIndicator _lowerRangeIndicator;
     [SerializeField] protected SpriteMask _spriteMask;
     [Header("Segments"),SerializeField] protected List<Transform> _segments;
     protected DIR _lastTransmutationDirection =DIR.NONE;
@@ -93,7 +88,7 @@ public class ControllableShadow : MonoBehaviour
 
             if (direction == Vector2.up)
             {
-                if (_shadow.transform.position.y < _upperBorder.position.y)
+                if (_shadow.transform.position.y < _upperRangeIndicator.transform.position.y)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
                     _shadowMask.transform.Translate(direction * moveSpeed * Time.deltaTime);
@@ -102,7 +97,7 @@ public class ControllableShadow : MonoBehaviour
             }
             if (direction == Vector2.down)
             {
-                if (_shadow.transform.position.y > _lowerBorder.position.y)
+                if (_shadow.transform.position.y > _lowerRangeIndicator.transform.position.y)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
                     _shadowMask.transform.Translate(direction * moveSpeed * Time.deltaTime);
