@@ -28,24 +28,27 @@ public class ControllableShadow : MonoBehaviour
     //[SerializeField] protected float _totalShadowbarValue;
     [SerializeField] protected float _distanceToResetShadow;
     [SerializeField] protected CircleCollider2D  _resetShadowCollider;
-    [Header("Borders"),SerializeField] protected Transform _lefBorder;
-    [SerializeField] protected Transform _rightBorder;
+    [Header("Borders"),SerializeField] protected ShadowRangeIndicator _leftRangeIndicator;
+    [SerializeField] protected ShadowRangeIndicator _rightRangeIndicator;
     [SerializeField] protected Transform _upperBorder;
     [SerializeField] protected Transform _lowerBorder;
+    [SerializeField] protected ShadowRangeIndicator _upperRangeIndicator;
+    [SerializeField] protected ShadowRangeIndicator _lowerRangeIndicator;
     [SerializeField] protected SpriteMask _spriteMask;
     [Header("Segments"),SerializeField] protected List<Transform> _segments;
+    protected DIR _lastTransmutationDirection =DIR.NONE;
     protected List<PlacableShadow> _placedShadows= new List<PlacableShadow>();
+    protected Vector2 _originalPosition;
+    protected Vector2 _shadowShift;
+    protected Coroutine _revertMoveCor;
+    protected List<DIR> _shadowSegmentsList= new List<DIR>();
     protected float _transmutateValue = 0;
     protected float _revertTransmutateValue = 0;
     protected float _valueForShadowPlacing;
-    protected int _segmentsTaken=0;
     protected int[] _segmentsTakenPerSide= new int[4] {0,0,0,0 };
-    protected Vector2 _originalPosition;
-    protected Coroutine _revertMoveCor;
-    protected List<DIR> _shadowSegmentsList= new List<DIR>();
-    protected DIR _lastTransmutationDirection =DIR.NONE;
+    protected int _segmentsTaken=0;
     protected bool _isReverting = false;
-    protected Vector2 _shadowShift;
+    protected bool _isRevertingMove = false;
     protected virtual void Start()
     {
         _originalPosition = _shadow.position;
@@ -62,13 +65,12 @@ public class ControllableShadow : MonoBehaviour
                 _revertMoveCor = null;
             }
         }
-
         if (_isHorizontal)
         {
-
+            
             if (direction == Vector2.right)
             {
-                if (_shadow.transform.position.x < _rightBorder.position.x)
+                if (_shadow.transform.position.x < _rightRangeIndicator.transform.position.x)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
                     _shadowMask.transform.Translate(direction * moveSpeed * Time.deltaTime);
@@ -78,7 +80,7 @@ public class ControllableShadow : MonoBehaviour
             }
             if (direction == Vector2.left)
             {
-                if (_shadow.transform.position.x > _lefBorder.position.x)
+                if (_shadow.transform.position.x > _leftRangeIndicator.transform.position.x)
                 {
                     _shadow.transform.Translate(direction * moveSpeed * Time.deltaTime);
                     _shadowMask.transform.Translate(direction * moveSpeed * Time.deltaTime);
@@ -131,6 +133,11 @@ public class ControllableShadow : MonoBehaviour
             RevertShadowMoveStep();
             yield return null;
         }
+    }
+    public void SetMoveRangeVisibility(bool isVisiblie)
+    {
+        _leftRangeIndicator.SetVisibility(isVisiblie);
+        _rightRangeIndicator.SetVisibility(isVisiblie);
     }
     #endregion
     #region ShadowPlacing
