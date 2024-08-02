@@ -4,6 +4,7 @@ using System.Threading;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class ControllableShadow : MonoBehaviour
 {
@@ -52,13 +53,15 @@ public class ControllableShadow : MonoBehaviour
     #region ShadowMove
     public virtual void MoveShadow(float moveSpeed,Vector2 direction)
     {
-        if (_revertMoveCor != null)
+        if (direction != Vector2.zero)
         {
-            StopCoroutine(_revertMoveCor);
-            _isReverting = false;
-            _revertMoveCor = null;
+            if (_revertMoveCor != null)
+            {
+                StopCoroutine(_revertMoveCor);
+                _isReverting = false;
+                _revertMoveCor = null;
+            }
         }
-
 
         if (_isHorizontal)
         {
@@ -110,13 +113,22 @@ public class ControllableShadow : MonoBehaviour
     }
     public virtual void RevertMove()
     {
+        if (_isReverting) return;
         _revertMoveCor = StartCoroutine(RevertShadowMove());
     }
-    IEnumerator RevertShadowMove()
+    protected virtual void RevertShadowMoveStep()
     {
-        while (Vector2.Distance(_shadow.transform.position, _originalPosition) > 0.0001)
+        Vector3 newPos = Vector2.MoveTowards(_shadow.position, _originalPosition, 3f * Time.deltaTime);
+        Vector2 tmp = (newPos - _shadow.position);
+        _shadowShift += tmp;
+        _shadowMask.position += new Vector3(tmp.x, tmp.y, 0);
+        _shadow.position = newPos;
+    }
+    protected IEnumerator RevertShadowMove()
+    {
+        while (Vector2.Distance(_shadow.position, _originalPosition) > 0.0001)
         {
-            Vector2.MoveTowards(_shadow.position, _originalPosition, 3f * Time.deltaTime);
+            RevertShadowMoveStep();
             yield return null;
         }
     }
@@ -250,7 +262,7 @@ public class ControllableShadow : MonoBehaviour
         StartCoroutine(RevertNonBarTransmutation());
     }
 
-    // TO DO: check if is everting then prevent it.
+    // TODO: check if is everting then prevent it.
     public void RevertTransmutationFromPlacedShadow(float _shadowBarCost)
     {
         StartCoroutine(RevertLastBarTransmutation());

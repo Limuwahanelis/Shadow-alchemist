@@ -20,6 +20,11 @@ public class PlayerShadowTransmutationState : PlayerState
         if (_context.shadowControl.ShadowBar.CurrentValue >= 5) return;
         _context.shadowControl.Shadow.Transmutate(direction);
     }
+    public override void Attack(PlayerCombat.AttackModifiers modifier = PlayerCombat.AttackModifiers.NONE)
+    {
+        _context.shadowControl.Shadow.RevertNonSegmentShadowbar();
+        ChangeState(PlayerShadowControlState.StateType);
+    }
     public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
     {
         _context.shadowControl.Shadow.RevertNonSegmentShadowbar();

@@ -56,7 +56,17 @@ public class ControllableShadowByCurve : ControllableShadow
         base.Transmutate(directionTotakeFrom);
         AdjustCollider();
     }
-
+    protected override void RevertShadowMoveStep()
+    {
+        base.RevertShadowMoveStep();
+        for (int i = 0; i < _points.Length; i++)
+        {
+            _points[i] += _shadowShift - _lastFrameShadowShift;
+            _originalPositions[i] += _shadowShift - _lastFrameShadowShift;
+        }
+             ((PolygonCollider2D)_shadowCollider).points = _points;
+        _lastFrameShadowShift = _shadowShift;
+    }
     protected override IEnumerator RevertNonBarTransmutation()
     {
         Vector2 newScale = _shadowMask.localScale;
@@ -111,7 +121,7 @@ public class ControllableShadowByCurve : ControllableShadow
                 case DIR.NONE: isAllClear = true;break;
 
             }
-            AdjustVolliderForRevert();
+            AdjustColliderForRevert();
             SetValueForShadowBar();
             yield return null;
         }
@@ -197,7 +207,7 @@ public class ControllableShadowByCurve : ControllableShadow
                         break;
                     }
             }
-            AdjustVolliderForRevert();
+            AdjustColliderForRevert();
             SetValueForShadowBar();
             yield return null;
         }
@@ -211,7 +221,7 @@ public class ControllableShadowByCurve : ControllableShadow
     /// </summary>
     /// <param name="revertDirection"></param>
     /// <returns></returns>
-    private void AdjustVolliderForRevert()
+    private void AdjustColliderForRevert()
     {
         _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
         _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
