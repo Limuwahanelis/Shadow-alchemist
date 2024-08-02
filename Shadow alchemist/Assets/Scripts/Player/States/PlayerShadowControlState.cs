@@ -39,8 +39,13 @@ public class PlayerShadowControlState : PlayerState
         {
             _context.shadowControlModeSelectionUI.Deselect();
             _context.shadowControlModeSelectionUI.SetVisiblity(false);
-            if(_context.checks.IsNearCeiling) ChangeState(PlayerCrouchingIdleState.StateType);
-            else ChangeState(PlayerIdleState.StateType);// _isMovingShadow = !_isMovingShadow;
+            if (_context.checks.IsNearCeiling) ChangeState(PlayerCrouchingIdleState.StateType);
+            else
+            {
+                _context.collisions.SetCrouchColliiers(false);
+                _context.collisions.SetNormalColliders(true);
+                ChangeState(PlayerIdleState.StateType);
+            }
         }
 
     }

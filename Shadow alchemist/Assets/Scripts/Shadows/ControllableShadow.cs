@@ -154,10 +154,10 @@ public class ControllableShadow : MonoBehaviour
         
     }
     #endregion
-
+    #region ShadowTransmutation
     public virtual void Transmutate(Vector2 directionTotakeFrom)
     {
-
+        if (_isReverting) return;
         Vector2 newScale = _shadowMask.lossyScale;
         Vector3 newPosition = _shadowMask.localPosition;
         if (_isHorizontal)
@@ -243,28 +243,16 @@ public class ControllableShadow : MonoBehaviour
 
         _transmutateValue = 0;
     }
-    protected void SetValueForShadowBar()
-    {
-        if (_isHorizontal)
-        {
-            _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]].position.x, _segments[_segmentsTakenPerSide[((int)DIR.LEFT)] + 1].position.x, _spriteMask.bounds.min.x)
-            + math.unlerp(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x, _spriteMask.bounds.max.x);
-        }
-        else
-        {
-            _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.UP)]].position.y, _segments[ _segmentsTakenPerSide[((int)DIR.UP)]+1 ].position.y, _spriteMask.bounds.max.y)
-            + math.unlerp(_segments[(_segments.Count - 1) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _spriteMask.bounds.min.y);
-        }
-    }
+
     public void RevertNonSegmentShadowbar()
     {
         if(_isReverting) return;
         StartCoroutine(RevertNonBarTransmutation());
     }
 
-    // TODO: check if is everting then prevent it.
     public void RevertTransmutationFromPlacedShadow(float _shadowBarCost)
     {
+        if (_isReverting) return;
         StartCoroutine(RevertLastBarTransmutation());
     }
     public void RevertTransmutation()
@@ -282,6 +270,7 @@ public class ControllableShadow : MonoBehaviour
     }
     public void RevertAllTran()
     {
+        if (_isReverting) return;
         StartCoroutine(RevertAllTransmutation());
     }
     public IEnumerator RevertAllTransmutation()
@@ -305,237 +294,182 @@ public class ControllableShadow : MonoBehaviour
         bool isClear = false;
         DIR tmp = _shadowSegmentsList[_shadowSegmentsList.Count - 1];
         _shadowSegmentsList.RemoveAt(_shadowSegmentsList.Count - 1);
-        while(!isClear)
+        _isReverting = true;
+        while (!isClear)
         {
+
             _revertTransmutateValue = Time.deltaTime * _transmutationSpeed;
-            switch(tmp)
-            {
-                case DIR.LEFT: 
-                    {
-                        if (!_isHorizontal) break;
-                        
-                        newScale.x += _revertTransmutateValue;
-                        _shadowMask.localScale = newScale;
-                        newPosition.x -= _revertTransmutateValue / scaleToPoSrate;
-                        _shadowMask.localPosition = newPosition;
-                        if (_spriteMask.bounds.min.x <= _segments[_segmentsTakenPerSide[((int)DIR.LEFT)]-1].position.x)
-                        {
-                            isClear = true;
-
-                            float diff = _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)] - 1].position).x- _shadow.InverseTransformPoint(_spriteMask.bounds.min).x ;
-                            newScale.x -= diff;
-                            _shadowMask.localScale = newScale;
-                            newPosition.x += diff / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            _segmentsTakenPerSide[((int)DIR.LEFT)]--;
-                            _segmentsTaken--;
-                        }
-                        break;
-                    }
-                case DIR.RIGHT:
-                    {
-                        if (!_isHorizontal) break;
-                        newScale.x += _revertTransmutateValue;
-                        _shadowMask.localScale = newScale;
-                        newPosition.x += _revertTransmutateValue / scaleToPoSrate;
-                        _shadowMask.localPosition = newPosition;
-                        if (_spriteMask.bounds.max.x >= _segments[_segments.Count - 1 - _segmentsTakenPerSide[ ((int)DIR.RIGHT)]+1].position.x)
-                        {
-                            isClear = true;
-
-                            float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).x- _shadow.InverseTransformPoint(_segments[_segments.Count - 1 -_segmentsTakenPerSide[((int)DIR.RIGHT)] + 1].position).x;
-                            newScale.x -= diff;
-                            _shadowMask.localScale = newScale;
-                            newPosition.x -= diff / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            _segmentsTakenPerSide[((int)DIR.RIGHT)]--;
-                            _segmentsTaken--;
-                        }
-                        break;
-                    }
-                case DIR.UP: 
-                    {
-                        if (_isHorizontal) break;
-                        newScale.y += _revertTransmutateValue;
-                        _shadowMask.localScale = newScale;
-                        newPosition.y += _revertTransmutateValue / scaleToPoSrate;
-                        _shadowMask.localPosition = newPosition;
-                        if (_spriteMask.bounds.max.y >= _segments[ _segmentsTakenPerSide[((int)DIR.UP)] - 1].position.y)
-                        {
-                            isClear = true;
-
-                            float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).y - _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.UP)] - 1].position).y;
-                            newScale.y -= diff;
-                            _shadowMask.localScale = newScale;
-                            newPosition.y -= diff / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            _segmentsTakenPerSide[((int)DIR.UP)]--;
-                            _segmentsTaken--;
-                        }
-                        break; 
-                    }
-                case DIR.DOWN:
-                    {
-                        if (_isHorizontal) break;
-                        newScale.y += _revertTransmutateValue;
-                        _shadowMask.localScale = newScale;
-                        newPosition.y -= _revertTransmutateValue / scaleToPoSrate;
-                        _shadowMask.localPosition = newPosition;
-                        if (_spriteMask.bounds.min.y <= _segments[_segments.Count-1- _segmentsTakenPerSide[((int)DIR.DOWN)]+1].position.y)
-                        {
-                            isClear = true;
-
-                            float diff = _shadow.InverseTransformPoint(_segments[_segments.Count - 1-_segmentsTakenPerSide[((int)DIR.DOWN)]+1].position).y - _shadow.InverseTransformPoint(_spriteMask.bounds.min).y;
-                            newScale.y -= diff;
-                            _shadowMask.localScale = newScale;
-                            newPosition.y += diff / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            _segmentsTakenPerSide[((int)DIR.DOWN)]--;
-                            _segmentsTaken--;
-                        }
-                        break; 
-                    }
-            }
+            isClear=RevertSegmentStep(tmp);
             SetValueForShadowBar();
             yield return null;
         }
         _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count;
-
+        _isReverting = false;
     }
     virtual protected IEnumerator RevertNonBarTransmutation()
     {
-        Vector2  newScale = _shadowMask.localScale;
-        Vector2 newPosition = _shadowMask.localPosition;
         bool isAllClear = false;
+        
+        _isReverting = true;
         while (!isAllClear)
         {
-            isAllClear = true;
-            for (int i = 0; i < 4; i++)
-            {
-                newScale = _shadowMask.localScale;
-                newPosition = _shadowMask.localPosition;
-                switch ((DIR)i)
-                {
-                    case DIR.UP:
-                        {
-                            if (_isHorizontal) break;
-                            float diff = _shadow.InverseTransformPoint(_segments[ _segmentsTakenPerSide[((int)DIR.UP)]].position).y - _shadow.InverseTransformPoint(_spriteMask.bounds.max).y;
-                            Logger.Log(diff);
-                            if (math.abs(diff - 0) < 0.001f || diff<0) continue;
-                            isAllClear = false;
-                            newScale.y += diff;
-                            _shadowMask.localScale = newScale;
-                            newPosition.y += diff / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            break;
-                        }
-                    case DIR.DOWN: 
-                        {
-                            if (_isHorizontal) break;
-                            float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.min).y - _shadow.InverseTransformPoint(_segments[(_segments.Count - 1) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position).y;
-                            if (math.abs(diff - 0) < 0.001f) continue;
-                            isAllClear = false;
-                            newScale.y += diff;
-                            _shadowMask.localScale = newScale;
-                            newPosition.y -= diff / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            break; 
-                        }
-                    case DIR.LEFT:
-                        {
-                            if (!_isHorizontal) break;
-                            float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.min).x - _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]].position).x;
-                            if (math.abs(diff - 0) < 0.001f) continue;
-                            isAllClear = false;
-                            newScale.x += diff;
-                            _shadowMask.localScale = newScale;
-                            newPosition.x -= diff / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-
-                            //if (_ajustColliderByCurve)
-                            //{
-                            //    _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                            //    _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
-                            //    _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                            //    _points[_points.Length - 1].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
-                            //    _points[_points.Length - 1].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
-                            //    _points[_points.Length - 2].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
-
-
-
-                            //    for (int j = 2; j < _points.Length - 2; j++)
-                            //    {
-                            //        //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                            //        if (_points[j].x > transform.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]+1].position).x) continue;
-                            //        if (_points[j - 1].x < _points[j].x) _points[j].x = _points[j - 1].x;
-                            //        if (transform.InverseTransformPoint(_spriteMask.bounds.max).x > _originalPositions[j].x && transform.InverseTransformPoint(_spriteMask.bounds.min).x < _originalPositions[j].x)
-                            //        {
-                            //            _points[j] = _originalPositions[j];
-                            //            continue;
-                            //        }
-                            //        _points[j].y = _curve.Evaluate(_points[j].x - _curveShift);
-                            //    }
-
-                            //    ((PolygonCollider2D)_shadowCollider).points = _points;
-
-
-                            //}
-                            break;
-
-                        }
-                    case DIR.RIGHT:
-                        {
-                            if (!_isHorizontal) break;
-                            float diff = _shadow.InverseTransformPoint(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position).x- _shadow.InverseTransformPoint(_spriteMask.bounds.max).x ;
-                            if (math.abs(diff - 0) < 0.001f) continue;
-                            isAllClear = false;
-                            newScale.x += diff;
-                            _shadowMask.localScale = newScale;
-                            newPosition.x += diff / scaleToPoSrate;
-                            _shadowMask.localPosition = newPosition;
-                            //if (_ajustColliderByCurve)
-                            //{
-                            //    _points[0].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                            //    _points[0].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
-                            //    _points[1].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                            //    _points[_points.Length - 1].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
-                            //    _points[_points.Length - 1].y = transform.InverseTransformPoint(_spriteMask.bounds.max).y;
-                            //    _points[_points.Length - 2].x = transform.InverseTransformPoint(_spriteMask.bounds.max).x;
-
-
-
-
-
-                            //    for (int j = _points.Length - 3; j >= 2; j--)
-                            //    {
-                            //        if (_points[j].x < transform.InverseTransformPoint(_segments[_segments.Count - 2 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position).x) continue;
-                            //        //_points[i].x = transform.InverseTransformPoint(_spriteMask.bounds.min).x;
-                            //        if (_points[j + 1].x > _points[j].x) _points[j].x = _points[j + 1].x;
-                            //        if (transform.InverseTransformPoint(_spriteMask.bounds.max).x > _originalPositions[j].x && transform.InverseTransformPoint(_spriteMask.bounds.min).x< _originalPositions[j].x)
-                            //        {
-                            //            _points[j] = _originalPositions[j];
-                            //            continue;
-                            //        }
-                            //        _points[j].y = _curve.Evaluate(_points[j].x - _curveShift);
-                            //    }
-
-                            //((PolygonCollider2D)_shadowCollider).points = _points;
-
-
-                            //}
-                            break;
-                        }
-
-
-                }
-                SetValueForShadowBar();
-                yield return null;
-            }
+            _revertTransmutateValue = Time.deltaTime * _transmutationSpeed;
+            isAllClear = RevertNonSegmentStep(_lastTransmutationDirection);
+            SetValueForShadowBar();
+            yield return null;
         }
         _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count;
         _lastTransmutationDirection = DIR.NONE;
+        _isReverting = false;
     }
+    protected virtual bool RevertSegmentStep(DIR revertDirection)
+    {
+        bool isClear;
+        Vector2 newScale = _shadowMask.localScale;
+        Vector2 newPosition = _shadowMask.localPosition;
+        switch (revertDirection)
+        {
+            case DIR.LEFT:
+                {
+                    if (!_isHorizontal) break;
+                    isClear = RevertHorizontalTransmutation(DIR.LEFT, true);
+                    if (isClear)
+                    {
+                        _segmentsTakenPerSide[((int)DIR.LEFT)]--;
+                        _segmentsTaken--;
+                        return true;
+                    }
+                    return false;
+                }
+            case DIR.RIGHT:
+                {
+                    if (!_isHorizontal) break;
+                    isClear = RevertHorizontalTransmutation(DIR.RIGHT, true);
+                    if (isClear)
+                    {
+                        _segmentsTakenPerSide[((int)DIR.RIGHT)]--;
+                        _segmentsTaken--;
+                        return true;
+                    }
+                    return false;
+                }
+            case DIR.UP:
+                {
+                    if (_isHorizontal) break;
+                    newScale.y += _revertTransmutateValue;
+                    _shadowMask.localScale = newScale;
+                    newPosition.y += _revertTransmutateValue / scaleToPoSrate;
+                    _shadowMask.localPosition = newPosition;
+                    if (_spriteMask.bounds.max.y >= _segments[_segmentsTakenPerSide[((int)DIR.UP)] - 1].position.y)
+                    {
+                        isClear = true;
 
+                        float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).y - _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.UP)] - 1].position).y;
+                        newScale.y -= diff;
+                        _shadowMask.localScale = newScale;
+                        newPosition.y -= diff / scaleToPoSrate;
+                        _shadowMask.localPosition = newPosition;
+                        _segmentsTakenPerSide[((int)DIR.UP)]--;
+                        _segmentsTaken--;
+                        return true;
+                    }
+                    return false;
+                }
+            case DIR.DOWN:
+                {
+                    if (_isHorizontal) break;
+                    newScale.y += _revertTransmutateValue;
+                    _shadowMask.localScale = newScale;
+                    newPosition.y -= _revertTransmutateValue / scaleToPoSrate;
+                    _shadowMask.localPosition = newPosition;
+                    if (_spriteMask.bounds.min.y <= _segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.DOWN)] + 1].position.y)
+                    {
+                        isClear = true;
+
+                        float diff = _shadow.InverseTransformPoint(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.DOWN)] + 1].position).y - _shadow.InverseTransformPoint(_spriteMask.bounds.min).y;
+                        newScale.y -= diff;
+                        _shadowMask.localScale = newScale;
+                        newPosition.y += diff / scaleToPoSrate;
+                        _shadowMask.localPosition = newPosition;
+                        _segmentsTakenPerSide[((int)DIR.DOWN)]--;
+                        _segmentsTaken--;
+                        return true;
+                    }
+                    return false;
+                }
+            case DIR.NONE: return true;
+        }
+        Debug.LogError($"Somthing happend here {revertDirection}");
+        return false;
+    }
+    protected virtual bool RevertNonSegmentStep(DIR revertDirection)
+    {
+        Vector2 newScale;
+        Vector2 newPosition;
+        newScale = _shadowMask.localScale;
+        newPosition = _shadowMask.localPosition;
+        switch (revertDirection)
+        {
+            case DIR.UP:
+                {
+                    if (_isHorizontal) break;
+                    float diff = _shadow.InverseTransformPoint(_segments[_segmentsTakenPerSide[((int)DIR.UP)]].position).y - _shadow.InverseTransformPoint(_spriteMask.bounds.max).y;
+                    Logger.Log(diff);
+                    if (math.abs(diff - 0) < 0.001f || diff < 0) return true;
+                    newScale.y += diff;
+                    _shadowMask.localScale = newScale;
+                    newPosition.y += diff / scaleToPoSrate;
+                    _shadowMask.localPosition = newPosition;
+                    return false;
+                }
+            case DIR.DOWN:
+                {
+                    if (_isHorizontal) break;
+                    float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.min).y - _shadow.InverseTransformPoint(_segments[(_segments.Count - 1) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position).y;
+                    if (math.abs(diff - 0) < 0.001f) return true;
+                    
+                    newScale.y += diff;
+                    _shadowMask.localScale = newScale;
+                    newPosition.y -= diff / scaleToPoSrate;
+                    _shadowMask.localPosition = newPosition;
+                    return false;
+                }
+            case DIR.LEFT:
+                {
+                    if (!_isHorizontal) break;
+                    return RevertHorizontalTransmutation(DIR.LEFT, false);
+
+                }
+            case DIR.RIGHT:
+                {
+                    if (!_isHorizontal) break;
+                    return RevertHorizontalTransmutation(DIR.RIGHT, false);
+                }
+            case DIR.NONE: return true;
+
+        }
+        Debug.LogError("Somthing happend here");
+        return false;
+    }
+    #endregion
+    protected void SetValueForShadowBar()
+    {
+        if (_isHorizontal)
+        {
+            _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]].position.x, _segments[_segmentsTakenPerSide[((int)DIR.LEFT)] + 1].position.x, _spriteMask.bounds.min.x)
+            + math.unlerp(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position.x, _spriteMask.bounds.max.x);
+        }
+        else
+        {
+            _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.UP)]].position.y, _segments[_segmentsTakenPerSide[((int)DIR.UP)] + 1].position.y, _spriteMask.bounds.max.y)
+            + math.unlerp(_segments[(_segments.Count - 1) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _segments[(_segments.Count - 2) - _segmentsTakenPerSide[((int)DIR.DOWN)]].position.y, _spriteMask.bounds.min.y);
+        }
+    }
+    /// <summary>
+    /// Returns true if shadow mask max bound or min bound reached last segment 
+    /// </summary>
+    /// <param name="revertDirection"></param>
+    /// <returns></returns>
     protected bool RevertHorizontalTransmutation(DIR revertDirection, bool revertSegment)
     {
         Vector2 newScale = _shadowMask.localScale;
