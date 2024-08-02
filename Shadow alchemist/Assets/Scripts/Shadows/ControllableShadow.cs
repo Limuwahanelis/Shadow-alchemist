@@ -125,22 +125,17 @@ public class ControllableShadow : MonoBehaviour
     public void PlaceNewShadow(PlacableShadow newShadow)
     {
         _placedShadows.Add(newShadow);
-        newShadow.OnLeftParentShadow += RemovePlacedShadow;
         _valueForShadowPlacing-=newShadow.ShadowBarCost;
     }
     private void RemovePlacedShadow(PlacableShadow shadow)
     {
         _placedShadows.Remove(shadow);
-        shadow.OnLeftParentShadow -= RemovePlacedShadow;
         RevertTransmutationFromPlacedShadow(shadow.ShadowBarCost);
         Destroy(shadow.gameObject);
-        
-        //_takenVal -= shadow.ShadowBarCos;
     }
     public void RemoveRecentShadow()
     {
         if (_placedShadows.Count == 0) return;
-        _placedShadows[_placedShadows.Count - 1].OnLeftParentShadow -= RemovePlacedShadow;
         RevertTransmutationFromPlacedShadow(_placedShadows[_placedShadows.Count - 1].ShadowBarCost);
         Destroy(_placedShadows[_placedShadows.Count - 1].gameObject);
         _placedShadows.RemoveAt(_placedShadows.Count - 1);
@@ -163,7 +158,6 @@ public class ControllableShadow : MonoBehaviour
                 _transmutateValue = Time.deltaTime * _transmutationSpeed;
                 newScale.x -= _transmutateValue;
                  _shadowMask.localScale = newScale;
-                //Logger.Log($"lossy: {_shadowMask.lossyScale} conver: {_shadowMask.TransformPoint(_shadowMask.localScale)}");
                 newPosition.x += _transmutateValue / scaleToPoSrate;
                 _shadowMask.localPosition = newPosition;
                 _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count + math.unlerp(_segments[_segmentsTakenPerSide[((int)DIR.LEFT)]].position.x, _segments[_segmentsTakenPerSide[((int)DIR.LEFT)] + 1].position.x, _spriteMask.bounds.min.x)
@@ -282,8 +276,6 @@ public class ControllableShadow : MonoBehaviour
     {
         for(int i= _placedShadows.Count-1; i>=0;i--)
         {
-            _placedShadows[i].OnLeftParentShadow -= RemovePlacedShadow;
-            //RevertTransmutationFromPlacedShadow(_placedShadows[_placedShadows.Count - 1].ShadowBarCost);
             Destroy(_placedShadows[i ].gameObject);
             _placedShadows.RemoveAt(i );
         }
@@ -340,7 +332,6 @@ public class ControllableShadow : MonoBehaviour
                             isClear = true;
 
                             float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).x- _shadow.InverseTransformPoint(_segments[_segments.Count - 1 -_segmentsTakenPerSide[((int)DIR.RIGHT)] + 1].position).x;
-                            //float diff = _shadow.InverseTransformPoint(_spriteMask.bounds.max).x -_shadow.InverseTransformPoint(_segments[_segments.Count - 1 - _segmentsTakenPerSide[((int)DIR.RIGHT)]].position).x 
                             newScale.x -= diff;
                             _shadowMask.localScale = newScale;
                             newPosition.x -= diff / scaleToPoSrate;

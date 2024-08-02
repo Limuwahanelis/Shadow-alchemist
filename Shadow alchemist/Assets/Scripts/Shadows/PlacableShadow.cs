@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlacableShadow : MonoBehaviour
 {
     public Action<PlacableShadow> OnMaxTimeReached;
-    public Action<PlacableShadow> OnLeftParentShadow;
+    //public Action<PlacableShadow> OnLeftParentShadow;
+    private bool _isPlaced = false;
     public float ShadowBarCost => _shadowBarCost;
     public bool CanBePlaced
     {
@@ -16,7 +17,7 @@ public class PlacableShadow : MonoBehaviour
             {
                 if(_collidersInside.Count==0) return true;
             }
-            else if(_collidersInside.Count==1)return true;
+            else if(_collidersInside.Count==1 && _collidersInside[0] == _shadowParentCol) return true;
             return false;
         }
     }
@@ -35,6 +36,14 @@ public class PlacableShadow : MonoBehaviour
     private void Start()
     {
         _originalColor = _spriteRenderer.color;
+    }
+    private void Update()
+    {
+        if (CanBePlaced)
+        {
+            _spriteRenderer.color = _originalColor;
+        }
+        else _spriteRenderer.color = _wrongColor;
     }
     public void Move(Vector2 direction)
     {
@@ -72,10 +81,6 @@ public class PlacableShadow : MonoBehaviour
         if (_collidersInside.Contains(collision))
         {
             _collidersInside.Remove(collision);
-        }
-        if (collision== _shadowParentCol)
-        {
-            OnLeftParentShadow?.Invoke(this);
         }
     }
     public void StartCantPlaceCor()
