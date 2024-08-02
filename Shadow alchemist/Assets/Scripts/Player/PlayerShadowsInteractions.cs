@@ -41,22 +41,13 @@ public class PlayerShadowsInteractions : MonoBehaviour
         {
             _currentlyPlacingShadow = Instantiate(_shadowPrefab, Shadow.IsHorizontal ? _shadowSpawnPoint.position : _shadowSpawnPoint2.position, _shadowPrefab.transform.rotation, null).GetComponent<PlacableShadow>();
             _currentlyPlacingShadow.SetParentShadow(_shadow, _shadow.ShadowCollider);
-            _currentlyPlacingShadow.OnLeftParentShadow += ForceDespawn;
         }
 
         Logger.Log($"{ _currentlyPlacingShadow}  {ShadowToPlace}");
     }
-    public void ForceDespawn(PlacableShadow newShadow)
-    {
-        PlacingShadowDespawned?.Invoke();
-        _currentlyPlacingShadow.OnLeftParentShadow -= ForceDespawn;
-        Destroy(_currentlyPlacingShadow.gameObject);
-        _currentlyPlacingShadow = null;
-    }
     public void DespawnShadow()
     {
         if(_currentlyPlacingShadow == null) return;
-        _currentlyPlacingShadow.OnLeftParentShadow -= ForceDespawn;
         Destroy(_currentlyPlacingShadow.gameObject);
         _currentlyPlacingShadow = null;
     }
@@ -65,7 +56,6 @@ public class PlayerShadowsInteractions : MonoBehaviour
         if (_currentlyPlacingShadow.CanBePlaced)
         {
             Logger.Log("Placed");
-            _currentlyPlacingShadow.OnLeftParentShadow -= ForceDespawn;
             _currentlyPlacingShadow.ChageTriggerToCol();
             if(!_fullShadow) _shadow.PlaceNewShadow(_currentlyPlacingShadow);
             else

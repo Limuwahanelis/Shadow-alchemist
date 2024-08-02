@@ -39,7 +39,8 @@ public class PlayerShadowControlState : PlayerState
         {
             _context.shadowControlModeSelectionUI.Deselect();
             _context.shadowControlModeSelectionUI.SetVisiblity(false);
-            ChangeState(PlayerIdleState.StateType);// _isMovingShadow = !_isMovingShadow;
+            if(_context.checks.IsNearCeiling) ChangeState(PlayerCrouchingIdleState.StateType);
+            else ChangeState(PlayerIdleState.StateType);// _isMovingShadow = !_isMovingShadow;
         }
 
     }
@@ -54,7 +55,8 @@ public class PlayerShadowControlState : PlayerState
         base.SetUpState(context);
         _context.shadowControlModeSelectionUI.Deselect();
         _context.animationManager.PlayAnimation("Shadow cast");
-        
+        _context.collisions.SetCrouchColliiers(true);
+        _context.collisions.SetNormalColliders(false);
         if (_context.shadowControl.FullShadow)
         {
             ChangeState(PlayerShadowPlacingState.StateType);
