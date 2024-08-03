@@ -51,6 +51,7 @@ public class PlacableShadow : MonoBehaviour
     }
     public void ChageTriggerToCol()
     {
+        _isPlaced = true;
         _col.isTrigger = false;
     }
     public void SetParentShadow(ControllableShadow shadow,Collider2D shadwoCol)

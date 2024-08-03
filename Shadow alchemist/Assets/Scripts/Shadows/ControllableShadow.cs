@@ -56,7 +56,7 @@ public class ControllableShadow : MonoBehaviour
             if (_revertMoveCor != null)
             {
                 StopCoroutine(_revertMoveCor);
-                _isReverting = false;
+                _isRevertingMove = false;
                 _revertMoveCor = null;
             }
         }
@@ -110,7 +110,7 @@ public class ControllableShadow : MonoBehaviour
     }
     public virtual void RevertMove()
     {
-        if (_isReverting) return;
+        if (_isReverting || _isRevertingMove) return;
         _revertMoveCor = StartCoroutine(RevertShadowMove());
     }
     protected virtual void RevertShadowMoveStep()
@@ -123,11 +123,13 @@ public class ControllableShadow : MonoBehaviour
     }
     protected IEnumerator RevertShadowMove()
     {
+        _isRevertingMove = true;
         while (Vector2.Distance(_shadow.position, _originalPosition) > 0.0001)
         {
             RevertShadowMoveStep();
             yield return null;
         }
+        _isRevertingMove = false;
     }
     public void SetMoveRangeVisibility(bool isVisiblie)
     {

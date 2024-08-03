@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
-public class ControllableShadowByCurve : ControllableShadow
+public class ControllableShadowByCurve : ControllableShadowIwthEnemy
 {
     private AnimationCurve _curve;
     private Vector2[] _points;
