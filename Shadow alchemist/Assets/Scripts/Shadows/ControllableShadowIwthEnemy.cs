@@ -5,17 +5,17 @@ using UnityEngine;
 public class ControllableShadowIwthEnemy : ControllableShadow
 {
     
-    [SerializeField] List<EnemyController> _enemies=new List<EnemyController>();
-    [SerializeField] int dmgOutsideShadow;
-    [SerializeField] float _timeToDealDmgOutside;
-    [SerializeField] float _enemtInterferenceRange;
-    private List<EnemyController> _enemiesOutside= new List<EnemyController>();
-    private float _time=0;
-    private DamageInfo _damageInfo;
-    private EnemyController _enemyAtLeftBound;
-    private EnemyController _enemyAtRightBound;
+    [Header("Enemies"),SerializeField] protected List<EnemyController> _enemies=new List<EnemyController>();
+    [SerializeField] protected int dmgOutsideShadow;
+    [SerializeField] protected float _timeToDealDmgOutside;
+    [SerializeField] protected float _enemtInterferenceRange;
+    protected List<EnemyController> _enemiesOutside= new List<EnemyController>();
+    protected float _time=0;
+    protected DamageInfo _damageInfo;
+    protected EnemyController _enemyAtLeftBound;
+    protected EnemyController _enemyAtRightBound;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         base.Start();
         if (_enemies.Count < 1) return;

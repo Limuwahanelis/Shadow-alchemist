@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlacableShadow : MonoBehaviour
@@ -50,6 +51,7 @@ public class PlacableShadow : MonoBehaviour
     }
     public void ChageTriggerToCol()
     {
+        _isPlaced = true;
         _col.isTrigger = false;
     }
     public void SetParentShadow(ControllableShadow shadow,Collider2D shadwoCol)
@@ -62,8 +64,10 @@ public class PlacableShadow : MonoBehaviour
     {
         _isInFullShadow = true;
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_isPlaced) return;
         if (!_collidersInside.Contains(collision))
         {
             _collidersInside.Add(collision);
@@ -71,6 +75,7 @@ public class PlacableShadow : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (_isPlaced) return;
         if (_collidersInside.Contains(collision))
         {
             _collidersInside.Remove(collision);
