@@ -75,10 +75,16 @@ public class PlacableShadow : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (_isPlaced) return;
         if (_collidersInside.Contains(collision))
         {
             _collidersInside.Remove(collision);
+            if (_isPlaced)
+            {
+                if (collision == _shadowParentCol)
+                {
+                    _parentShadow.RemovePlacedShadow(this);
+                }
+            }
         }
     }
     public void StartTimeLimit()
