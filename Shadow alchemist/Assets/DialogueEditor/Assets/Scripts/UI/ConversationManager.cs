@@ -21,13 +21,13 @@ namespace DialogueEditor
 
         private const float TRANSITION_TIME = 0.2f; // Transition time for fades
 
-        public static ConversationManager Instance { get; private set; }
+        //public static ConversationManager Instance { get; private set; }
 
         public delegate void ConversationStartEvent();
         public delegate void ConversationEndEvent();
 
-        public static ConversationStartEvent OnConversationStarted;
-        public static ConversationEndEvent OnConversationEnded;
+        public  ConversationStartEvent OnConversationStarted;
+        public  ConversationEndEvent OnConversationEnded;
 
         // User-Facing options
         // Drawn by custom inspector
@@ -88,12 +88,12 @@ namespace DialogueEditor
 
         private void Awake()
         {
-            // Destroy myself if I am not the singleton
-            if (Instance != null && Instance != this)
-            {
-                GameObject.Destroy(this.gameObject);
-            }
-            Instance = this;
+            //// Destroy myself if I am not the singleton
+            //if (Instance != null && Instance != this)
+            //{
+            //    GameObject.Destroy(this.gameObject);
+            //}
+            //Instance = this;
 
             m_uiOptions = new List<UIConversationButton>();
 
@@ -104,7 +104,7 @@ namespace DialogueEditor
 
         private void OnDestroy()
         {
-            Instance = null;
+            //Instance = null;
         }
 
         private void Update()
@@ -663,7 +663,7 @@ namespace DialogueEditor
                     if (ConditionsMet(connection))
                     {
                         UIConversationButton uiOption = CreateButton();
-                        uiOption.SetupButton(UIConversationButton.eButtonType.Option, connection.OptionNode);
+                        uiOption.SetupButton(this,UIConversationButton.eButtonType.Option, connection.OptionNode);
                     }
                 }
             }
@@ -683,19 +683,19 @@ namespace DialogueEditor
                         // If there was no valid speech node (due to no conditions being met) this becomes a None button type
                         if (next == null)
                         {
-                            uiOption.SetupButton(UIConversationButton.eButtonType.End, null, endFont: m_conversation.EndConversationFont);
+                            uiOption.SetupButton(this,UIConversationButton.eButtonType.End, null, endFont: m_conversation.EndConversationFont);
                         }
                         // Else, valid speech node found
                         else
                         {
-                            uiOption.SetupButton(UIConversationButton.eButtonType.Speech, next, continueFont: m_conversation.ContinueFont);
+                            uiOption.SetupButton(this,UIConversationButton.eButtonType.Speech, next, continueFont: m_conversation.ContinueFont);
                         }
                         
                     }
                     else if (m_currentSpeech.ConnectionType == Connection.eConnectionType.None)
                     {
                         UIConversationButton uiOption = CreateButton();
-                        uiOption.SetupButton(UIConversationButton.eButtonType.End, null, endFont: m_conversation.EndConversationFont);
+                        uiOption.SetupButton(this, UIConversationButton.eButtonType.End, null, endFont: m_conversation.EndConversationFont);
                     }
                 }
 

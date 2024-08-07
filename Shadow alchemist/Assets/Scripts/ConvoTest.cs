@@ -5,6 +5,7 @@ using DialogueEditor;
 public class ConvoTest : MonoBehaviour
 {
     [SerializeField] NPCConversation conversation;
+    [SerializeField] ConversationManager _convoMan;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,6 @@ public class ConvoTest : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ConversationManager.Instance.StartConversation(conversation);
+        _convoMan.StartConversation(conversation);
     }
 }

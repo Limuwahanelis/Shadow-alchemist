@@ -19,6 +19,7 @@ namespace DialogueEditor
             Speech,
             End
         }
+        private ConversationManager _conversationManager;
 
         // Getters
         public eButtonType ButtonType { get { return m_buttonType; } }
@@ -92,21 +93,21 @@ namespace DialogueEditor
 
         public void OnHover(bool hovering)
         {
-            if (!ConversationManager.Instance.AllowMouseInteraction) { return; }
+            if (!_conversationManager.AllowMouseInteraction) { return; }
 
             if (hovering)
             {
-                ConversationManager.Instance.AlertHover(this);
+                _conversationManager.AlertHover(this);
             }
             else
             {
-                ConversationManager.Instance.AlertHover(null);
+                _conversationManager.AlertHover(null);
             }
         }
 
         public void OnClick()
         {
-            if (!ConversationManager.Instance.AllowMouseInteraction) { return; }
+            if (!_conversationManager.AllowMouseInteraction) { return; }
 
             DoClickBehaviour();
         }
@@ -171,11 +172,11 @@ namespace DialogueEditor
             TextMesh.color = c_text;
         }
 
-        public void SetupButton(eButtonType buttonType, ConversationNode node, TMPro.TMP_FontAsset continueFont = null, TMPro.TMP_FontAsset endFont = null)
+        public void SetupButton(ConversationManager conversationManager,eButtonType buttonType, ConversationNode node, TMPro.TMP_FontAsset continueFont = null, TMPro.TMP_FontAsset endFont = null)
         {
             m_buttonType = buttonType;
             m_node = node;
-
+            _conversationManager = conversationManager;
             switch (m_buttonType)
             {
                 case eButtonType.Option:
@@ -213,15 +214,15 @@ namespace DialogueEditor
             switch (m_buttonType)
             {
                 case eButtonType.Speech:
-                    ConversationManager.Instance.SpeechSelected(m_node as SpeechNode);
+                    _conversationManager.SpeechSelected(m_node as SpeechNode);
                     break;
 
                 case eButtonType.Option:
-                    ConversationManager.Instance.OptionSelected(m_node as OptionNode);
+                    _conversationManager.OptionSelected(m_node as OptionNode);
                     break;
 
                 case eButtonType.End:
-                    ConversationManager.Instance.EndButtonSelected();
+                    _conversationManager.EndButtonSelected();
                     break;
             }
         }
