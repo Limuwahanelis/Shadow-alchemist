@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine;
 
 public class PauseSetter : MonoBehaviour
 {
     [SerializeField] InputActionReference _playerPause;
     public UnityEvent OnPause;
     public UnityEvent OnResume;
-    private static bool _isPauseForced;
+    private static bool _isForcedPause = false;
     public void SetPause(bool value)
     {
-        if (_isPauseForced) return;
-        GlobalSettings.SetGamePause(value);
+        if (_isForcedPause) return;
+        PauseSettings.SetPause(value);
         if (value) OnPause?.Invoke();
         else OnResume?.Invoke();
     }
@@ -22,10 +20,9 @@ public class PauseSetter : MonoBehaviour
     {
         if (value) _playerPause.action.Disable();
         else _playerPause.action.Enable();
-        _isPauseForced = value;
-        GlobalSettings.SetGamePause(value);
+        _isForcedPause = value;
+        PauseSettings.SetPause(value);
         if (value) OnPause?.Invoke();
         else OnResume?.Invoke();
     }
-
 }

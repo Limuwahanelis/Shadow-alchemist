@@ -33,7 +33,7 @@ public class PlayerInputHandler : MonoBehaviour
         if (_player.IsAlive)
         {
 
-            if (!GlobalSettings.IsGamePaused)
+            if (!PauseSettings.IsGamePaused)
             {
                  _player.CurrentPlayerState.Move(_direction);
 
@@ -47,7 +47,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
-        if (GlobalSettings.IsGamePaused) return;
+        if (PauseSettings.IsGamePaused) return;
         if (_useCommands) _inputStack.CurrentCommand= new JumpInputCommand(_player.CurrentPlayerState);
         else _player.CurrentPlayerState.Jump();
         //if (direction * _player.mainBody.transform.localScale.x > 0 && isDownArrowPressed) _player.currentState.Slide();
@@ -64,7 +64,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     private void OnAttack(InputValue value)
     {
-        if (GlobalSettings.IsGamePaused) return;
+        if (PauseSettings.IsGamePaused) return;
         if (_useCommands)
         {
             _inputStack.CurrentCommand = new AttackInputCommand(_player.CurrentPlayerState);
@@ -82,13 +82,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnDownArrowModifier(InputValue value)
     {
-        if (GlobalSettings.IsGamePaused) return;
+        if (PauseSettings.IsGamePaused) return;
         isDownArrowPressed = value.Get<float>() == 1 ? true : false;
     }
     private void OnControlShadow(InputValue value)
     {
         Logger.Log(value.Get<float>());
-        if (GlobalSettings.IsGamePaused) return;
+        if (PauseSettings.IsGamePaused) return;
         if (isDownArrowPressed) shadowModifier = ShadowControlInputs.ENTER;
         else if (_horizontalModifier != 0) shadowModifier = ShadowControlInputs.SHADOW_SPIKE;
         else shadowModifier = (ShadowControlInputs)value.Get<float>();
@@ -104,12 +104,12 @@ public class PlayerInputHandler : MonoBehaviour
     }
     private void OnInteract(InputValue value)
     {
-        if (GlobalSettings.IsGamePaused) return;
+        if (PauseSettings.IsGamePaused) return;
         //_playerInteract.InteractWithObject();
     }
     private void OnWarp(InputValue value)
     {
-        if (GlobalSettings.IsGamePaused) return;
+        if (PauseSettings.IsGamePaused) return;
         _player.CurrentPlayerState.Dodge();
     }
 }
