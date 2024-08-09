@@ -18,7 +18,7 @@ namespace DialogueEditor
             Off,
             NONE,
         }
-
+        public float gdsgdsgsgdsgdsgdsg;
         private const float TRANSITION_TIME = 0.2f; // Transition time for fades
 
         //public static ConversationManager Instance { get; private set; }

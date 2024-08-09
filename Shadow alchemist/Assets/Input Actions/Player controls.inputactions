@@ -355,6 +355,74 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DialogueUI",
+            "id": "e50806f0-f0f8-4a9b-92d1-b402967ae73b",
+            "actions": [
+                {
+                    "name": "Move down",
+                    "type": "Button",
+                    "id": "eda72d70-6ecf-4111-ae72-6cdbc90387ad",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Move up",
+                    "type": "Button",
+                    "id": "939b6f5e-9593-497a-b8f7-174fbbce1ff0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DD",
+                    "type": "Button",
+                    "id": "2303caa8-e519-4065-a713-311b3fdc26b1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3537698f-3c65-419d-acd8-4a7a9a03f12b",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Move down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "607031e4-c7a4-4845-96dc-becfe2251303",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "289a64ca-7d73-4184-8965-cb25d97965c4",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DD",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
