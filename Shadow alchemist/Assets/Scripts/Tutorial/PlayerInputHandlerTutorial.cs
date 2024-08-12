@@ -1,32 +1,60 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlayerInputHandler;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using Unity.VisualScripting;
+using System;
+using System.Linq;
 
-public class PlayerInputHandler : MonoBehaviour
+public class PlayerInputHandlerTutorial : MonoBehaviour
 {
-
-    public enum ShadowControlInputs
+    public enum TutorialStep
     {
-        CONTROL=1, TRANSMUTATE,MOVE,PLACE,ENTER,SHADOW_SPIKE
+        ENTER_SHADOW_CONTRL_MODE,ENTER_SHADOW_TRANSMUTATION,ENTER_SHADOW_PLACEMENT,PLACE_SHADOW
     }
+
+
+    public UnityEvent OnFirstShadowPlaced;
+
     [SerializeField] PlayerController _player;
     [SerializeField] InputActionAsset _controls;
-    [SerializeField] bool _useCommands;
     [SerializeField] PlayerInputStack _inputStack;
-    //private PlayerInteract _playerInteract;
-    private bool isDownArrowPressed;
+    [SerializeField] bool _useCommands;
+    ShadowControlInputs shadowModifier;
+    private TutorialStep _currentStep;
     private Vector2 _direction;
     private float _horizontalModifier;
-    ShadowControlInputs shadowModifier;
-    // Start is called before the first frame update
+    private int _numberOfAttackPressed = 0;
+    private bool isDownArrowPressed;
+    private bool _placedFirstShadow = false;
+
+
+    private Dictionary<Type, PlayerInputTutorialState> _tutorialStates;
+    private PlayerInputTutorialState _currentTutorialState;
+
     void Start()
     {
-        _player = GetComponent<PlayerController>();
-        //_playerInteract = GetComponent<PlayerInteract>();
-    }
+        List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
+    .Where(type => typeof(PlayerInputTutorialState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
 
+        _player = GetComponent<PlayerController>();
+
+
+        PlayerInputTutorialState.GetState getState = GetState;
+        foreach (Type state in states)
+        {
+            _tutorialStates.Add(state, (PlayerInputTutorialState)Activator.CreateInstance(state, getState,_useCommands,_inputStack));
+        }
+        PlayerInputTutorialState newState = GetState(typeof(PlayerInputTutorialFreeState));
+        _currentTutorialState = newState;
+    }
+    public PlayerInputTutorialState GetState(Type state)
+    {
+        return _tutorialStates[state];
+    }
     // Update is called once per frame
     void Update()
     {
@@ -35,7 +63,7 @@ public class PlayerInputHandler : MonoBehaviour
 
             if (!PauseSettings.IsGamePaused)
             {
-                 _player.CurrentPlayerState.Move(_direction);
+                _player.CurrentPlayerState.Move(_direction);
 
             }
         }
@@ -43,12 +71,12 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnMove(InputValue value)
     {
         _direction = value.Get<Vector2>();
-        
+
     }
     void OnJump(InputValue value)
     {
         if (PauseSettings.IsGamePaused) return;
-        if (_useCommands) _inputStack.CurrentCommand= new JumpInputCommand(_player.CurrentPlayerState);
+        if (_useCommands) _inputStack.CurrentCommand = new JumpInputCommand(_player.CurrentPlayerState);
         else _player.CurrentPlayerState.Jump();
         //if (direction * _player.mainBody.transform.localScale.x > 0 && isDownArrowPressed) _player.currentState.Slide();
 
@@ -64,7 +92,19 @@ public class PlayerInputHandler : MonoBehaviour
     }
     private void OnAttack(InputValue value)
     {
+
         if (PauseSettings.IsGamePaused) return;
+        if ((_player.CurrentPlayerState as PlayerShadowPlacingState) != null)
+        {
+            _numberOfAttackPressed++;
+            if (_numberOfAttackPressed == 2)
+            {
+                if (!_placedFirstShadow)
+                {
+                    OnFirstShadowPlaced?.Invoke();
+                }
+            }
+        }
         if (_useCommands)
         {
             _inputStack.CurrentCommand = new AttackInputCommand(_player.CurrentPlayerState);
@@ -73,8 +113,8 @@ public class PlayerInputHandler : MonoBehaviour
         }
         else
         {
-            
-            if(_direction.y==0) _player.CurrentPlayerState.Attack();
+
+            if (_direction.y == 0) _player.CurrentPlayerState.Attack();
             else if (_direction.y > 0) _player.CurrentPlayerState.Attack(PlayerCombat.AttackModifiers.UP_ARROW);
             else if (_direction.y < 0) _player.CurrentPlayerState.Attack(PlayerCombat.AttackModifiers.DOWN_ARROW);
         }
@@ -87,6 +127,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
     private void OnControlShadow(InputValue value)
     {
+        Logger.Log(value.Get<float>());
         if (PauseSettings.IsGamePaused) return;
         if (isDownArrowPressed) shadowModifier = ShadowControlInputs.ENTER;
         else if (_horizontalModifier != 0) shadowModifier = ShadowControlInputs.SHADOW_SPIKE;
@@ -104,7 +145,6 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnInteract(InputValue value)
     {
         if (PauseSettings.IsGamePaused) return;
-        //_playerInteract.InteractWithObject();
     }
     private void OnWarp(InputValue value)
     {

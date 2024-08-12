@@ -6,15 +6,15 @@ using UnityEngine.InputSystem;
 public class ShadowControlModeSelectionUI : MonoBehaviour
 {
     [SerializeField] Canvas _canvas;
-    [SerializeField] GameObject _panel;
-    [SerializeField] GameObject _transmutateSahdowHighlight;
-    [SerializeField] GameObject _transmutateHorizontalShadowIcon;
-    [SerializeField] GameObject _transmutateVerticalShadowIcon;
-    [SerializeField] GameObject _moveHorizontalShadowIcon;
-    [SerializeField] GameObject _moveVerticalShadowIcon;
-    [SerializeField] GameObject _moveShadowHighlight;
+    [SerializeField] protected GameObject _panel;
+    [SerializeField] protected GameObject _transmutateSahdowHighlight;
+    [SerializeField] protected GameObject _transmutateHorizontalShadowIcon;
+    [SerializeField] protected GameObject _transmutateVerticalShadowIcon;
+    [SerializeField] protected GameObject _moveHorizontalShadowIcon;
+    [SerializeField] protected GameObject _moveVerticalShadowIcon;
+    [SerializeField] protected GameObject _moveShadowHighlight;
     private bool _isShadowHorizontal = true;
-    public void SetVisiblity(bool visiblity)
+    public virtual void SetVisiblity(bool visiblity)
     {
         
 
@@ -39,12 +39,12 @@ public class ShadowControlModeSelectionUI : MonoBehaviour
             _moveVerticalShadowIcon.SetActive(true);
         }
     }
-    public void SelectShadowTransmutation()
+    public virtual void SelectShadowTransmutation()
     {
         _moveShadowHighlight.SetActive(false);
         _transmutateSahdowHighlight.SetActive(true);
     }
-    public void SelectMoveShadow()
+    public virtual void SelectMoveShadow()
     {
         _moveShadowHighlight.SetActive(true);
         _transmutateSahdowHighlight.SetActive(false);

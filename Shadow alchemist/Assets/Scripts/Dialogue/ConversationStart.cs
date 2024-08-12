@@ -15,14 +15,18 @@ public class ConversationStart : MonoBehaviour
     private bool _conversationFinished;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        StartConversation();
+    }
+
+    public void StartConversation()
+    {
         if (_conversationFinished) return;
-        
+
         _convoMan.OnConversationStarted += StopPlayerControls;
         _convoMan.OnConversationEnded += ConversationFinished;
         _convoMan.StartConversation(conversation);
         _dialogueInputHandler.StartConversation(_convoMan);
     }
-
     private void ConversationFinished()
     {
         _conversationFinished = true;

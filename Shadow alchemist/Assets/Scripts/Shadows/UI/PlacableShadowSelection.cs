@@ -34,7 +34,7 @@ public class PlacableShadowSelection : MonoBehaviour
         _canvas.enabled = isVisible;
         enabled = isVisible;
     }
-    public void SelectShadow()
+    public virtual void SelectShadow()
     {
         _icons[_index].SelectShadow();
     }
