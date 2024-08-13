@@ -146,7 +146,6 @@ public class ControllableShadow : MonoBehaviour
     public void RemovePlacedShadow(PlacableShadow shadow)
     {
         _placedShadows.Remove(shadow);
-        //RevertTransmutationFromPlacedShadow(shadow.ShadowBarCost);
         _valueForShadowPlacing += shadow.ShadowBarCost;
         _placedShadows.Remove(shadow);
         Destroy(shadow.gameObject);
@@ -154,9 +153,7 @@ public class ControllableShadow : MonoBehaviour
     public void RemoveRecentShadow()
     {
         if (_placedShadows.Count == 0) return;
-        _valueForShadowPlacing += _placedShadows[_placedShadows.Count - 1].ShadowBarCost;
         Destroy(_placedShadows[_placedShadows.Count - 1].gameObject);
-        _placedShadows.RemoveAt(_placedShadows.Count - 1);
         
     }
     #endregion
