@@ -324,7 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentIDCounter: 4
   json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"In
-    order to place a shadow you need to hace adequate amount of segments filled on
+    order to place a shadow you need to have adequate amount of segments filled on
     shadow bar. For now each of available shadows cost only 1 segment.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":382,"yPos":188},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"You
     can select which shadow to place by pressing \\u2190 and \\u2192 keys and pressing
     C to confirm selection.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
@@ -585,6 +585,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6547231317286210806, guid: 86a0542a570f9f14fb50bb5236fcdfda, type: 3}
+      propertyPath: _transmutationSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547231317286210806, guid: 86a0542a570f9f14fb50bb5236fcdfda, type: 3}
+      propertyPath: _revertTransmutationSpeed
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -642,6 +650,10 @@ PrefabInstance:
       value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. \\u2190\\u2193 \u2193
         fasfasfasfsafsafsafasfdgfdsgsghdfhfhdhfdhfdhfdhfdhfdhfdhfdhdfhfdhfddfhfdhdfhdfhh\n\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900108754347413305, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
+      propertyPath: m_fontSize
+      value: 17.8
       objectReference: {fileID: 0}
     - target: {fileID: 3900108754347413305, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
       propertyPath: m_textAlignment
@@ -889,7 +901,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3900108755395677323, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 1993007158}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
 --- !u!224 &316634915 stripped
@@ -1318,7 +1333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 3
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"To
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":379,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"To
     place shadow you have to first enter shadow placing mode by pressing C key.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
@@ -1528,7 +1543,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 677808257}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -2073,7 +2088,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791914229}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -2564,6 +2579,7 @@ GameObject:
   - component: {fileID: 981263544}
   - component: {fileID: 981263545}
   - component: {fileID: 981263546}
+  - component: {fileID: 981263547}
   m_Layer: 0
   m_Name: ConversationEventInfo
   m_TagString: Untagged
@@ -2624,6 +2640,25 @@ MonoBehaviour:
   TMPFont: {fileID: 0}
   Icon: {fileID: 0}
   Audio: {fileID: 0}
+--- !u!114 &981263547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981263543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls: []
+  NodeID: 2
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 0}
+  Audio: {fileID: 0}
 --- !u!1001 &987343030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2680,6 +2715,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7068385989780141892, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7557222278633596403, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.4083178
@@ -2690,21 +2729,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8229404818948309378, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
-    m_RemovedGameObjects: []
+    - {fileID: 6107217469829178567, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 8725347478212141519, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4613422735653892476, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       insertIndex: -1
       addedObject: {fileID: 677808258}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2621413242125829931, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
-      insertIndex: 8
+      insertIndex: 7
       addedObject: {fileID: 1370666375}
     - targetCorrespondingSourceObject: {fileID: 2621413242125829931, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1370666376}
-    - targetCorrespondingSourceObject: {fileID: 4108738191244772804, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2621413242125829931, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 987343036}
+      addedObject: {fileID: 1370666385}
     - targetCorrespondingSourceObject: {fileID: 7260379231316333459, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1455607679}
@@ -2714,72 +2755,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4613422735653892476, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
   m_PrefabInstance: {fileID: 987343030}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &987343032 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7940972932847968264, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
-  m_PrefabInstance: {fileID: 987343030}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &987343033 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6957168625035013936, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
-  m_PrefabInstance: {fileID: 987343030}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6989732e4266cb5479d7641bb71e76dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &987343034 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3784805046665854010, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
-  m_PrefabInstance: {fileID: 987343030}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6989732e4266cb5479d7641bb71e76dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &987343035 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4108738191244772804, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
-  m_PrefabInstance: {fileID: 987343030}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &987343036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 987343035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af5686257986ab40830d0e9f7882d1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _icons:
-  - {fileID: 987343034}
-  - {fileID: 987343033}
-  _selectLeftIconActionRef: {fileID: -1613709084353523179, guid: 839f772f7f637cb48848d3298639247c, type: 3}
-  _selectRightIconActionRef: {fileID: 5222384711666231498, guid: 839f772f7f637cb48848d3298639247c, type: 3}
-  _canvas: {fileID: 831092509}
-  _panel: {fileID: 987343032}
-  OnShadowFirstSelected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 166693925}
-        m_TargetAssemblyTypeName: ConversationStart, Assembly-CSharp
-        m_MethodName: StartConversation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1001568912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3496,6 +3471,144 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _payerInput: {fileID: 1370666369}
+--- !u!114 &1370666380 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 539854141104504480, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+  m_PrefabInstance: {fileID: 987343030}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370666364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00191f1a1832d8346ab3a102527f6a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1370666384 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2301894783809989241, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+  m_PrefabInstance: {fileID: 987343030}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370666364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd86ea33c514d8946b81a305500b1d52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1370666385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370666364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012741b76219def409bb5cc518b3eaa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnShadowControlModeFirstEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8326127714638224504}
+        m_TargetAssemblyTypeName: ConversationStart, Assembly-CSharp
+        m_MethodName: StartConversation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnShadowTransmutationModeFirstEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1895956828}
+        m_TargetAssemblyTypeName: ConversationStart, Assembly-CSharp
+        m_MethodName: StartConversation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnShadowControlModeSecondEntry:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 575011264}
+        m_TargetAssemblyTypeName: ConversationStart, Assembly-CSharp
+        m_MethodName: StartConversation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnShadowPlacementFirstEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 166693925}
+        m_TargetAssemblyTypeName: ConversationStart, Assembly-CSharp
+        m_MethodName: StartConversation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnShadowFirstPlaced:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 414872749}
+        m_TargetAssemblyTypeName: ConversationStart, Assembly-CSharp
+        m_MethodName: StartConversation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _player: {fileID: 1370666380}
+  _controls: {fileID: -944628639613478452, guid: 839f772f7f637cb48848d3298639247c, type: 3}
+  _inputStack: {fileID: 1370666384}
+  _shadowsInteractions: {fileID: 1370666386}
+  _shadowSelection: {fileID: 1374606203}
+  _useCommands: 1
+  _printState: 1
+--- !u!114 &1370666386 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4328005179847929583, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+  m_PrefabInstance: {fileID: 987343030}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370666364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64328d44206a734e9b433adc597fa1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1374606203 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3822996520566731100, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+  m_PrefabInstance: {fileID: 987343030}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8b6d350d0938f45b0bfb955bb10b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1393800132
 GameObject:
   m_ObjectHideFlags: 0
@@ -3721,49 +3834,13 @@ MonoBehaviour:
   _moveShadowHighlight: {fileID: 1534639370}
   OnShadowControlModeOnteredFirstTime:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8326127714638224504}
-        m_TargetAssemblyTypeName: ConversationStart, Assembly-CSharp
-        m_MethodName: StartConversation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnShadowControlModeOnteredSecondTime:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 575011264}
-        m_TargetAssemblyTypeName: ConversationStart, Assembly-CSharp
-        m_MethodName: StartConversation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnShadowTransmutationModeEnteredFirstTime:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1895956828}
-        m_TargetAssemblyTypeName: ConversationStart, Assembly-CSharp
-        m_MethodName: StartConversation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1478733249
 GameObject:
   m_ObjectHideFlags: 0
@@ -3884,7 +3961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1692605021
 Transform:
   m_ObjectHideFlags: 0
@@ -3978,6 +4055,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!224 &1758919565 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3900108755395677323, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
+  m_PrefabInstance: {fileID: 316634914}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1786538152
 GameObject:
   m_ObjectHideFlags: 0
@@ -4166,13 +4248,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83189876d4d389f43b7dd2e925aa112e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentIDCounter: 2
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"In
-    oreder to transmute a shadow press \\u2190,\\u2192 or \\u2191,\\u2193 depending
+  CurrentIDCounter: 3
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"In
+    order to transmute a shadow press \\u2190,\\u2192 or \\u2191,\\u2193 depending
     on a shaow (icons in menu indicate this). Transmutation can only be done in one
-    direction at the time. In order to change direction press Z to revert transmutation
-    to last fully filled segment on the shadow bar and press opposite arrow.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":387,"yPos":253},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"You
-    can exit transmutation mode by pressing either X or C keys.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+    direction at the time. ","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":276,"yPos":358},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"You
+    can exit transmutation mode by pressing either X or C keys.","parentUIDs":[2],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":false,"xPos":309,"yPos":180},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"In
+    order to change direction press Z to revert transmutation to last fully filled
+    segment on the shadow bar and press opposite arrow.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
@@ -4180,6 +4263,7 @@ MonoBehaviour:
   NodeSerializedDataList:
   - {fileID: 981263545}
   - {fileID: 981263546}
+  - {fileID: 981263547}
   ContinueFont: {fileID: 0}
   EndConversationFont: {fileID: 0}
   Event:
@@ -4190,6 +4274,81 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2199887203403552711, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
   m_PrefabInstance: {fileID: 987343030}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1993007157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1993007158}
+  - component: {fileID: 1993007160}
+  - component: {fileID: 1993007159}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1993007158
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993007157}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1758919565}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.12408447, y: -0.4132843}
+  m_SizeDelta: {x: -19.003418, y: -19.239697}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1993007159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993007157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.77254903}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1993007160
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993007157}
+  m_CullTransparentMesh: 1
 --- !u!1 &1997928243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 652616557255344052, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}

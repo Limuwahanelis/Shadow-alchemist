@@ -57,6 +57,8 @@ public class PlayerShadowPlacingState : PlayerState
             {
                 // place shadow
                 ShowShadowSelection();
+                _isPlacingShadow = false;
+                _isSelectingPlacableShadow = true;
             }
         }
 

@@ -20,6 +20,7 @@ public class ControllableShadow : MonoBehaviour
     [SerializeField] protected Transform _shadow;
     [Header("Shadow"),SerializeField] protected Collider2D _shadowCollider;
     [SerializeField] protected float _transmutationSpeed=2f;
+    [SerializeField] protected float _revertTransmutationSpeed=8f;
     [SerializeField] protected bool _isHorizontal = true;
     [SerializeField] protected Transform _shadowMask;
     [SerializeField] protected float scaleToPoSrate = 2f;
@@ -44,6 +45,7 @@ public class ControllableShadow : MonoBehaviour
     protected int _segmentsTaken=0;
     protected bool _isReverting = false;
     protected bool _isRevertingMove = false;
+    
     protected virtual void Start()
     {
         _originalPosition = _shadow.position;
@@ -301,7 +303,7 @@ public class ControllableShadow : MonoBehaviour
         while (!isClear)
         {
 
-            _revertTransmutateValue = Time.deltaTime * _transmutationSpeed;
+            _revertTransmutateValue = Time.deltaTime * _revertTransmutationSpeed;
             isClear=RevertSegmentStep(tmp);
             SetValueForShadowBar();
             yield return null;
@@ -316,7 +318,7 @@ public class ControllableShadow : MonoBehaviour
         _isReverting = true;
         while (!isAllClear)
         {
-            _revertTransmutateValue = Time.deltaTime * _transmutationSpeed;
+            _revertTransmutateValue = Time.deltaTime * _revertTransmutationSpeed;
             isAllClear = RevertNonSegmentStep(_lastTransmutationDirection);
             SetValueForShadowBar();
             yield return null;

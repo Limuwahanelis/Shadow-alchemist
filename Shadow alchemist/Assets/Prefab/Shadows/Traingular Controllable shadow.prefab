@@ -413,6 +413,7 @@ MonoBehaviour:
   _shadow: {fileID: 5899260448962451611}
   _shadowCollider: {fileID: 3190655693245789407}
   _transmutationSpeed: 6
+  _revertTransmutationSpeed: 8
   _isHorizontal: 1
   _shadowMask: {fileID: 2430152938511210625}
   scaleToPoSrate: 2
