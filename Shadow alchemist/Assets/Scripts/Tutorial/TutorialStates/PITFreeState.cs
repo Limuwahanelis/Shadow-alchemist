@@ -1,12 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using static PlayerInputHandler;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-
-public class PlayerInputTutorialFreeState : PlayerInputTutorialState
+public class PITFreeState : PlayerInputTutorialState
 {
     public override void OnControlShadow(InputValue value)
     {
@@ -15,7 +9,7 @@ public class PlayerInputTutorialFreeState : PlayerInputTutorialState
         {
             if (_shadowsInteractions.Shadow != null)
             {
-                ChangeState(typeof(PlayerInputTutorialShadowControlState));
+                ChangeState(typeof(PITShadowControlState));
                 if (_tutorialStep == PlayerInputHandlerTutorial.TutorialStep.ENTER_SHADOW_CONTRL_MODE)
                 {
                     CompleteTutorialStep();

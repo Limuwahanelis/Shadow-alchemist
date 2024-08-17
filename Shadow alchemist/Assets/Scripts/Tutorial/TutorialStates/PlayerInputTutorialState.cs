@@ -18,6 +18,7 @@ public abstract class PlayerInputTutorialState
     protected static PlayerInputStack _inputStack;
     protected static PlayerShadowsInteractions _shadowsInteractions;
     protected static PlacableShadowSelection _placableShadowSelection;
+    protected static bool _fireEvents;
     // Update is called once per frame
     public virtual void Update() 
     {
@@ -78,6 +79,10 @@ public abstract class PlayerInputTutorialState
     }
     public virtual void CompleteTutorialStep()
     {
+        if (!_fireEvents)
+        {
+            return;
+        }
         _context.OnTutorialStepCompleted?.Invoke();
         _context.UpdateTutorialStep();
     }
@@ -86,7 +91,7 @@ public abstract class PlayerInputTutorialState
         PlayerInputTutorialState state = _getType(newStateType);
         _context.ChangeTutorialState(state);
     }
-    public static void SetUp(PlayerInputTutorialContext context, GetState getState, bool useCommands, PlayerInputStack inputStack,PlayerShadowsInteractions shadowsInteractions,PlacableShadowSelection placableShadowSelection)
+    public static void SetUp(PlayerInputTutorialContext context, GetState getState, bool useCommands, PlayerInputStack inputStack,PlayerShadowsInteractions shadowsInteractions,PlacableShadowSelection placableShadowSelection,bool fireEvents)
     {
         _context = context;
         _getType = getState;
@@ -94,6 +99,7 @@ public abstract class PlayerInputTutorialState
         _inputStack = inputStack;
         _shadowsInteractions = shadowsInteractions;
         _placableShadowSelection = placableShadowSelection;
+        _fireEvents = fireEvents;
     }
 
     public static void SetTutorialStep(PlayerInputHandlerTutorial.TutorialStep tutorialStep)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputTutorialEnterShadowPlacementState : PlayerInputTutorialState
+public class PITShadowPlacementState : PlayerInputTutorialState
 {
     private bool _isSelectingPlacableShadow = true;
     private bool _isPlacingShadow = false;
@@ -12,13 +12,13 @@ public class PlayerInputTutorialEnterShadowPlacementState : PlayerInputTutorialS
         base.OnControlShadow(value);
         if(_context.shadowModifier==PlayerInputHandler.ShadowControlInputs.CONTROL)
         {
-            ChangeState(typeof(PlayerInputTutorialShadowControlState));
+            ChangeState(typeof(PITShadowControlState));
             _isSelectingPlacableShadow = true;
             return;
         }
         if (_shadowsInteractions.FullShadow)
         {
-            ChangeState(typeof(PlayerInputTutorialFreeState));
+            ChangeState(typeof(PITFreeState));
             _isSelectingPlacableShadow = true;
             return;
         }

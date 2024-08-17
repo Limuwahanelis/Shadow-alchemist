@@ -26,6 +26,7 @@ public class PlayerJumpingState : PlayerState
         {
             _context.playerMovement.Jump();
             ChangeState(PlayerInAirState.StateType);
+            _context.playerMovement.SetRBMaterial(PlayerMovement.PhysicMaterialType.NO_FRICTION);
         });
     }
 

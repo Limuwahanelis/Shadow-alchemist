@@ -16,6 +16,7 @@ public class PlayerInAirState : PlayerState
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);
+        _context.playerMovement.SetRBMaterial(PlayerMovement.PhysicMaterialType.NO_FRICTION);
     }
     public override void Update()
     {
@@ -30,6 +31,7 @@ public class PlayerInAirState : PlayerState
         }
         if(_context.checks.IsOnGround && math.abs( _context.playerMovement.PlayerRB.velocity.y) < 0.0004) 
         {
+            _context.playerMovement.SetRBMaterial(PlayerMovement.PhysicMaterialType.NORMAL);
             if (_stateTypeToChangeFromInputCommand != null)
             {
                 ChangeState(_stateTypeToChangeFromInputCommand);
@@ -65,7 +67,7 @@ public class PlayerInAirState : PlayerState
     }
     public override void Move(Vector2 direction)
     {
-        _context.playerMovement.Move(direction.x);
+        _context.playerMovement.Move(direction.x,true);
     }
     //public override void Attack(PlayerCombat.AttackModifiers modifier)
     //{

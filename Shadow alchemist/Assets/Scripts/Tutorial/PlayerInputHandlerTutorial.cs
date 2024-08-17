@@ -10,7 +10,7 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
 {
     public enum TutorialStep
     {
-        ENTER_SHADOW_CONTRL_MODE,ENTER_SHADOW_TRANSMUTATION,ENTER_SHADOW_CONTROL_MODE_2,ENTER_SHADOW_PLACEMENT,PLACE_SHADOW
+        ENTER_SHADOW_CONTRL_MODE,ENTER_SHADOW_TRANSMUTATION,ENTER_SHADOW_CONTROL_MODE_2,ENTER_SHADOW_PLACEMENT,PLACE_SHADOW,MOVE_SHADOW
     }
 
     public UnityEvent OnShadowControlModeFirstEntered;
@@ -18,8 +18,10 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
     public UnityEvent OnShadowControlModeSecondEntry;
     public UnityEvent OnShadowPlacementFirstEntered;
     public UnityEvent OnShadowFirstPlaced;
+    public UnityEvent OnShadowFirstMoved;
     //public UnityEvent OnFirstShadowPlaced;
 
+    [SerializeField] bool _fireTutorialEvents;
     [SerializeField] PlayerController _player;
     [SerializeField] InputActionAsset _controls;
     [SerializeField] PlayerInputStack _inputStack;
@@ -31,7 +33,7 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
     private Dictionary<Type, PlayerInputTutorialState> _tutorialStates = new Dictionary<Type, PlayerInputTutorialState>();
     private PlayerInputTutorialState _currentTutorialState;
     PlayerInputTutorialContext _context;
-    TutorialStep _currentStep;
+    [SerializeField] TutorialStep _currentStep;
 
     void Start()
     {
@@ -49,13 +51,13 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
         };
 
         PlayerInputTutorialState.GetState getState = GetState;
-        PlayerInputTutorialState.SetUp(_context, getState, _useCommands, _inputStack, _shadowsInteractions, _shadowSelection);
+        PlayerInputTutorialState.SetUp(_context, getState, _useCommands, _inputStack, _shadowsInteractions, _shadowSelection, _fireTutorialEvents);
         PlayerInputTutorialState.SetTutorialStep(TutorialStep.ENTER_SHADOW_CONTRL_MODE);
         foreach (Type state in states)
         {
             _tutorialStates.Add(state, (PlayerInputTutorialState)Activator.CreateInstance(state));
         }
-        PlayerInputTutorialState newState = GetState(typeof(PlayerInputTutorialFreeState));
+        PlayerInputTutorialState newState = GetState(typeof(PITFreeState));
         _currentTutorialState = newState;
     }
     public void ChangeState(PlayerInputTutorialState newState)

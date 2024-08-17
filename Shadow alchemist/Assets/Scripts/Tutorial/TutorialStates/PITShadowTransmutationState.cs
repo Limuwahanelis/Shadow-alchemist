@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static PlayerInputHandler;
 
-public class PlayerInputTutorialShadowTransmutationState : PlayerInputTutorialState
+public class PITShadowTransmutationState : PlayerInputTutorialState
 {
     private bool _isTransmutating;
     private bool _isInShadowControl=false;
@@ -14,13 +14,13 @@ public class PlayerInputTutorialShadowTransmutationState : PlayerInputTutorialSt
         if(_context.shadowModifier==ShadowControlInputs.CONTROL)
         {
             if(_tutorialStep==PlayerInputHandlerTutorial.TutorialStep.ENTER_SHADOW_CONTROL_MODE_2) CompleteTutorialStep();
-            ChangeState(typeof(PlayerInputTutorialShadowControlState));
+            ChangeState(typeof(PITShadowControlState));
         }
     }
     public override void OnAttack(InputValue value)
     {
         base.OnAttack(value);
         if (_tutorialStep == PlayerInputHandlerTutorial.TutorialStep.ENTER_SHADOW_CONTROL_MODE_2) CompleteTutorialStep();
-        ChangeState(typeof(PlayerInputTutorialShadowControlState));
+        ChangeState(typeof(PITShadowControlState));
     }
 }

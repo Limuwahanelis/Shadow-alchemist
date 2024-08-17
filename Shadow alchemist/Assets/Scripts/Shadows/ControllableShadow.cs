@@ -283,7 +283,7 @@ public class ControllableShadow : MonoBehaviour
         for(int i= _placedShadows.Count-1; i>=0;i--)
         {
             Destroy(_placedShadows[i ].gameObject);
-            _placedShadows.RemoveAt(i );
+            //_placedShadows.RemoveAt(i );
         }
         int num = _segmentsTaken;
         for (int i = 0; i < num; i++)

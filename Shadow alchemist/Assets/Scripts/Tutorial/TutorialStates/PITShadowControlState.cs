@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputTutorialShadowControlState : PlayerInputTutorialState
+public class PITShadowControlState : PlayerInputTutorialState
 {
     public override void OnControlShadow(InputValue value)
     {
         base.OnControlShadow(value);
         if(_context.shadowModifier==PlayerInputHandler.ShadowControlInputs.TRANSMUTATE)
         {
-            ChangeState(typeof(PlayerInputTutorialShadowTransmutationState));
+            ChangeState(typeof(PITShadowTransmutationState));
             if(_tutorialStep==PlayerInputHandlerTutorial.TutorialStep.ENTER_SHADOW_TRANSMUTATION) CompleteTutorialStep();
         }
     }
@@ -18,6 +18,12 @@ public class PlayerInputTutorialShadowControlState : PlayerInputTutorialState
     {
         base.OnAttack(value);
         if (_tutorialStep == PlayerInputHandlerTutorial.TutorialStep.ENTER_SHADOW_PLACEMENT)CompleteTutorialStep();
-        ChangeState(typeof(PlayerInputTutorialEnterShadowPlacementState));
+        ChangeState(typeof(PITShadowPlacementState));
+    }
+    public override void OnJump(InputValue value)
+    {
+        base.OnJump(value);
+        if (_tutorialStep == PlayerInputHandlerTutorial.TutorialStep.PLACE_SHADOW) CompleteTutorialStep();
+        ChangeState(typeof(PITShadowMoveState));
     }
 }
