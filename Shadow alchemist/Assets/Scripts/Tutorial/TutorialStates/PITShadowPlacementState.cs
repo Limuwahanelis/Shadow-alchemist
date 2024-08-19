@@ -37,7 +37,7 @@ public class PITShadowPlacementState : PlayerInputTutorialState
                 // select which shadow to spawn, spawn it but not place it yet
                 _isSelectingPlacableShadow = false;
                 _isPlacingShadow = true;
-                if(_tutorialStep==PlayerInputHandlerTutorial.TutorialStep.PLACE_SHADOW) CompleteTutorialStep();
+                if(_tutorialStep==PlayerInputHandlerTutorial.TutorialStepEn.PLACE_SHADOW) CompleteTutorialStep();
             }
 
         }
@@ -47,7 +47,7 @@ public class PITShadowPlacementState : PlayerInputTutorialState
             {
                 _isPlacingShadow = false;
                 _isSelectingPlacableShadow = true;
-                if (_tutorialStep == PlayerInputHandlerTutorial.TutorialStep.PLACE_SHADOW) CompleteTutorialStep();
+                if (_tutorialStep == PlayerInputHandlerTutorial.TutorialStepEn.PLACE_SHADOW) CompleteTutorialStep();
                 // place shadow
             }
         }

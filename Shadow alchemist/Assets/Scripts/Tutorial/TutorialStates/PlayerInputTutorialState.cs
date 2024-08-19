@@ -10,7 +10,7 @@ public abstract class PlayerInputTutorialState
 {
     public delegate PlayerInputTutorialState GetState(Type state);
     protected static GetState _getType;
-    protected static PlayerInputHandlerTutorial.TutorialStep _tutorialStep;
+    protected static PlayerInputHandlerTutorial.TutorialStepEn _tutorialStep;
 
     protected static PlayerInputTutorialContext _context;
     protected static bool _isDownArrowPressed;
@@ -83,7 +83,7 @@ public abstract class PlayerInputTutorialState
         {
             return;
         }
-        _context.OnTutorialStepCompleted?.Invoke();
+        //_context.OnTutorialStepCompleted?.Invoke();
         _context.UpdateTutorialStep();
     }
     public void ChangeState(Type newStateType)
@@ -102,7 +102,7 @@ public abstract class PlayerInputTutorialState
         _fireEvents = fireEvents;
     }
 
-    public static void SetTutorialStep(PlayerInputHandlerTutorial.TutorialStep tutorialStep)
+    public static void SetTutorialStep(PlayerInputHandlerTutorial.TutorialStepEn tutorialStep)
     {
         _tutorialStep = tutorialStep;
     }

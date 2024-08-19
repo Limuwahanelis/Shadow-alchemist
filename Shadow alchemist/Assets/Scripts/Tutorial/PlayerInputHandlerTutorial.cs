@@ -8,19 +8,19 @@ using System.Linq;
 
 public class PlayerInputHandlerTutorial : MonoBehaviour
 {
-    public enum TutorialStep
+    public enum TutorialStepEn
     {
         ENTER_SHADOW_CONTRL_MODE,ENTER_SHADOW_TRANSMUTATION,ENTER_SHADOW_CONTROL_MODE_2,ENTER_SHADOW_PLACEMENT,PLACE_SHADOW,MOVE_SHADOW
     }
-
-    public UnityEvent OnShadowControlModeFirstEntered;
-    public UnityEvent OnShadowTransmutationModeFirstEntered;
-    public UnityEvent OnShadowControlModeSecondEntry;
-    public UnityEvent OnShadowPlacementFirstEntered;
-    public UnityEvent OnShadowFirstPlaced;
-    public UnityEvent OnShadowFirstMoved;
+    [SerializeField] List<TutorialStep> _tutorialSteps;
+    //public UnityEvent OnShadowControlModeFirstEntered;
+    //public UnityEvent OnShadowTransmutationModeFirstEntered;
+    //public UnityEvent OnShadowControlModeSecondEntry;
+    //public UnityEvent OnShadowPlacementFirstEntered;
+    //public UnityEvent OnShadowFirstPlaced;
+    //public UnityEvent OnShadowFirstMoved;
     //public UnityEvent OnFirstShadowPlaced;
-
+    //private int _tutorialStepIndex=0;
     [SerializeField] bool _fireTutorialEvents;
     [SerializeField] PlayerController _player;
     [SerializeField] InputActionAsset _controls;
@@ -33,7 +33,7 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
     private Dictionary<Type, PlayerInputTutorialState> _tutorialStates = new Dictionary<Type, PlayerInputTutorialState>();
     private PlayerInputTutorialState _currentTutorialState;
     PlayerInputTutorialContext _context;
-    [SerializeField] TutorialStep _currentStep;
+    [SerializeField] TutorialStepEn _currentStep;
 
     void Start()
     {
@@ -46,24 +46,30 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
         {
             playerController = _player,
             ChangeTutorialState = ChangeState,
-            OnTutorialStepCompleted = OnShadowControlModeFirstEntered,
+            //OnTutorialStepCompleted = OnShadowControlModeFirstEntered,
             UpdateTutorialStep=UpdateTutorialStep,
         };
 
         PlayerInputTutorialState.GetState getState = GetState;
         PlayerInputTutorialState.SetUp(_context, getState, _useCommands, _inputStack, _shadowsInteractions, _shadowSelection, _fireTutorialEvents);
-        PlayerInputTutorialState.SetTutorialStep(TutorialStep.ENTER_SHADOW_CONTRL_MODE);
+       // _tutorialStepIndex = _tutorialSteps.IndexOf(_currentStep);
+
+        PlayerInputTutorialState.SetTutorialStep(_currentStep);
         foreach (Type state in states)
         {
             _tutorialStates.Add(state, (PlayerInputTutorialState)Activator.CreateInstance(state));
         }
         PlayerInputTutorialState newState = GetState(typeof(PITFreeState));
         _currentTutorialState = newState;
+        
+
+
     }
     public void ChangeState(PlayerInputTutorialState newState)
     {
         if (_printState) Logger.Log(newState.GetType());
         _currentTutorialState = newState;
+       
     }
     public PlayerInputTutorialState GetState(Type state)
     {
@@ -76,15 +82,14 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
     }
     public void UpdateTutorialStep()
     {
-        _currentStep++;
-        switch (_currentStep)
+        TutorialStep toComplete = _tutorialSteps.Find(x => x.Step == _currentStep);
+        if (toComplete == null) Logger.Error($"No tutorial step was found {_currentStep}");
+        else
         {
-            case TutorialStep.ENTER_SHADOW_TRANSMUTATION:_context.OnTutorialStepCompleted = OnShadowTransmutationModeFirstEntered;break;
-            case TutorialStep.ENTER_SHADOW_CONTROL_MODE_2:_context.OnTutorialStepCompleted=OnShadowControlModeSecondEntry;break;
-            case TutorialStep.ENTER_SHADOW_PLACEMENT: _context.OnTutorialStepCompleted = OnShadowPlacementFirstEntered;break;
-            case TutorialStep.PLACE_SHADOW:_context.OnTutorialStepCompleted = OnShadowFirstPlaced;break;
+            toComplete.OnStepCompleted?.Invoke();
+            _currentStep++;
+            PlayerInputTutorialState.SetTutorialStep(_currentStep);
         }
-        PlayerInputTutorialState.SetTutorialStep(_currentStep);
     }
     #region Inputs
     private void OnMove(InputValue value)

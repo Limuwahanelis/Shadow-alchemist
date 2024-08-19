@@ -13,6 +13,6 @@ public class PlayerInputTutorialContext
     public Action<PlayerInputTutorialState> ChangeTutorialState;
     public float horizontalModifier;
     public bool isDownArrowPressed;
-    public UnityEvent OnTutorialStepCompleted;
+    //public UnityEvent OnTutorialStepCompleted;
     public Action UpdateTutorialStep;
 }

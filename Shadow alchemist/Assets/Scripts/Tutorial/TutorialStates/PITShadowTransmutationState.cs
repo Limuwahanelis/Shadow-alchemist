@@ -13,14 +13,14 @@ public class PITShadowTransmutationState : PlayerInputTutorialState
         base.OnControlShadow(value);
         if(_context.shadowModifier==ShadowControlInputs.CONTROL)
         {
-            if(_tutorialStep==PlayerInputHandlerTutorial.TutorialStep.ENTER_SHADOW_CONTROL_MODE_2) CompleteTutorialStep();
+            if(_tutorialStep==PlayerInputHandlerTutorial.TutorialStepEn.ENTER_SHADOW_CONTROL_MODE_2) CompleteTutorialStep();
             ChangeState(typeof(PITShadowControlState));
         }
     }
     public override void OnAttack(InputValue value)
     {
         base.OnAttack(value);
-        if (_tutorialStep == PlayerInputHandlerTutorial.TutorialStep.ENTER_SHADOW_CONTROL_MODE_2) CompleteTutorialStep();
+        if (_tutorialStep == PlayerInputHandlerTutorial.TutorialStepEn.ENTER_SHADOW_CONTROL_MODE_2) CompleteTutorialStep();
         ChangeState(typeof(PITShadowControlState));
     }
 }

@@ -10,7 +10,7 @@ public class PITFreeState : PlayerInputTutorialState
             if (_shadowsInteractions.Shadow != null)
             {
                 ChangeState(typeof(PITShadowControlState));
-                if (_tutorialStep == PlayerInputHandlerTutorial.TutorialStep.ENTER_SHADOW_CONTRL_MODE)
+                if (_tutorialStep == PlayerInputHandlerTutorial.TutorialStepEn.ENTER_SHADOW_CONTRL_MODE)
                 {
                     CompleteTutorialStep();
                 }

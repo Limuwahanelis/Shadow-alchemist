@@ -514,7 +514,7 @@ public class ControllableShadow : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position,_distanceToResetShadow);
+        Gizmos.DrawWireSphere(_resetShadowCollider.transform.position,_distanceToResetShadow);
     }
     private void OnValidate()
     {

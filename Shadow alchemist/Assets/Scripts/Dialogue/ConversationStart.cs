@@ -1,4 +1,5 @@
 using DialogueEditor;
+using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 #if UNITY_EDITOR
@@ -9,10 +10,17 @@ using UnityEngine;
 [RequireComponent(typeof(NPCConversation))]
 public class ConversationStart : MonoBehaviour
 {
+    [SerializeField] bool _useEvent;
+    [SerializeField,ConditionalField(nameof(_useEvent))] TutorialStep _step;
     [SerializeField] NPCConversation conversation;
     [SerializeField] ConversationManager _convoMan;
     [SerializeField] PlayerDialogueInputHandler _dialogueInputHandler;
     private bool _conversationFinished;
+
+    private void Awake()
+    {
+        if (_useEvent) _step.OnStepCompleted += StartConversation;     
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         StartConversation();
@@ -43,6 +51,10 @@ public class ConversationStart : MonoBehaviour
         {
             conversation = GetComponent<NPCConversation>();
         }
+    }
+    private void OnDestroy()
+    {
+        if(_useEvent) _step.OnStepCompleted -= StartConversation;
     }
 }
 
