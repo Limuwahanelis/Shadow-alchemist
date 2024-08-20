@@ -89,7 +89,7 @@ MonoBehaviour:
   _damageType: 2
   _pushCollidingObject: 1
   _damageCollidingObject: 1
-  damage: 2
+  _damage: 0
 --- !u!1 &1407378695137115941
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 906588a3537104d45abe44727662793c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _printState: 1
+  _printState: 0
   _enemyAnimationManager: {fileID: 3286389688347197691}
   _healthSystem: {fileID: 8719975052442886724}
   _playerTransform: {fileID: 0}
@@ -628,6 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2a223f8612212a44b22ff3b2c5c2e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colliders: []
   isInvincible: 0
   hpBar: {fileID: 40199828508363928}
   maxHP: 80

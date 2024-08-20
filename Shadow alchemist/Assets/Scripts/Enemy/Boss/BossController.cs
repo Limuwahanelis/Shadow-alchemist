@@ -31,7 +31,7 @@ public class BossController : EnemyController
     void Start()
     {
         _healthSys.OnHitEvent += TryStun;
-        _healthSys.OnDeathEvent += BossDeath;
+        _healthSys.OnDeath += BossDeath;
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
     .Where(type => typeof(EnemyState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
 
@@ -76,7 +76,7 @@ public class BossController : EnemyController
     {
         _currentEnemyState?.FixedUpdate();
     }
-    private void BossDeath()
+    private void BossDeath(IDamagable damagable)
     {
         _gameWonPanel.SetActive(true);
         EnemyState newState = GetState(BossStateDead.StateType);

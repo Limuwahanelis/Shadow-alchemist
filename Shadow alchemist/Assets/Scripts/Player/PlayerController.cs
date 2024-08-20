@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _playerHealthSystem.OnPushed += PushPlayer;
-        _playerHealthSystem.OnDeathEvent += PlayerDeath;
+        _playerHealthSystem.OnDeath += PlayerDeath;
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
             .Where(type => typeof(PlayerState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
 
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         _currentPlayerState.InterruptState();
         _currentPlayerState = newState;
     }
-    private void PlayerDeath()
+    private void PlayerDeath(IDamagable damagable)
     {
         _playerMovement.SetRBMaterial(PlayerMovement.PhysicMaterialType.NONE);
         PlayerState newState = GetState(typeof(PlayerDeadState));
@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        _playerHealthSystem.OnDeathEvent -= PlayerDeath;
+        _playerHealthSystem.OnDeath -= PlayerDeath;
         _playerHealthSystem.OnPushed -= PushPlayer;
     }
 }

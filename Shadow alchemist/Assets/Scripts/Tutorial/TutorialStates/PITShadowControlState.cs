@@ -14,6 +14,10 @@ public class PITShadowControlState : PlayerInputTutorialState
             ChangeState(typeof(PITShadowTransmutationState));
             if(_tutorialStep==PlayerInputHandlerTutorial.TutorialStepEn.ENTER_SHADOW_TRANSMUTATION) CompleteTutorialStep();
         }
+        else if(_context.shadowModifier==PlayerInputHandler.ShadowControlInputs.CONTROL)
+        {
+            ChangeState(typeof(PITFreeState));
+        }
     }
     public override void OnAttack(InputValue value)
     {

@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b780189c2aa38942af3ac7f9ba7939e, type: 3}
-  m_Name: Enter shadow control 2
+  m_Name: Enemy weakened state
   m_EditorClassIdentifier: 
-  Step: 3
+  Step: 0

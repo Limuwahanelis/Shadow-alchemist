@@ -67,6 +67,12 @@ public class SpikeAttackLogic : MonoBehaviour
     {
         StopCoroutine(_attackCor);
     }
+    private void StartDespawnCor(IDamagable damagable)
+    {
+        Logger.Log("despawn");
+        damagable.OnDeath -= StartDespawnCor;
+        StartCoroutine(DespawnCor());
+    }
     public IEnumerator DespawnCor()
     {
         yield return new WaitForSeconds(_animationManager.GetAnimationLength("Spike"));
@@ -89,6 +95,8 @@ public class SpikeAttackLogic : MonoBehaviour
                     {
                         _isFirstHit = false;
                         _timeToDespawnSpike += _durationOnHit;
+                        tmp.OnDeath += StartDespawnCor;
+                        Logger.Log("HIt");
                     }
                 }
                 tmp.TakeDamage(new DamageInfo(_damage, PlayerHealthSystem.DamageType.SHADOW_SPIKE, transform.position));
@@ -114,6 +122,8 @@ public class SpikeAttackLogic : MonoBehaviour
                             {
                                 _isFirstHit = false;
                                 _timeToDespawnSpike += _durationOnHit;
+                                tmp.OnDeath += StartDespawnCor;
+                                Logger.Log("HIt");
                             }
                         }
                         tmp.TakeDamage(new DamageInfo(_damage, PlayerHealthSystem.DamageType.ENEMY, transform.position));
@@ -124,6 +134,10 @@ public class SpikeAttackLogic : MonoBehaviour
             }
             yield return null;
         }
+    }
+    private void OnDestroy()
+    {
+        
     }
     private void OnDrawGizmosSelected()
     {

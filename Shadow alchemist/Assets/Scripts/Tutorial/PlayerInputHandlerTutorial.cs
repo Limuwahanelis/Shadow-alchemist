@@ -10,17 +10,9 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
 {
     public enum TutorialStepEn
     {
-        ENTER_SHADOW_CONTRL_MODE,ENTER_SHADOW_TRANSMUTATION,ENTER_SHADOW_CONTROL_MODE_2,ENTER_SHADOW_PLACEMENT,PLACE_SHADOW,MOVE_SHADOW
+        NONE,ENTER_SHADOW_CONTRL_MODE,ENTER_SHADOW_TRANSMUTATION,ENTER_SHADOW_CONTROL_MODE_2,ENTER_SHADOW_PLACEMENT,PLACE_SHADOW,MOVE_SHADOW
     }
     [SerializeField] List<TutorialStep> _tutorialSteps;
-    //public UnityEvent OnShadowControlModeFirstEntered;
-    //public UnityEvent OnShadowTransmutationModeFirstEntered;
-    //public UnityEvent OnShadowControlModeSecondEntry;
-    //public UnityEvent OnShadowPlacementFirstEntered;
-    //public UnityEvent OnShadowFirstPlaced;
-    //public UnityEvent OnShadowFirstMoved;
-    //public UnityEvent OnFirstShadowPlaced;
-    //private int _tutorialStepIndex=0;
     [SerializeField] bool _fireTutorialEvents;
     [SerializeField] PlayerController _player;
     [SerializeField] InputActionAsset _controls;
@@ -46,13 +38,11 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
         {
             playerController = _player,
             ChangeTutorialState = ChangeState,
-            //OnTutorialStepCompleted = OnShadowControlModeFirstEntered,
             UpdateTutorialStep=UpdateTutorialStep,
         };
 
         PlayerInputTutorialState.GetState getState = GetState;
         PlayerInputTutorialState.SetUp(_context, getState, _useCommands, _inputStack, _shadowsInteractions, _shadowSelection, _fireTutorialEvents);
-       // _tutorialStepIndex = _tutorialSteps.IndexOf(_currentStep);
 
         PlayerInputTutorialState.SetTutorialStep(_currentStep);
         foreach (Type state in states)
@@ -69,7 +59,6 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
     {
         if (_printState) Logger.Log(newState.GetType());
         _currentTutorialState = newState;
-       
     }
     public PlayerInputTutorialState GetState(Type state)
     {

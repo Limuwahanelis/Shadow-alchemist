@@ -45,8 +45,8 @@ public class PlayerHealthSystem : HealthSystem,IPushable
 
     public override void Kill()
     {
-        if (OnDeathEvent == null) Destroy(gameObject);
-        else OnDeathEvent.Invoke();
+        if(IsDeathEventSubscribedTo()) InvokeOnDeathEvent();
+        else Destroy(gameObject);
     }
     IEnumerator PushCor(Collider2D[] colls)
     {

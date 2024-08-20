@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b780189c2aa38942af3ac7f9ba7939e, type: 3}
   m_Name: Enter shadow transmutation
   m_EditorClassIdentifier: 
-  Step: 1
+  Step: 2
