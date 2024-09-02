@@ -440,25 +440,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shadow: {fileID: 2080716647947369973}
   _shadowCollider: {fileID: 5449879963913693113}
-  _ajustColliderByCurve: 0
   _transmutationSpeed: 2
-  _curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _isTriangle: 0
+  _revertTransmutationSpeed: 8
   _isHorizontal: 1
   _shadowMask: {fileID: 8844613119017229819}
   scaleToPoSrate: 2
-  _totalShadowbarValue: 4
   _distanceToResetShadow: 7.18
   _resetShadowCollider: {fileID: 8508400456371213525}
-  _lefBorder: {fileID: 647645908192470119}
-  _rightBorder: {fileID: 4774035346438814953}
-  _upperBorder: {fileID: 0}
-  _lowerBorder: {fileID: 0}
+  _leftRangeIndicator: {fileID: 0}
+  _rightRangeIndicator: {fileID: 0}
+  _upperRangeIndicator: {fileID: 0}
+  _lowerRangeIndicator: {fileID: 0}
   _spriteMask: {fileID: 4328624099662242860}
   _segments:
   - {fileID: 9020711361063240896}

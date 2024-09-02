@@ -135,8 +135,16 @@ public class ControllableShadow : MonoBehaviour
     }
     public void SetMoveRangeVisibility(bool isVisiblie)
     {
-        _leftRangeIndicator.SetVisibility(isVisiblie);
-        _rightRangeIndicator.SetVisibility(isVisiblie);
+        if (_isHorizontal)
+        {
+            _leftRangeIndicator.SetVisibility(isVisiblie);
+            _rightRangeIndicator.SetVisibility(isVisiblie);
+        }
+        else
+        {
+            _lowerRangeIndicator.SetVisibility(isVisiblie);
+            _upperRangeIndicator.SetVisibility(isVisiblie);
+        }
     }
     #endregion
     #region ShadowPlacing
