@@ -12,6 +12,11 @@ public class PlayerShadowTransmutationState : PlayerState
 
     public override void Update()
     {
+        //if(_context.shadowControl.Shadow==null)
+        //{
+        //    ChangeState(PlayerIdleState.StateType);
+        //    return;
+        //}
         PerformInputCommand();
     }
     public override void Move(Vector2 direction)
