@@ -25,7 +25,7 @@ namespace DialogueEditor
         protected const int TEXT_BORDER = 5;
         protected const int TITLE_HEIGHT = 18;
         protected const int TITLE_GAP = 4;
-        protected const int TEXT_BOX_HEIGHT = 40;
+        protected const int TEXT_BOX_HEIGHT = 90;
         public const int LINE_WIDTH = 3;
 
         // Members
@@ -282,8 +282,8 @@ namespace DialogueEditor
         public static CreateOptionEvent OnCreateOption;
 
         // Static properties
-        public static int Width { get { return 200; } }
-        public static int Height { get { return 80; } }
+        public static int Width { get { return 250; } }
+        public static int Height { get { return 160; } }
 
         // Properties
         public EditableSpeechNode SpeechNode { get { return Info as EditableSpeechNode; } }

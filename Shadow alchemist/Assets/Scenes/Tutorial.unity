@@ -584,6 +584,7 @@ MonoBehaviour:
   conversation: {fileID: 166693926}
   _convoMan: {fileID: 975602890}
   _dialogueInputHandler: {fileID: 1370666375}
+  _spriteAsset: {fileID: 0}
 --- !u!114 &166693926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,10 +597,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83189876d4d389f43b7dd2e925aa112e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentIDCounter: 4
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"In
+  CurrentIDCounter: 5
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":true,"xPos":357,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"In
     order to place a shadow you need to have adequate amount of segments filled on
-    shadow bar. For now each of available shadows cost only 1 segment.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":382,"yPos":188},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"You
+    shadow bar. For now each of available shadows cost only 1 segment.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":123,"yPos":270},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"You
     can select which shadow to place by pressing \\u2190 and \\u2192 keys and pressing
     C to confirm selection.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
@@ -1611,7 +1612,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3900108755395677323, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
       insertIndex: 0
       addedObject: {fileID: 1993007158}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3900108754347413304, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1031096391}
   m_SourcePrefab: {fileID: 100100000, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
 --- !u!224 &316634915 stripped
 RectTransform:
@@ -1947,6 +1951,7 @@ MonoBehaviour:
   conversation: {fileID: 414872750}
   _convoMan: {fileID: 975602890}
   _dialogueInputHandler: {fileID: 1370666375}
+  _spriteAsset: {fileID: 0}
 --- !u!114 &414872750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1960,13 +1965,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 6
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":4}],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"If
-    shadow is red it means that it can''t be placed in that place. It can happen
-    if it is too far way from its orignal shadow or somthing is blocking it (e.g
-    ground or enemy).","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":5}],"EditorInfo":{"isRoot":false,"xPos":369,"yPos":205},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"To
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":4}],"EditorInfo":{"isRoot":true,"xPos":357,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"If
+    shadow is <color=\"red>red<\/color> it means that it can''t be placed in that
+    place. It can happen if it is too far way from its orignal shadow or something
+    is blocking it (e.g ground or enemy).","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":5}],"EditorInfo":{"isRoot":false,"xPos":357,"yPos":209},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"To
     move shadow press arrow keys. If shadow is black you can place it by pressing
-    C key again.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":334,"yPos":365},"ID":5,"ParamActions":[],"TMPFontGUID":null,"Text":"To
-    remove lastly placed shadow press Z key. To exit shaow placement press X.","parentUIDs":[4],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+    C key again.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":352,"yPos":410},"ID":5,"ParamActions":[],"TMPFontGUID":null,"Text":"To
+    remove lastly placed shadow press Z key. To exit <color=#1eadff> shadow placing
+    mode<\/color> press X.","parentUIDs":[4],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
@@ -2133,6 +2139,7 @@ MonoBehaviour:
   conversation: {fileID: 575011265}
   _convoMan: {fileID: 975602890}
   _dialogueInputHandler: {fileID: 1370666375}
+  _spriteAsset: {fileID: 0}
 --- !u!114 &575011265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2146,8 +2153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 3
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"To
-    place shadow you have to first enter shadow placing mode by pressing C key.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":357,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"To
+    place shadow you have to first enter <color=#1eadff>shadow placing mode <\/color>by
+    pressing C key.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
@@ -32363,6 +32371,7 @@ MonoBehaviour:
   conversation: {fileID: 894410554}
   _convoMan: {fileID: 975602890}
   _dialogueInputHandler: {fileID: 1370666375}
+  _spriteAsset: {fileID: 11400000, guid: 443e2935a9ca3d04883605e1ee767b36, type: 2}
 --- !u!114 &894410554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32375,12 +32384,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83189876d4d389f43b7dd2e925aa112e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentIDCounter: 7
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":6}],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"In
-    order to move shadow press \\u2190,\\u2192 or \\u2191,\\u2193 (depending on shadow).
-    Purple marks shows maximum shift of shadow as if it wasn''t transmutated.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":327,"yPos":236},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"In
+  CurrentIDCounter: 8
+  json: '{"Options":[],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"New
+    int","IntValue":0}],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":7}],"EditorInfo":{"isRoot":true,"xPos":455.5,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"In
+    order to move shadow press \\u2190,\\u2192 or \\u2191,\\u2193 (<line-height=150%>based
+    on icons <sprite=1>,<sprite=4> in the menu). ","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":320.5,"yPos":442},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"In
     order to reverse shadow shift press Z key. To exit shadow move mode press either
-    X or C keys.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+    X or C keys.","parentUIDs":[7],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":6}],"EditorInfo":{"isRoot":false,"xPos":444.5,"yPos":239},"ID":7,"ParamActions":[],"TMPFontGUID":null,"Text":"Purple
+    marks<sprite=0> show maximum shift of shadow as if it wasn''t transmutated.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
@@ -32388,6 +32399,7 @@ MonoBehaviour:
   NodeSerializedDataList:
   - {fileID: 1976888376}
   - {fileID: 1976888375}
+  - {fileID: 1976888377}
   ContinueFont: {fileID: 0}
   EndConversationFont: {fileID: 0}
   Event:
@@ -32552,6 +32564,38 @@ PrefabInstance:
       propertyPath: _shadowControlModeSelectionUI
       value: 
       objectReference: {fileID: 1455607679}
+    - target: {fileID: 1868123658969505569, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868123658969505569, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868123658969505569, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868123658969505569, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882842330687734404, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882842330687734404, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882842330687734404, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882842330687734404, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2621413242125829931, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: m_Name
       value: Player
@@ -32570,11 +32614,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6211147572631444681, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.64
+      value: 11.14
       objectReference: {fileID: 0}
     - target: {fileID: 6211147572631444681, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -44.39
+      value: -0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6211147572631444681, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: m_LocalPosition.z
@@ -32614,11 +32658,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7557222278633596403, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4083176
+      value: -1.4083185
       objectReference: {fileID: 0}
     - target: {fileID: 7557222278633596403, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4200859
+      value: 1.4200842
+      objectReference: {fileID: 0}
+    - target: {fileID: 7940972932847968264, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8079469185935410053, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: _jumpStrength
@@ -32631,6 +32679,22 @@ PrefabInstance:
     - target: {fileID: 8079469185935410053, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
       propertyPath: _jumpSpeedMultiplier
       value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006986946444145441, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006986946444145441, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006986946444145441, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006986946444145441, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8229404818948309378, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
@@ -37450,6 +37514,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1478733250}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1031096388 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3900108754347413304, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
+  m_PrefabInstance: {fileID: 316634914}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1031096391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031096388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb9c00e2ddfd6446991e9a08a0d60fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1069199765
 GameObject:
   m_ObjectHideFlags: 0
@@ -37948,7 +38029,7 @@ MonoBehaviour:
   _shadowSelection: {fileID: 1374606203}
   _useCommands: 1
   _printState: 1
-  _currentStep: 5
+  _currentStep: 6
 --- !u!114 &1370666386 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4328005179847929583, guid: 3b0692d60c5973644b9e24cfcbfe6705, type: 3}
@@ -38386,11 +38467,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975b2826f0c043c4383e26688be81473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useEvent: 1
-  _step: {fileID: 11400000, guid: a44591bf73128ff4c94135eaf7516073, type: 2}
+  _useEvent: 0
+  _step: {fileID: 0}
   conversation: {fileID: 1661459290}
   _convoMan: {fileID: 975602890}
   _dialogueInputHandler: {fileID: 1370666375}
+  _spriteAsset: {fileID: 11400000, guid: 24adf7c2575eec7478b21c0b853328b1, type: 2}
 --- !u!114 &1661459290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38404,14 +38486,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 10
-  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":7}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":382,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Enemies
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":7}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":357,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Enemies
     in shadow hinders your ability to control them. Each enemy in the shadow wil
     block trtansmutation attempt near their position. However shadow shift is unaffected.
-    \",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":null,\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":8}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":409,\"yPos\":156},\"ID\":7,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"If
+    \",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":null,\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":8}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":391,\"yPos\":301},\"ID\":7,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"If
     enemy health drop below certain thresholds an <size=30><sprite=0><\\/size> sweat
-    icon will show next to them.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":9}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":416,\"yPos\":283},\"ID\":8,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"If
+    icon will show next to them.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":9}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":398,\"yPos\":588},\"ID\":8,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"If
     that happens performing a shadow spike attack by pressin X + \u2190 or \u2192
-    and hiting the enemy with it will stun them.\",\"parentUIDs\":[7],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":407,\"yPos\":423},\"ID\":9,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Stunned
+    and hiting the enemy with it will stun them.\",\"parentUIDs\":[7],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":245,\"yPos\":765},\"ID\":9,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Stunned
     enemies don't interfere with shadow transmutation and taking shadow from them
     will result in their immediate death.\",\"parentUIDs\":[8],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
@@ -38456,7 +38538,7 @@ Transform:
   m_GameObject: {fileID: 1692605020}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.37, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -38477,14 +38559,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 3
-  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":382,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"This
-    game has a system called shadow control.When you are inside a shadow, it is possible
-    to transmute, move and create new shadows. But let's start from the beginning.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":null,\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0.1,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":378.5,\"yPos\":168},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"When
-    you first entered a shadow an empty bar showed up. Each segemnts corresponds
-    to a cost of 1 when placing a shadow. In orrder to fill the bar you need to transmute
-    a shadow first.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":null,\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":368,\"yPos\":290},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"In
-    order to transmute a shadow you must first enter a shadow control mode. You can
-    do that by pressing X + \u2193.\\n\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
+  json: "{\"Options\":[],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":357,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"This
+    game has a system called shadow control. When you are inside a shadow, <line-height=150%>it
+    is possible to transmute<sprite=0>, move<sprite=1> and create new shadows <sprite=2>.
+    But let's start from the beginning.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":null,\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0.1,\"Volume\":0},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":360.5,\"yPos\":218},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"When
+    you enter a shadow an empty bar shows up. Each segment corresponds to a cost
+    of 1 when placing a shadow. In orrder to fill the bar you need to transmute a
+    shadow first.\",\"parentUIDs\":[0],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":null,\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":362,\"yPos\":422},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"In
+    order to transmute a shadow you must first enter a<color=#1eadff> shadow control
+    mode<\\/color>. You can do that by pressing X + \u2193.\\n\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
@@ -38515,6 +38598,7 @@ MonoBehaviour:
   conversation: {fileID: 1692605022}
   _convoMan: {fileID: 975602890}
   _dialogueInputHandler: {fileID: 1370666375}
+  _spriteAsset: {fileID: 11400000, guid: 443e2935a9ca3d04883605e1ee767b36, type: 2}
 --- !u!50 &1692605024
 Rigidbody2D:
   serializedVersion: 4
@@ -38976,6 +39060,7 @@ MonoBehaviour:
   conversation: {fileID: 1895956829}
   _convoMan: {fileID: 975602890}
   _dialogueInputHandler: {fileID: 1370666375}
+  _spriteAsset: {fileID: 0}
 --- !u!114 &1895956829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38989,11 +39074,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 3
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"In
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":357,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"In
     order to transmute a shadow press \\u2190,\\u2192 or \\u2191,\\u2193 depending
-    on a shaow (icons in menu indicate this). Transmutation can only be done in one
-    direction at the time. ","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":276,"yPos":358},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"You
-    can exit transmutation mode by pressing either X or C keys.","parentUIDs":[2],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":false,"xPos":309,"yPos":180},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"In
+    on a shadow <line-height=150%>(icons<sprite=0>, <sprite=3>  in menu indicate
+    this). Transmutation can only be done in one direction at the time. ","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":332,"yPos":421},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"You
+    can exit<color=#1eadff> transmutation mode<\/color> by pressing either X or C
+    keys.","parentUIDs":[2],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":false,"xPos":342,"yPos":217},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"In
     order to change direction press Z to revert transmutation to last fully filled
     segment on the shadow bar and press opposite arrow.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
@@ -39027,7 +39113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1927925416
 Transform:
   m_ObjectHideFlags: 0
@@ -39089,6 +39175,7 @@ MonoBehaviour:
   conversation: {fileID: 1927925419}
   _convoMan: {fileID: 975602890}
   _dialogueInputHandler: {fileID: 1370666375}
+  _spriteAsset: {fileID: 0}
 --- !u!114 &1927925419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39102,9 +39189,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 6
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Sometime
-    you are going to need to move the shadow. You can do this by first entering shadow
-    move state by pressing Z key in shadow control state.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":455.5,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Sometime
+    you are going to need to move the shadow. You can do this by first entering<color=#1eadff>
+    shadow move mode <\/color> by pressing Z key in <color=#1eadff>shadow control<\/color>
+    state.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
@@ -39132,6 +39220,7 @@ GameObject:
   - component: {fileID: 1976888374}
   - component: {fileID: 1976888376}
   - component: {fileID: 1976888375}
+  - component: {fileID: 1976888377}
   m_Layer: 0
   m_Name: ConversationEventInfo
   m_TagString: Untagged
@@ -39189,6 +39278,37 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   NodeID: 0
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 0}
+  Audio: {fileID: 0}
+--- !u!114 &1976888377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976888373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1031096391}
+        m_TargetAssemblyTypeName: SetTMPSpriteAsset, Assembly-CSharp
+        m_MethodName: SetSpriteAsset
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 9ff14073701fd844a8ce21202cfde18f, type: 2}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_SpriteAsset, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  NodeID: 7
   TMPFont: {fileID: 0}
   Icon: {fileID: 0}
   Audio: {fileID: 0}
@@ -40093,6 +40213,7 @@ MonoBehaviour:
   conversation: {fileID: 8326127714638224505}
   _convoMan: {fileID: 975602890}
   _dialogueInputHandler: {fileID: 1370666375}
+  _spriteAsset: {fileID: 0}
 --- !u!114 &8326127714638224505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40106,9 +40227,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 1
-  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":382,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Now
+  json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[],"EditorInfo":{"isRoot":true,"xPos":357,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Now
     a new menu pops up. It shows icon for each shadow control options and which button
-    to press in order to access it. Press S to enter shadow transmutation mode.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+    to press in order to access it. Press S to enter<color=#1eadff> shadow transmutation
+    mode<\/color>.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}

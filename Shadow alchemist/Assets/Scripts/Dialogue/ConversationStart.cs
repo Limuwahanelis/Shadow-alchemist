@@ -2,6 +2,8 @@ using DialogueEditor;
 using MyBox;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -15,6 +17,7 @@ public class ConversationStart : MonoBehaviour
     [SerializeField] NPCConversation conversation;
     [SerializeField] ConversationManager _convoMan;
     [SerializeField] PlayerDialogueInputHandler _dialogueInputHandler;
+    [SerializeField] TMP_SpriteAsset _spriteAsset;
     private bool _conversationFinished;
 
     private void Awake()
@@ -30,6 +33,7 @@ public class ConversationStart : MonoBehaviour
     {
         if (_conversationFinished) return;
 
+        if(_spriteAsset!=null) _convoMan.DialogueText.spriteAsset = _spriteAsset;
         _convoMan.OnConversationStarted += StopPlayerControls;
         _convoMan.OnConversationEnded += ConversationFinished;
         _convoMan.StartConversation(conversation);
