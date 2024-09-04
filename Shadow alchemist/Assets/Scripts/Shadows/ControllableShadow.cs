@@ -38,6 +38,8 @@ public class ControllableShadow : MonoBehaviour
     protected Vector2 _shadowShift;
     protected Coroutine _revertMoveCor;
     protected List<DIR> _shadowSegmentsList= new List<DIR>();
+    protected Vector3 _startingShadowBoundsMax;
+    protected Vector3 _startingShadowBoundsMin;
     protected float _transmutateValue = 0;
     protected float _revertTransmutateValue = 0;
     protected float _valueForShadowPlacing;
@@ -48,6 +50,8 @@ public class ControllableShadow : MonoBehaviour
     
     protected virtual void Start()
     {
+        _startingShadowBoundsMax = ShadowBounds.max;
+        _startingShadowBoundsMin = ShadowBounds.min;
         _originalPosition = _shadow.position;
     }
     #region ShadowMove
@@ -255,7 +259,7 @@ public class ControllableShadow : MonoBehaviour
                 }
             }
         }
-
+        SetShadowShiftBorder();
         _transmutateValue = 0;
     }
 
@@ -318,6 +322,7 @@ public class ControllableShadow : MonoBehaviour
             SetValueForShadowBar();
             yield return null;
         }
+        SetShadowShiftBorder();
         _valueForShadowPlacing = _segmentsTaken - _placedShadows.Count;
         _isReverting = false;
     }
@@ -429,6 +434,23 @@ public class ControllableShadow : MonoBehaviour
         return false;
     }
     #endregion
+    protected void SetShadowShiftBorder()
+    {
+        if(_isHorizontal)
+        {
+            _rightRangeIndicator.SetXPos(_startingShadowBoundsMax.x + math.abs(transform.position.x - _rightRangeIndicator.transform.position.x) - math.abs(_segments[_segments.Count - 1].position.x 
+                - _segments[_segments.Count-1-_segmentsTakenPerSide[(int)DIR.RIGHT]].position.x));
+            _leftRangeIndicator.SetXPos(_startingShadowBoundsMin.x - math.abs(transform.position.x - _leftRangeIndicator.transform.position.x) + math.abs(_segments[0].position.x
+                - _segments[_segmentsTakenPerSide[(int)DIR.LEFT]].position.x));
+        }
+        else
+        {
+            _upperRangeIndicator.SetYPos(_startingShadowBoundsMax.y + math.abs(transform.position.y - _upperRangeIndicator.transform.position.y) - math.abs(_segments[0].position.y
+                - _segments[_segmentsTakenPerSide[(int)DIR.UP]].position.y));
+            _lowerRangeIndicator.SetYPos(_startingShadowBoundsMin.y - math.abs(transform.position.y - _lowerRangeIndicator.transform.position.y) + math.abs(_segments[_segments.Count-1].position.y
+            - _segments[_segments.Count-1- _segmentsTakenPerSide[(int)DIR.DOWN]].position.y));
+        }
+    }
     protected void SetValueForShadowBar()
     {
         if (_isHorizontal)
