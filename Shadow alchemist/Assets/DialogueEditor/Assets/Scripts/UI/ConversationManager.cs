@@ -324,7 +324,7 @@ namespace DialogueEditor
 
         private void TransitioningDialogueBoxOn_Update()
         {
-            m_stateTime += Time.deltaTime;
+            m_stateTime += Time.unscaledDeltaTime;
             float t = m_stateTime / TRANSITION_TIME;
 
             if (t > 1)
@@ -344,7 +344,7 @@ namespace DialogueEditor
             float timePerChar = (60.0f / charactersPerSecond);
             timePerChar *= ScrollSpeed;
 
-            m_elapsedScrollTime += Time.deltaTime;
+            m_elapsedScrollTime += Time.unscaledDeltaTime;
 
             if (m_elapsedScrollTime > timePerChar)
             {
@@ -363,7 +363,7 @@ namespace DialogueEditor
 
         private void TransitionOptionsOn_Update()
         {
-            m_stateTime += Time.deltaTime;
+            m_stateTime += Time.unscaledDeltaTime;
             float t = m_stateTime / TRANSITION_TIME;
 
             if (t > 1)
@@ -378,7 +378,7 @@ namespace DialogueEditor
 
         private void Idle_Update()
         {
-            m_stateTime += Time.deltaTime;
+            m_stateTime += Time.unscaledDeltaTime;
 
             if (m_currentSpeech.AutomaticallyAdvance)
             {
@@ -394,7 +394,7 @@ namespace DialogueEditor
 
         private void TransitionOptionsOff_Update()
         {
-            m_stateTime += Time.deltaTime;
+            m_stateTime += Time.unscaledDeltaTime;
             float t = m_stateTime / TRANSITION_TIME;
 
             if (t > 1)
@@ -434,7 +434,7 @@ namespace DialogueEditor
 
         private void TransitioningDialogueBoxOff_Update()
         {
-            m_stateTime += Time.deltaTime;
+            m_stateTime += Time.unscaledDeltaTime;
             float t = m_stateTime / TRANSITION_TIME;
 
             if (t > 1)
