@@ -8,10 +8,18 @@ public class PauseSetter : MonoBehaviour
     public UnityEvent OnPause;
     public UnityEvent OnResume;
     private static bool _isForcedPause = false;
+    public void SetPauseNoTimeStop(bool value)
+    {
+        if (_isForcedPause) return;
+        PauseSettings.SetPause(value,false);
+        if (value) OnPause?.Invoke();
+        else OnResume?.Invoke();
+    }
+
     public void SetPause(bool value)
     {
         if (_isForcedPause) return;
-        PauseSettings.SetPause(value);
+        PauseSettings.SetPause(value,value);
         if (value) OnPause?.Invoke();
         else OnResume?.Invoke();
     }
@@ -21,7 +29,7 @@ public class PauseSetter : MonoBehaviour
         if (value) _playerPause.action.Disable();
         else _playerPause.action.Enable();
         _isForcedPause = value;
-        PauseSettings.SetPause(value);
+        PauseSettings.SetPause(value,value);
         if (value) OnPause?.Invoke();
         else OnResume?.Invoke();
     }

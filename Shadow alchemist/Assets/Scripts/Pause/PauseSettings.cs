@@ -7,10 +7,10 @@ public class PauseSettings : MonoBehaviour
     public static bool IsGamePaused => _isGamePaused;
     private static bool _isGamePaused;
 
-    public static void SetPause(bool value)
+    public static void SetPause(bool value,bool stopTime=false)
     {
         _isGamePaused = value;
-        if (value) Time.timeScale = 0;
+        if (stopTime) Time.timeScale = 0;
         else Time.timeScale = 1;
     }
 }

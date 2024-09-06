@@ -14,8 +14,8 @@ public class ConversationStart : MonoBehaviour
 {
     [SerializeField] bool _useEvent;
     [SerializeField,ConditionalField(nameof(_useEvent))] TutorialStep _step;
-    [SerializeField] NPCConversation conversation;
-    [SerializeField] ConversationManager _convoMan;
+    [SerializeField] protected NPCConversation _conversation;
+    [SerializeField] protected ConversationManager _convoMan;
     [SerializeField] PlayerDialogueInputHandler _dialogueInputHandler;
     [SerializeField] TMP_SpriteAsset _spriteAsset;
     private bool _conversationFinished;
@@ -36,10 +36,10 @@ public class ConversationStart : MonoBehaviour
         if(_spriteAsset!=null) _convoMan.DialogueText.spriteAsset = _spriteAsset;
         _convoMan.OnConversationStarted += StopPlayerControls;
         _convoMan.OnConversationEnded += ConversationFinished;
-        _convoMan.StartConversation(conversation);
+        _convoMan.StartConversation(_conversation);
         _dialogueInputHandler.StartConversation(_convoMan);
     }
-    private void ConversationFinished()
+    protected void ConversationFinished()
     {
         _conversationFinished = true;
         _convoMan.OnConversationEnded -= ConversationFinished;
@@ -51,9 +51,9 @@ public class ConversationStart : MonoBehaviour
     }
     private void OnValidate()
     {
-        if ((conversation==null))
+        if ((_conversation==null))
         {
-            conversation = GetComponent<NPCConversation>();
+            _conversation = GetComponent<NPCConversation>();
         }
     }
     private void OnDestroy()

@@ -70,10 +70,12 @@ public class BossController : EnemyController
 
     void Update()
     {
+        if (PauseSettings.IsGamePaused) return;
         _currentEnemyState?.Update();
     }
     private void FixedUpdate()
     {
+        if (PauseSettings.IsGamePaused) return;
         _currentEnemyState?.FixedUpdate();
     }
     private void BossDeath(IDamagable damagable)
