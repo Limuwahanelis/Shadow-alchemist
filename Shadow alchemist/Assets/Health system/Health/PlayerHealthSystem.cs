@@ -63,6 +63,7 @@ public class PlayerHealthSystem : HealthSystem,IPushable
     }
     public void Push(PushInfo pushInfo)
     {
+        if (currentHP < 0) return;
         if ((_pushInvincibiltyType & pushInfo.pushType) == pushInfo.pushType) return;
         OnPushed?.Invoke(pushInfo);
         if (pushInfo.involvedColliders != null)

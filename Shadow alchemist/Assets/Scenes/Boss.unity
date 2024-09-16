@@ -10442,6 +10442,10 @@ PrefabInstance:
       propertyPath: _printState
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2725509515207376979, guid: e16706a6dbfd13b428b7787aa7f5507d, type: 3}
+      propertyPath: _gameOverPanel
+      value: 
+      objectReference: {fileID: 98618176}
     - target: {fileID: 3387352069467872280, guid: e16706a6dbfd13b428b7787aa7f5507d, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 4599
@@ -10465,6 +10469,10 @@ PrefabInstance:
     - target: {fileID: 6692385439553266463, guid: e16706a6dbfd13b428b7787aa7f5507d, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7207265576026246688, guid: e16706a6dbfd13b428b7787aa7f5507d, type: 3}
+      propertyPath: _printState
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8402990963812115002, guid: e16706a6dbfd13b428b7787aa7f5507d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11326,7 +11334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1987827027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11390,7 +11398,7 @@ MonoBehaviour:
   CurrentIDCounter: 2
   json: '{"Options":[],"Parameters":[],"SpeechNodes":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":1}],"EditorInfo":{"isRoot":true,"xPos":141,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"When
     fighting in fully shadowed areas you can place up to 3 shadows whitout the need
-    of shadow tansmutation.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":126.5,"yPos":303},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Futhermore
+    of shadow tansmutation.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":167.5,"yPos":234},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Futhermore
     you will automatically enter <color=#1eadff>shadow placement mode <\/color> upon
     entering <color=#1eadff> shadow control mode <\/color>.","parentUIDs":[0],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110

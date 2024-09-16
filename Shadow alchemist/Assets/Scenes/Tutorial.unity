@@ -66253,7 +66253,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 152437241}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: LoadSceneWithIndex
         m_Mode: 3
@@ -67149,6 +67149,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player tutorial
       objectReference: {fileID: 0}
+    - target: {fileID: 2725509515207376979, guid: e16706a6dbfd13b428b7787aa7f5507d, type: 3}
+      propertyPath: _printState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725509515207376979, guid: e16706a6dbfd13b428b7787aa7f5507d, type: 3}
+      propertyPath: _gameOverPanel
+      value: 
+      objectReference: {fileID: 1806516780}
     - target: {fileID: 5354678332857457408, guid: e16706a6dbfd13b428b7787aa7f5507d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.4083176

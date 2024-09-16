@@ -99,7 +99,6 @@ public class BossController : EnemyController
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Logger.Log(collision.rigidbody.gameObject);
         if(collision.rigidbody.GetComponent<PlacableShadow>())
         {
             collision.rigidbody.GetComponent<PlacableShadow>().ForceDestroy();
