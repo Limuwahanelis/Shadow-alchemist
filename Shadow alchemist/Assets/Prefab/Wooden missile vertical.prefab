@@ -59,6 +59,7 @@ MonoBehaviour:
     m_Bits: 128
   _animManager: {fileID: 3134355402275760492}
   _col: {fileID: 7871850170357316635}
+  _damage: 16
 --- !u!95 &5613583804793571077
 Animator:
   serializedVersion: 7
@@ -306,4 +307,4 @@ MonoBehaviour:
   _damageType: 4
   _pushCollidingObject: 1
   _damageCollidingObject: 1
-  damage: 12
+  _damage: 0

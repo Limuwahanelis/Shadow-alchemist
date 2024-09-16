@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class SpikeAttackLogic : MonoBehaviour
     private Coroutine _despawnCor;
     private ControllableShadow _originShadow;
     private bool _isInFullShadow;
+    IDamagable _awaitedDamageable;
     private void Update()
     {
         if (_isDespawning) return;
@@ -70,13 +72,13 @@ public class SpikeAttackLogic : MonoBehaviour
     private void StartDespawnCor(IDamagable damagable)
     {
         Logger.Log("despawn");
-        damagable.OnDeath -= StartDespawnCor;
+        
         StartCoroutine(DespawnCor());
     }
     public IEnumerator DespawnCor()
     {
         yield return new WaitForSeconds(_animationManager.GetAnimationLength("Spike"));
-        
+        if(_awaitedDamageable!=null) _awaitedDamageable.OnDeath -= StartDespawnCor;
         Destroy(gameObject);
     }
     public IEnumerator AttackCor()
@@ -96,6 +98,7 @@ public class SpikeAttackLogic : MonoBehaviour
                         _isFirstHit = false;
                         _timeToDespawnSpike += _durationOnHit;
                         tmp.OnDeath += StartDespawnCor;
+                        _awaitedDamageable = tmp;
                         Logger.Log("HIt");
                     }
                 }
@@ -123,6 +126,7 @@ public class SpikeAttackLogic : MonoBehaviour
                                 _isFirstHit = false;
                                 _timeToDespawnSpike += _durationOnHit;
                                 tmp.OnDeath += StartDespawnCor;
+                                _awaitedDamageable = tmp;
                                 Logger.Log("HIt");
                             }
                         }
@@ -137,7 +141,7 @@ public class SpikeAttackLogic : MonoBehaviour
     }
     private void OnDestroy()
     {
-        
+       // damagable.OnDeath -= StartDespawnCor;
     }
     private void OnDrawGizmosSelected()
     {

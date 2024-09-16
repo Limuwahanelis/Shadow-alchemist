@@ -3102,7 +3102,8 @@ MonoBehaviour:
   SlamSpeed: 0
   attackDamage: 0
   _spriteRenderer: {fileID: 7288626959781552909}
-  playerHitSprite: {fileID: 12150104, guid: 587ec5e70366bb04390d27788970684d, type: 3}
+  _playerHitSprite: {fileID: 12150104, guid: 587ec5e70366bb04390d27788970684d, type: 3}
+  _playerCrouchedhitSprite: {fileID: -5600833472999999120, guid: 64ceb99cb1121524bb132b2b218b5d70, type: 3}
   _playerMovement: {fileID: 8079469185935410053}
   _playerController: {fileID: 539854141104504480}
   _animMan: {fileID: 9207697299974687746}
@@ -3130,13 +3131,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSpeed: 6.5
-  _jumpStrength: 9.5
   _rb: {fileID: 7068385989780141892}
   _player: {fileID: 539854141104504480}
   _dodgeSpeed: 8
-  _noFrictionMat: {fileID: 6200000, guid: 1827e15924f41a345ab8fd47d1b5336f, type: 2}
   _pushHandle: {fileID: 1325798027197832994}
   _pushForce: 12
+  _jumpStrength: 9.5
+  _jumpSpeedMultiplier: 0
+  _noFrictionMat: {fileID: 6200000, guid: 1827e15924f41a345ab8fd47d1b5336f, type: 2}
+  _normalMaterial: {fileID: 0}
 --- !u!114 &5529071118519979039
 MonoBehaviour:
   m_ObjectHideFlags: 0

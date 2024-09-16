@@ -8,7 +8,6 @@ public class PlayerHealthSystem : HealthSystem,IPushable
 {
     public Action<PushInfo> OnPushed;
     [SerializeField] float _invincibilityAfterHitDuration;
-    [SerializeField] Collider2D[] _playerCols;
     private DamageType _invincibiltyType;
     private DamageType _pushInvincibiltyType;
     public Ringhandle pushHandle;
@@ -66,7 +65,11 @@ public class PlayerHealthSystem : HealthSystem,IPushable
     {
         if ((_pushInvincibiltyType & pushInfo.pushType) == pushInfo.pushType) return;
         OnPushed?.Invoke(pushInfo);
-        if(pushInfo.involvedColliders!=null) StartCoroutine(PushCor(pushInfo.involvedColliders));
+        if (pushInfo.involvedColliders != null)
+        {
+            PreventCollisions(pushInfo.involvedColliders);
+            StartCoroutine(PushCor(pushInfo.involvedColliders));
+        }
     }
     public void IncreaseHealthBarMaxValue()
     {

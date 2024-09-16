@@ -57,7 +57,14 @@ public class PlacableShadowSelection : MonoBehaviour
     {
         _selectLeftIconActionRef.action.Disable();
         _selectRightIconActionRef.action.Disable();
-        _selectLeftIconActionRef.action.performed -= SelectLeftIcon;
-        _selectRightIconActionRef.action.performed -= SelectRightIcon;
+        _selectLeftIconActionRef.action.started -= SelectLeftIcon;
+        _selectRightIconActionRef.action.started -= SelectRightIcon;
     }
+    //private void OnDestroy()
+    //{
+    //    _selectLeftIconActionRef.action.Disable();
+    //    _selectRightIconActionRef.action.Disable();
+    //    _selectLeftIconActionRef.action.performed -= SelectLeftIcon;
+    //    _selectRightIconActionRef.action.performed -= SelectRightIcon;
+    //}
 }

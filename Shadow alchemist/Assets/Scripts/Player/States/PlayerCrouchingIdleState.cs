@@ -24,7 +24,10 @@ public class PlayerCrouchingIdleState : PlayerState
         }
 
     }
-
+    public override void Push()
+    {
+        ChangeState(PlayerCrouchedPushedState.StateType);
+    }
     public override void SetUpState(PlayerContext context)
     {
         base.SetUpState(context);

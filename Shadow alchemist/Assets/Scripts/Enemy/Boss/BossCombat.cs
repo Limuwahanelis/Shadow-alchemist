@@ -45,7 +45,7 @@ public class BossCombat : MonoBehaviour
     private void Start()
     {
         _damageInfo = new DamageInfo(0,HealthSystem.DamageType.ENEMY,transform.position);
-        _pushInfo = new PushInfo(HealthSystem.DamageType.ENEMY, transform.position);
+        _pushInfo = new PushInfo(HealthSystem.DamageType.ENEMY, transform.position,new Collider2D[]{ _laceCol,_col });
     }
     public void SetStunViusals(bool value)
     {

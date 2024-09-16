@@ -26,7 +26,8 @@ public class PlayerCombat : MonoBehaviour
     
     [SerializeField] int attackDamage;
     [SerializeField] SpriteRenderer _spriteRenderer;
-    public Sprite playerHitSprite;
+    [SerializeField] Sprite _playerHitSprite;
+    [SerializeField] Sprite _playerCrouchedhitSprite;
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] PlayerController _playerController;
     [SerializeField] AnimationManager _animMan;
@@ -72,7 +73,11 @@ public class PlayerCombat : MonoBehaviour
     }
     public void ChangeSpriteToPushed()
     {
-        _spriteRenderer.sprite = playerHitSprite;
+        _spriteRenderer.sprite = _playerHitSprite;
+    }
+    public void ChangeSpriteToCoruchPushed()
+    {
+        _spriteRenderer.sprite = _playerCrouchedhitSprite;
     }
     public IEnumerator AttackCor(AttackType attackType)
     {

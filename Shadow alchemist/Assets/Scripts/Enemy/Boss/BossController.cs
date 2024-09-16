@@ -16,6 +16,7 @@ public class BossController : EnemyController
     [SerializeField] BossMovement _movement;
     [SerializeField] GameObject _sweatDrop;
     [SerializeField] GameObject _gameWonPanel;
+    [SerializeField] Collider2D _bossCollider;
     [Header("Charge"),SerializeField] BossChargeInfo _chargeInfo;
     [SerializeField] Transform _leftChargeStop;
     [SerializeField] Transform _rightChargeStop;
@@ -55,7 +56,8 @@ public class BossController : EnemyController
             leftChargeStop = _leftChargeStop,
             rightChargeStop = _rightChargeStop,
             lanceCollider = _lanceCollider,
-            sweatDrop=_sweatDrop,
+            bossCollider= _bossCollider,
+            sweatDrop =_sweatDrop,
             healthSystem=_healthSys,
         };
         EnemyState.GetState getState = GetState;
