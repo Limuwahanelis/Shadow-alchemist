@@ -52,6 +52,7 @@ MonoBehaviour:
   OnMissileCrushed:
     m_PersistentCalls:
       m_Calls: []
+  _printCollision: 0
   _rb: {fileID: 5079529402433960628}
   _speed: 7
   _playerLayer:
@@ -59,6 +60,7 @@ MonoBehaviour:
     m_Bits: 128
   _animManager: {fileID: 9004168086956395990}
   _col: {fileID: 8525857672641631685}
+  _damage: 6
 --- !u!95 &5562357957908615586
 Animator:
   serializedVersion: 7
@@ -219,7 +221,7 @@ MonoBehaviour:
   _damageType: 2
   _pushCollidingObject: 1
   _damageCollidingObject: 1
-  damage: 12
+  _damage: 0
 --- !u!1 &5381389682460287641
 GameObject:
   m_ObjectHideFlags: 0

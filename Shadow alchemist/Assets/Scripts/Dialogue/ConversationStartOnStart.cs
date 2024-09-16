@@ -11,7 +11,7 @@ public class ConversationStartOnStart : ConversationStart
     void Start()
     {
 
-        Invoke("FireStart", 0.5f);
+        Invoke("FireStart", 0.1f);
     }
     private void FireStart()
     {

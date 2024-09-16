@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 5103222287101167528, guid: a21c3bd59dcffae49b085cbe9125c1d8, type: 3}
+      propertyPath: _printCollision
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7072870590712098595, guid: a21c3bd59dcffae49b085cbe9125c1d8, type: 3}
       propertyPath: m_FlipY
       value: 0
