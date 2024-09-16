@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shadow fighter attack 3
   m_EditorClassIdentifier: 
   _associatedAnimation: {fileID: 7400000, guid: 9b056700f7ca0f74c8a7193d067ded16, type: 2}
-  _damage: 7
+  _damage: 10
   _useFrames: 1
   _nextAttackWindowStart: 0
   _nextAttackWindowEnd: 0

@@ -27,7 +27,7 @@ public class ShadowFighterController : EnemyController
         if (_playerTransform == null) _playerTransform= ((PlayerController)FindFirstObjectByType(typeof(PlayerController))).transform;
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
     .Where(type => typeof(EnemyState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
-        _healthSystem.OnDeathEvent += ShadowFighterDeath;
+        _healthSystem.OnDeath += ShadowFighterDeath;
         _healthSystem.OnWeakendStateReached += EnterWeakendState;
         _healthSystem.OnWeakendStateEnded += LeaveWeakendState;
         _healthSystem.OnHitEvent += TryStun;
@@ -119,7 +119,7 @@ public class ShadowFighterController : EnemyController
     }
     public override void KillByLeavingShadow()
     {
-        _healthSystem.OnDeathEvent -= ShadowFighterDeath;
+        _healthSystem.OnDeath -= ShadowFighterDeath;
         _enemyAnimationManager.SetAnimator(true);
         WaitFrameAndExecuteFunction(() =>
         {
@@ -130,9 +130,9 @@ public class ShadowFighterController : EnemyController
         });
 
     }
-    private void ShadowFighterDeath()
+    private void ShadowFighterDeath(IDamagable damagable)
     {
-        _healthSystem.OnDeathEvent -= ShadowFighterDeath;
+        _healthSystem.OnDeath -= ShadowFighterDeath;
         _originShadow.RemoveEnemyFromShadow(this);
         _enemyWeakendStatus.Status = EnemyWeakendStatus.WeakenStatus.NONE;
         _sweatDropSprite.SetActive(false);
@@ -158,7 +158,7 @@ public class ShadowFighterController : EnemyController
     {
         _healthSystem.OnHitEvent -= Hit;
         _healthSystem.OnHitEvent -= TryStun;
-        _healthSystem.OnDeathEvent -= ShadowFighterDeath;
+        _healthSystem.OnDeath -= ShadowFighterDeath;
         _healthSystem.OnWeakendStateReached -= EnterWeakendState;
         _healthSystem.OnWeakendStateEnded -= LeaveWeakendState;
     }

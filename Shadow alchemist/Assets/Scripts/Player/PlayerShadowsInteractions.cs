@@ -104,14 +104,17 @@ public class PlayerShadowsInteractions : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        ControllableShadow shadow = collision.attachedRigidbody.GetComponent<ControllableShadow>();
-        if (shadow != null && shadow == _shadow)
+        if (collision.attachedRigidbody)
         {
-            OnControllableShadowLeft?.Invoke();
-            _shadowBar.SetVisibility(false);
-            _shadow = null;
+            ControllableShadow shadow = collision.attachedRigidbody.GetComponent<ControllableShadow>();
+            if (shadow != null && shadow == _shadow)
+            {
+                OnControllableShadowLeft?.Invoke();
+                _shadowBar.SetVisibility(false);
+                _shadow = null;
+            }
+            ITransmutableSadow shadow2 = collision.attachedRigidbody.GetComponent<ITransmutableSadow>();
+            if (shadow2 != null && shadow2 == _transmutablkeShadow) _transmutablkeShadow = null;
         }
-        ITransmutableSadow shadow2 = collision.attachedRigidbody.GetComponent<ITransmutableSadow>();
-        if (shadow2 != null && shadow2 == _transmutablkeShadow) _transmutablkeShadow = null;
     }
 }

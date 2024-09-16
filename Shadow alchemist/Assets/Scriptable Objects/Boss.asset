@@ -26,7 +26,7 @@ MonoBehaviour:
     speed: 1
     layer: 0
   - name: Charge
-    duration: 1.9499999
+    duration: 2.5333333
     speed: 1
     layer: 0
   - name: Idle

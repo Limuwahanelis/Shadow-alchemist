@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2235076306859162972, guid: 22de2b0c89d644c4c9a68904c7e7f0f3, type: 3}
+      propertyPath: _printCollision
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2662305983136679913, guid: 22de2b0c89d644c4c9a68904c7e7f0f3, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -30,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6880933347540159920, guid: 22de2b0c89d644c4c9a68904c7e7f0f3, type: 3}
       propertyPath: m_Name
-      value: Wooden missile horizontal right Variant
+      value: Shadow missile horizontal right Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8458037462437340803, guid: 22de2b0c89d644c4c9a68904c7e7f0f3, type: 3}
       propertyPath: m_LocalPosition.x

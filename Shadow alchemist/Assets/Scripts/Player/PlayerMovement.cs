@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public enum PhysicMaterialType
     {
-        NONE,NO_FRICTION
+        NONE,NO_FRICTION,NORMAL
     }
     public float DodgeSpeed=>_dodgeSpeed;
     public bool IsPlayerFalling { get=>_rb.velocity.y<0; }
@@ -21,23 +21,27 @@ public class PlayerMovement : MonoBehaviour
     private playerDirection _newPlayerDirection;
     private playerDirection _oldPlayerDirection;
     [SerializeField] float _playerSpeed;
-    [SerializeField] float _jumpStrength;
     [SerializeField] Rigidbody2D _rb;
     [SerializeField] PlayerController _player;
     [SerializeField] float _dodgeSpeed;
-    [SerializeField] PhysicsMaterial2D _noFrictionMat;
+    
     [Header("Push")]
     [SerializeField] Ringhandle _pushHandle;
     [SerializeField] float _pushForce;
+    [Header("Jump")]
+    [SerializeField] float _jumpStrength;
+    [SerializeField] float _jumpSpeedMultiplier;
+    [SerializeField] PhysicsMaterial2D _noFrictionMat;
+    [SerializeField] PhysicsMaterial2D _normalMaterial;
     private float _previousDirection;
     private int _flipSide = 1;
-    public void Move(float direction)
+    public void Move(float direction,bool inAir=false)
     {
         if (direction != 0)
         {
             _oldPlayerDirection = _newPlayerDirection;
             _newPlayerDirection = (playerDirection)direction;
-            _rb.velocity = new Vector3(direction * _playerSpeed, _rb.velocity.y, 0);
+            _rb.velocity = new Vector3(direction * _playerSpeed*(inAir?_jumpSpeedMultiplier:1), _rb.velocity.y, 0);
             if (direction > 0)
             {
                 _flipSide = 1;
@@ -83,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
     {
         switch(type)
         {
+            case PhysicMaterialType.NORMAL: _rb.sharedMaterial=_normalMaterial; break;
             case PhysicMaterialType.NONE: _rb.sharedMaterial = null; break;
             case PhysicMaterialType.NO_FRICTION: _rb.sharedMaterial = _noFrictionMat;break;
         }

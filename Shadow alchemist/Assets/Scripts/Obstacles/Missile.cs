@@ -7,6 +7,8 @@ using UnityEngine.Events;
 public class Missile : MonoBehaviour
 {
     public UnityEvent<Missile> OnMissileCrushed;
+    [Header("Debug"), SerializeField] bool _printCollision;
+    [Space]
     [SerializeField] Rigidbody2D _rb;
     [SerializeField] float _speed;
     [SerializeField] LayerMask _playerLayer;
@@ -30,7 +32,7 @@ public class Missile : MonoBehaviour
     void Start()
     {
         _damageInfo = new DamageInfo(_damage,HealthSystem.DamageType.MISSILE,transform.position);
-        _pushInfo = new PushInfo(HealthSystem.DamageType.MISSILE,transform.position);
+        _pushInfo = new PushInfo(HealthSystem.DamageType.MISSILE,transform.position,new Collider2D[] {_col});
     }
 
     // Update is called once per frame
@@ -44,6 +46,7 @@ public class Missile : MonoBehaviour
     {
         if (_playerLayer == (_playerLayer | (1 << collision.collider.gameObject.layer)))
         {
+            if(_printCollision) Logger.Log(collision.collider);
             _pushInfo.pushPosition = transform.position;
             _damageInfo.dmgPosition = transform.position;
             collision.collider.GetComponentInParent<PlayerHealthSystem>().Push(_pushInfo);

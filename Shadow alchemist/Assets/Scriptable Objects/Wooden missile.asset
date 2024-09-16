@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animations:
   - name: Crush
-    duration: 0.46666667
+    duration: 0.28333336
     speed: 1
+    layer: 0
+  - name: New State
+    duration: 0
+    speed: 0
     layer: 0
   - name: Start
     duration: 0.016666668
     speed: 1
     layer: 0
-  - name: Set UP
-    duration: 0.016666668
-    speed: 1
-    layer: 0
-  animatorController: {fileID: 9100000, guid: 4a7ce908f5bcdd940918c0ed79ed3d63, type: 2}
+  animatorController: {fileID: 9100000, guid: 04b726998e0309d4989a43506e4496d4, type: 2}

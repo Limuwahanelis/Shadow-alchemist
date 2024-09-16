@@ -16,6 +16,7 @@ public class BossContext : EnemyContext
     public Transform leftChargeStop;
     public Transform rightChargeStop;
     public Collider2D lanceCollider;
+    public Collider2D bossCollider;
     public GameObject sweatDrop;
     public HealthSystem healthSystem;
 }

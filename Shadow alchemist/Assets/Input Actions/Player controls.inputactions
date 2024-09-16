@@ -252,15 +252,136 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "8eafb0ff-8edd-49b1-b24a-276635d17812",
+                    "name": "Enter shadow control",
+                    "id": "e276bdeb-5b36-46d8-b7bd-d53f92afb7d1",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "Scale(factor=5)",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "a2ff6757-0e54-4706-b8a5-636a37ac2ec5",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "50051d92-8957-4447-b8c5-313dfe3964b4",
                     "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "ControlShadow",
                     "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Shadow spike tight",
+                    "id": "ae6c9d4b-72b5-45b1-8ff8-498c09574e7d",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "Scale(factor=6)",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "dae61087-6ec7-4ec2-907a-27e3c8f7ece6",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "6bad74a7-95ff-4d5b-8ca2-a2db346fa4c6",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Shadow spike left",
+                    "id": "9653c089-6024-4d72-bd16-db182a4f6213",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "Scale(factor=6)",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "c4173137-16e6-4a2a-a03c-18a44bd09b8b",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "53aba5ff-030a-4a67-87c6-17a2a6c51046",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "X",
+                    "id": "ea43c646-910d-4bfa-ae2b-96f5110ef307",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "11edbcb4-de8d-4d9e-b1fa-8c238cd7f87b",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "636b21c5-baa2-4852-8e9c-09a1dd1bcd65",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ControlShadow",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -351,6 +472,74 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "MoveRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "DialogueUI",
+            "id": "e50806f0-f0f8-4a9b-92d1-b402967ae73b",
+            "actions": [
+                {
+                    "name": "Move down",
+                    "type": "Button",
+                    "id": "eda72d70-6ecf-4111-ae72-6cdbc90387ad",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Move up",
+                    "type": "Button",
+                    "id": "939b6f5e-9593-497a-b8f7-174fbbce1ff0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DD",
+                    "type": "Button",
+                    "id": "2303caa8-e519-4065-a713-311b3fdc26b1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3537698f-3c65-419d-acd8-4a7a9a03f12b",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Move down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "607031e4-c7a4-4845-96dc-becfe2251303",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "289a64ca-7d73-4184-8965-cb25d97965c4",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DD",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

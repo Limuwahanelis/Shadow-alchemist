@@ -19,8 +19,9 @@ public class HealthSystem : MonoBehaviour,IDamagable
         BOSS=32,
         ALL = ~0,
     }
+    public event IDamagable.OnDeathEventHandler OnDeath;
     public Action<DamageInfo> OnHitEvent;
-    public Action OnDeathEvent;
+    //public Action OnDeathEvent;
     public int CurrentHP => currentHP;
     public int MaxHP => maxHP;
 
@@ -30,6 +31,8 @@ public class HealthSystem : MonoBehaviour,IDamagable
     [SerializeField] protected int maxHP;
     [SerializeField] protected int currentHP;
     protected bool _isAlive=true;
+
+    
 
     // Start is called before the first frame update
     protected void Start()
@@ -57,15 +60,24 @@ public class HealthSystem : MonoBehaviour,IDamagable
         if (!_isAlive) return;
         if (currentHP <= 0) Kill();
     }
+    protected bool IsDeathEventSubscribedTo()
+    {
+        if (OnDeath == null) return false;
+         return true;
+    }
+    protected void InvokeOnDeathEvent()
+    {
+        OnDeath?.Invoke(this);
+    }
     public virtual void Kill()
     {
         _isAlive = false;
-        if (OnDeathEvent == null)
+        if (OnDeath == null)
         {
             Destroy(gameObject);
             Destroy(hpBar.gameObject);
         }
-        else OnDeathEvent.Invoke();
+        else OnDeath?.Invoke(this);
     }
     protected void PreventCollisions(Collider2D[] collidersToPreventCollisionsFrom)
     {

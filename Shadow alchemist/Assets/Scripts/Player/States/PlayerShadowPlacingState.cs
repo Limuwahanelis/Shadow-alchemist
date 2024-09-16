@@ -57,6 +57,8 @@ public class PlayerShadowPlacingState : PlayerState
             {
                 // place shadow
                 ShowShadowSelection();
+                _isPlacingShadow = false;
+                _isSelectingPlacableShadow = true;
             }
         }
 
@@ -74,13 +76,20 @@ public class PlayerShadowPlacingState : PlayerState
             ShowShadowSelection();
         }
     }
+    public override void Push()
+    {
+        //base.Push();
+        if(_context.checks.IsNearCeiling) ChangeState(PlayerCrouchedPushedState.StateType);
+        else ChangeState(PlayerPushedState.StateType);
+    }
     public override void ControlShadow(PlayerInputHandler.ShadowControlInputs controlInput)
     {
         _context.shadowControl.DespawnShadow();
         _context.placableShadowSelection.SetSelectionVisibility(false);
         if (_context.shadowControl.FullShadow)
         {
-            ChangeState(PlayerIdleState.StateType);
+            if(_context.checks.IsNearCeiling) ChangeState(PlayerCrouchingIdleState.StateType);
+            else ChangeState(PlayerIdleState.StateType);
             return;
         }
         ChangeState(PlayerShadowControlState.StateType);
@@ -88,6 +97,10 @@ public class PlayerShadowPlacingState : PlayerState
     public override void InterruptState()
     {
         _context.shadowControl.DespawnShadow();
+        if(_context.shadowControl.FullShadow)
+        {
+            _context.collisions.SetNormalColliders(true);
+        }
     }
     private void ShowShadowSelection()
     {

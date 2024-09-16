@@ -16,6 +16,7 @@ public class BossController : EnemyController
     [SerializeField] BossMovement _movement;
     [SerializeField] GameObject _sweatDrop;
     [SerializeField] GameObject _gameWonPanel;
+    [SerializeField] Collider2D _bossCollider;
     [Header("Charge"),SerializeField] BossChargeInfo _chargeInfo;
     [SerializeField] Transform _leftChargeStop;
     [SerializeField] Transform _rightChargeStop;
@@ -31,7 +32,7 @@ public class BossController : EnemyController
     void Start()
     {
         _healthSys.OnHitEvent += TryStun;
-        _healthSys.OnDeathEvent += BossDeath;
+        _healthSys.OnDeath += BossDeath;
         List<Type> states = AppDomain.CurrentDomain.GetAssemblies().SelectMany(domainAssembly => domainAssembly.GetTypes())
     .Where(type => typeof(EnemyState).IsAssignableFrom(type) && !type.IsAbstract).ToArray().ToList();
 
@@ -55,7 +56,8 @@ public class BossController : EnemyController
             leftChargeStop = _leftChargeStop,
             rightChargeStop = _rightChargeStop,
             lanceCollider = _lanceCollider,
-            sweatDrop=_sweatDrop,
+            bossCollider= _bossCollider,
+            sweatDrop =_sweatDrop,
             healthSystem=_healthSys,
         };
         EnemyState.GetState getState = GetState;
@@ -70,13 +72,15 @@ public class BossController : EnemyController
 
     void Update()
     {
+        if (PauseSettings.IsGamePaused) return;
         _currentEnemyState?.Update();
     }
     private void FixedUpdate()
     {
+        if (PauseSettings.IsGamePaused) return;
         _currentEnemyState?.FixedUpdate();
     }
-    private void BossDeath()
+    private void BossDeath(IDamagable damagable)
     {
         _gameWonPanel.SetActive(true);
         EnemyState newState = GetState(BossStateDead.StateType);
@@ -95,7 +99,6 @@ public class BossController : EnemyController
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Logger.Log(collision.rigidbody.gameObject);
         if(collision.rigidbody.GetComponent<PlacableShadow>())
         {
             collision.rigidbody.GetComponent<PlacableShadow>().ForceDestroy();

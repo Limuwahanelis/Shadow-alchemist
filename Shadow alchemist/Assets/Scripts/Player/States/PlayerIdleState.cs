@@ -18,6 +18,7 @@ public class PlayerIdleState : PlayerState
     public override void Move(Vector2 direction)
     {
         if (Math.Abs(direction.x) > 0) ChangeState(PlayerWalkingState.StateType);
+        //else _context.playerMovement.StopPlayer(false, true);
     }
     public override void SetUpState(PlayerContext context)
     {

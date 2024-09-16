@@ -15,16 +15,12 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] InputActionAsset _controls;
     [SerializeField] bool _useCommands;
     [SerializeField] PlayerInputStack _inputStack;
-    //private PlayerInteract _playerInteract;
-    private bool isDownArrowPressed;
     private Vector2 _direction;
-    private float _horizontalModifier;
     ShadowControlInputs shadowModifier;
     // Start is called before the first frame update
     void Start()
     {
         _player = GetComponent<PlayerController>();
-        //_playerInteract = GetComponent<PlayerInteract>();
     }
 
     // Update is called once per frame
@@ -33,7 +29,7 @@ public class PlayerInputHandler : MonoBehaviour
         if (_player.IsAlive)
         {
 
-            if (!GlobalSettings.IsGamePaused)
+            if (!PauseSettings.IsGamePaused)
             {
                  _player.CurrentPlayerState.Move(_direction);
 
@@ -47,10 +43,9 @@ public class PlayerInputHandler : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
-        if (GlobalSettings.IsGamePaused) return;
+        if (PauseSettings.IsGamePaused) return;
         if (_useCommands) _inputStack.CurrentCommand= new JumpInputCommand(_player.CurrentPlayerState);
         else _player.CurrentPlayerState.Jump();
-        //if (direction * _player.mainBody.transform.localScale.x > 0 && isDownArrowPressed) _player.currentState.Slide();
 
     }
     void OnVertical(InputValue value)
@@ -58,13 +53,9 @@ public class PlayerInputHandler : MonoBehaviour
         _direction = value.Get<Vector2>();
         Logger.Log(_direction);
     }
-    void OnHorizontalModifier(InputValue value)
-    {
-        _horizontalModifier = value.Get<float>();
-    }
     private void OnAttack(InputValue value)
     {
-        if (GlobalSettings.IsGamePaused) return;
+        if (PauseSettings.IsGamePaused) return;
         if (_useCommands)
         {
             _inputStack.CurrentCommand = new AttackInputCommand(_player.CurrentPlayerState);
@@ -79,37 +70,11 @@ public class PlayerInputHandler : MonoBehaviour
             else if (_direction.y < 0) _player.CurrentPlayerState.Attack(PlayerCombat.AttackModifiers.DOWN_ARROW);
         }
     }
-
-    private void OnDownArrowModifier(InputValue value)
-    {
-        if (GlobalSettings.IsGamePaused) return;
-        isDownArrowPressed = value.Get<float>() == 1 ? true : false;
-    }
     private void OnControlShadow(InputValue value)
     {
-        Logger.Log(value.Get<float>());
-        if (GlobalSettings.IsGamePaused) return;
-        if (isDownArrowPressed) shadowModifier = ShadowControlInputs.ENTER;
-        else if (_horizontalModifier != 0) shadowModifier = ShadowControlInputs.SHADOW_SPIKE;
-        else shadowModifier = (ShadowControlInputs)value.Get<float>();
-        if (_useCommands)
-        {
-            _inputStack.CurrentCommand = new ShadowControlInputCommand(_player.CurrentPlayerState, shadowModifier);
-        }
-        else
-        {
-            _player.CurrentPlayerState.ControlShadow(shadowModifier);
-
-        }
-    }
-    private void OnInteract(InputValue value)
-    {
-        if (GlobalSettings.IsGamePaused) return;
-        //_playerInteract.InteractWithObject();
-    }
-    private void OnWarp(InputValue value)
-    {
-        if (GlobalSettings.IsGamePaused) return;
-        _player.CurrentPlayerState.Dodge();
+        if (PauseSettings.IsGamePaused) return;
+        shadowModifier = (ShadowControlInputs)value.Get<float>();
+        if (_useCommands) _inputStack.CurrentCommand = new ShadowControlInputCommand(_player.CurrentPlayerState, shadowModifier);
+        else _player.CurrentPlayerState.ControlShadow(shadowModifier);
     }
 }
