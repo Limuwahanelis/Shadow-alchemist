@@ -12,8 +12,6 @@ public class AudioEventPreviewEditor : Editor
 	public void OnEnable()
 	{
 		_previewer = EditorUtility.CreateGameObjectWithHideFlags("Audio preview", HideFlags.HideAndDontSave, typeof(AudioSource)).GetComponent<AudioSource>();
-		Debug.Log("Enab");
-		Debug.Log("Prew " + _previewer);
 	}
 
 	public void OnDisable()
