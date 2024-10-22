@@ -28,7 +28,6 @@ public class BossController : EnemyController
     [SerializeField] SpawnShadowMissilesBoss _upMissileSpawner;
     
     protected BossContext _context;
-
     void Start()
     {
         _healthSys.OnHitEvent += TryStun;
@@ -79,6 +78,10 @@ public class BossController : EnemyController
     {
         if (PauseSettings.IsGamePaused) return;
         _currentEnemyState?.FixedUpdate();
+    }
+    public void StartFight()
+    {
+        _context.OnFightStarted?.Invoke();
     }
     private void BossDeath(IDamagable damagable)
     {
