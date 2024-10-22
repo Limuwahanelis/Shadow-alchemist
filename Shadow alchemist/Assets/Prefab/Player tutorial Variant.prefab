@@ -233,6 +233,7 @@ MonoBehaviour:
   _inputStack: {fileID: 4422252335585891466}
   _shadowsInteractions: {fileID: 2215542087662587932}
   _shadowSelection: {fileID: 1702647739105644463}
+  _playerPauseGame: {fileID: 11400000, guid: 0111d31f65a23a04889f47d42b131bf5, type: 2}
   _useCommands: 1
   _printState: 1
   _currentStep: 0

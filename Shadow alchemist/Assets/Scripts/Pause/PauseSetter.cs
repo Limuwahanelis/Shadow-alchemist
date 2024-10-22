@@ -15,6 +15,13 @@ public class PauseSetter : MonoBehaviour
         if (value) OnPause?.Invoke();
         else OnResume?.Invoke();
     }
+    public void SetPause()
+    {
+        if (_isForcedPause) return;
+        PauseSettings.SetPause(!PauseSettings.IsGamePaused, !PauseSettings.IsGamePaused);
+        if (PauseSettings.IsGamePaused) OnPause?.Invoke();
+        else OnResume?.Invoke();
+    }
 
     public void SetPause(bool value)
     {
