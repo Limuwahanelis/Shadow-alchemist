@@ -98,7 +98,7 @@ MonoBehaviour:
       m_Y: 0
       m_Width: 32
       m_Height: 32
-    m_Scale: 1
+    m_Scale: 2
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: 21300000, guid: 56618686b0d08e546ae5e6bea35849af, type: 3}

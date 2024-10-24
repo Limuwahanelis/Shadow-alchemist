@@ -47,7 +47,7 @@ public class ContinousBGMPlayer : MonoBehaviour
     }
     private void UpdateVolume(int volume)
     {
-        _audioSource.volume = (AudioVolumes.Master / 100.0f) * (AudioVolumes.BGM / 100.0f);
+        _audioSource.volume = (AudioVolumes.Master / 100.0f) * (AudioVolumes.BGM / 100.0f) * _musicToPlay.volume;
     }
     private void OnValidate()
     {

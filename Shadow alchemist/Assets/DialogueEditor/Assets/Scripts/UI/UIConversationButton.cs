@@ -37,7 +37,8 @@ namespace DialogueEditor
         private float m_hoverT = 0.0f;
         private eHoverState m_hoverState;
         private bool Hovering { get { return (m_hoverState == eHoverState.animatingOn || m_hoverState == eHoverState.animatingOff); } }
-        private Vector3 BigSize { get { return Vector3.one * 1.2f; } }
+        private Vector3 BigSize { get { return _originalScale * 1.2f; } }
+        private Vector3 _originalScale;
 
 
         //--------------------------------------
@@ -47,6 +48,7 @@ namespace DialogueEditor
         private void Awake()
         {
             m_rect = GetComponent<RectTransform>();
+            _originalScale = m_rect.localScale;
         }
 
         private void Update()
@@ -68,10 +70,10 @@ namespace DialogueEditor
                 switch (m_hoverState)
                 {
                     case eHoverState.animatingOn:
-                        size = Vector3.Lerp(Vector3.one, BigSize, ease);
+                        size = Vector3.Lerp(_originalScale, BigSize, ease);
                         break;
                     case eHoverState.animatingOff:
-                        size = Vector3.Lerp(BigSize, Vector3.one, ease);
+                        size = Vector3.Lerp(BigSize, _originalScale, ease);
                         break;
                 }
 
