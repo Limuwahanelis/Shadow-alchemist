@@ -25,5 +25,9 @@ public static class Logger
     {
         Debug.LogError(message);
     }
+    public static void Error(object message, Object context)
+    {
+        Debug.LogError(message,context);
+    }
 
 }
