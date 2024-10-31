@@ -30,7 +30,7 @@ public class ContinousBGMPlayer : MonoBehaviour
             else
             {
                 Destroy(gameObject);
-                Destroy(gameObject.transform.parent);
+                Destroy(gameObject.transform.parent.gameObject);
             }
           
         }
