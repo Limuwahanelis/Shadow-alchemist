@@ -19,6 +19,8 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
     [SerializeField] PlayerInputStack _inputStack;
     [SerializeField] PlayerShadowsInteractions _shadowsInteractions;
     [SerializeField] PlacableShadowSelection _shadowSelection;
+    [SerializeField] GameEventSO _playerPauseGame;
+    //[SerializeField] PauseSetter _pauseSetter;
     [SerializeField] bool _useCommands;
     [SerializeField] bool _printState;
 
@@ -92,6 +94,11 @@ public class PlayerInputHandlerTutorial : MonoBehaviour
     void OnVertical(InputValue value)
     {
         _currentTutorialState.OnVertical(value);
+    }
+    void OnPause()
+    {
+        _playerPauseGame.Raise();
+        //_pauseSetter.SetPause(!PauseSettings.IsGamePaused);
     }
     private void OnAttack(InputValue value)
     {

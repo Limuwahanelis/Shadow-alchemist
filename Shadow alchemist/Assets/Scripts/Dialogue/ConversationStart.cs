@@ -64,6 +64,7 @@ public class ConversationStart : MonoBehaviour
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(ConversationStart))]
+[CanEditMultipleObjects]
 public class ConversationStartEditor:Editor
 {
     SerializedProperty _dialogueInput;

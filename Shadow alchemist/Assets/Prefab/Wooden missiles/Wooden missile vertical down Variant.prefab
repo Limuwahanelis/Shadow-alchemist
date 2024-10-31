@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5805902866795682781, guid: 7a26ea54040eb354e868dfae5b151c5c, type: 3}
+      propertyPath: _playerLayer.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6207377155048933625, guid: 7a26ea54040eb354e868dfae5b151c5c, type: 3}
       propertyPath: m_FlipY
       value: 1

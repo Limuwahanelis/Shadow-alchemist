@@ -28,13 +28,14 @@ public class ComboAttack : ScriptableObject
         {
             if (_associatedAnimation != null)
             {
-                int framesInAnimation =(int)( _associatedAnimation.frameRate * _associatedAnimation.length);
-                _nextAttackWindowStart =  (_nextAttackWindowStartFrame/ (float)framesInAnimation)*_associatedAnimation.length;
-                _nextAttackWindowEnd =  (_nextAttackWindowEndFrame/ (float)framesInAnimation) * _associatedAnimation.length;
+                int framesInAnimation = (int)(_associatedAnimation.frameRate * _associatedAnimation.length);
+                _nextAttackWindowStart = (_nextAttackWindowStartFrame / (float)framesInAnimation) * _associatedAnimation.length;
+                _nextAttackWindowEnd = (_nextAttackWindowEndFrame / (float)framesInAnimation) * _associatedAnimation.length;
 
-                _attackDamageStart = (_attackDamageStartFrame/ (float)framesInAnimation)*_associatedAnimation.length;
-                _attackDamageEnd = (_attackDamageEndFrame/ (float) framesInAnimation)*_associatedAnimation.length;
+                _attackDamageStart = (_attackDamageStartFrame / (float)framesInAnimation) * _associatedAnimation.length;
+                _attackDamageEnd = (_attackDamageEndFrame / (float)framesInAnimation) * _associatedAnimation.length;
             }
+            else Logger.Error("No animation associated with attack", this);
         }
     }
 }

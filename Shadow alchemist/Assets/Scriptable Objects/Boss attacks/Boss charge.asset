@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664f9e6bf8ab36141a05df560a9faec2, type: 3}
   m_Name: Boss charge
   m_EditorClassIdentifier: 
-  _associatedAnimation: {fileID: 0}
+  _associatedAnimation: {fileID: 7400000, guid: 9059e6e3504ccb6409c9ebc77c84a679, type: 2}
   _damage: 40
   _useFrames: 1
   _nextAttackWindowStart: 0
